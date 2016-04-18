@@ -1,0 +1,730 @@
+<!doctype html>
+<html class="theme-next   use-motion ">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="listview," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
+
+
+
+
+
+
+<meta name="description" content="在listview的getview中setData(),在子view的setdata(),onlayout(),onmeasure()方法中写上log,发现setdata(),最先执行，onmeasure()执行了2次，onlayout()执行了一次，通过看listview源码找到原因。
+
+getHeightForPosition()方法中view.measure（）
+obtainView()方法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于listview子view的绘制">
+<meta property="og:url" content="http://yoursite.com/2016/01/12/listview-relayout/index.html">
+<meta property="og:site_name" content="Shine's blog">
+<meta property="og:description" content="在listview的getview中setData(),在子view的setdata(),onlayout(),onmeasure()方法中写上log,发现setdata(),最先执行，onmeasure()执行了2次，onlayout()执行了一次，通过看listview源码找到原因。
+
+getHeightForPosition()方法中view.measure（）
+obtainView()方法">
+<meta property="og:updated_time" content="2016-01-26T05:27:52.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于listview子view的绘制">
+<meta name="twitter:description" content="在listview的getview中setData(),在子view的setdata(),onlayout(),onmeasure()方法中写上log,发现setdata(),最先执行，onmeasure()执行了2次，onlayout()执行了一次，通过看listview源码找到原因。
+
+getHeightForPosition()方法中view.measure（）
+obtainView()方法">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'hide',
+    motion: true
+  };
+</script>
+
+  <title> 关于listview子view的绘制 | Shine's blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?6e3e65b6fa6d46bfec86b332d7db0bcb";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i class="" style="transform: translateX(100%);"></i></span>
+      <span class="site-title">Shine's blog</span>
+      <span class="logo-line-after"><i class="" style="transform: translateX(-100%);"></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">生命不息，折腾不止！！！</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                关于listview子view的绘制
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-01-12T19:31:52+08:00" content="2016-01-12">
+              2016-01-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/01/12/listview-relayout/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/12/listview-relayout/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>在listview的getview中setData(),在子view的setdata(),onlayout(),onmeasure()方法中写上log,<br>发现setdata(),最先执行，onmeasure()执行了2次，onlayout()执行了一次，通过看listview源码找到原因。</p>
+<ul>
+<li>getHeightForPosition()方法中view.measure（）</li>
+<li>obtainView()方法中child.setLayoutParams(lp)，而setLayoutParams()又会执行requestLayout()<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">log</span><br><span class="line">data-&gt;com<span class="class">.nice</span><span class="class">.main</span><span class="class">.data</span><span class="class">.enumerable</span><span class="class">.Show</span>@<span class="number">17239164s</span>etdata</span><br><span class="line">data-&gt;com<span class="class">.nice</span><span class="class">.main</span><span class="class">.data</span><span class="class">.enumerable</span><span class="class">.Show</span>@<span class="number">17239164</span>onMeasure</span><br><span class="line">data-&gt;com<span class="class">.nice</span><span class="class">.main</span><span class="class">.data</span><span class="class">.enumerable</span><span class="class">.Show</span>@<span class="number">17239164</span>onMeasure</span><br><span class="line">data-&gt;com<span class="class">.nice</span><span class="class">.main</span><span class="class">.data</span><span class="class">.enumerable</span><span class="class">.Show</span>@<span class="number">17239164</span>onLayout</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<a id="more"></a>
+<h1 id="Listview_u548CGridView_u4E2D_u7684_u5B50view_u7684onlayout_28_29_2Conmeasure_28_29_u6267_u884C_u6B21_u6570"><a href="#Listview_u548CGridView_u4E2D_u7684_u5B50view_u7684onlayout_28_29_2Conmeasure_28_29_u6267_u884C_u6B21_u6570" class="headerlink" title="Listview和GridView中的子view的onlayout(),onmeasure()执行次数"></a>Listview和GridView中的子view的onlayout(),onmeasure()执行次数</h1><h2 id="u5728AbsListView-java_u7C7B_u4E2DgetHeightForPosition_28_29_uFF0ConMeasure_u6267_u884C_u4E00_u6B21"><a href="#u5728AbsListView-java_u7C7B_u4E2DgetHeightForPosition_28_29_uFF0ConMeasure_u6267_u884C_u4E00_u6B21" class="headerlink" title="在AbsListView.java类中getHeightForPosition()，onMeasure执行一次"></a>在AbsListView.java类中getHeightForPosition()，onMeasure执行一次</h2><figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line">  * Returns the height of the view for the specified position.</span><br><span class="line">  *</span><br><span class="line">  * @param position the item position</span><br><span class="line">  * @return view height in pixels</span><br><span class="line">  */</span></span><br><span class="line"> <span class="keyword">int</span> getHeightForPosition(<span class="keyword">int</span> position) &#123;</span><br><span class="line">     <span class="keyword">final</span> <span class="keyword">int</span> firstVisiblePosition = getFirstVisiblePosition();</span><br><span class="line">     <span class="keyword">final</span> <span class="keyword">int</span> childCount = getChildCount();</span><br><span class="line">     <span class="keyword">final</span> <span class="keyword">int</span> <span class="keyword">index</span> = position - firstVisiblePosition;</span><br><span class="line">     <span class="keyword">if</span> (<span class="keyword">index</span> &gt;= <span class="number">0</span> &amp;&amp; <span class="keyword">index</span> &lt; childCount) &#123;</span><br><span class="line">         <span class="comment">// Position is on-screen, use existing view.</span></span><br><span class="line">         <span class="keyword">final</span> View view = getChildAt(<span class="keyword">index</span>);</span><br><span class="line">         <span class="keyword">return</span> view.getHeight();</span><br><span class="line">     &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">         <span class="comment">// Position is off-screen, obtain &amp; recycle view.</span></span><br><span class="line">         <span class="keyword">final</span> View view = obtainView(position, mIsScrap);</span><br><span class="line">         view.measure(mWidthMeasureSpec, MeasureSpec.UNSPECIFIED);</span><br><span class="line">         <span class="keyword">final</span> <span class="keyword">int</span> height = view.getMeasuredHeight();</span><br><span class="line">         mRecycler.addScrapView(view, position);</span><br><span class="line">         <span class="keyword">return</span> height;</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="u5728AbsListView-java_u7C7B_u4E2DobtainView_28_29_uFF0ConMeasure_2Conlayout_u5404_u6267_u884C_u4E00_u6B21"><a href="#u5728AbsListView-java_u7C7B_u4E2DobtainView_28_29_uFF0ConMeasure_2Conlayout_u5404_u6267_u884C_u4E00_u6B21" class="headerlink" title="在AbsListView.java类中obtainView()，onMeasure,onlayout各执行一次"></a>在AbsListView.java类中obtainView()，onMeasure,onlayout各执行一次</h2><figure class="highlight zephir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line">    * Get a view and have it show the data associated with the specified</span><br><span class="line">    * position. This is called when we have already discovered that the view is</span><br><span class="line">    * not available for reuse in the recycle bin. The only choices left are</span><br><span class="line">    * converting an old view or making a new one.</span><br><span class="line">    *</span><br><span class="line">    * <span class="doctag">@param</span> position The position to display</span><br><span class="line">    * <span class="doctag">@param</span> isScrap Array of at least 1 boolean, the first entry will become true if</span><br><span class="line">    *                the returned view was taken from the scrap heap, false if otherwise.</span><br><span class="line">    *</span><br><span class="line">    * <span class="doctag">@return</span> A view displaying the data associated with the specified position</span><br><span class="line">    */</span></span><br><span class="line">   View obtainView(<span class="keyword">int</span> position, <span class="keyword">boolean</span>[] isScrap) &#123;</span><br><span class="line"></span><br><span class="line">       .................</span><br><span class="line">       <span class="keyword">final</span> View scrapView = mRecycler.getScrapView(position);</span><br><span class="line">       .................</span><br><span class="line">       setItemViewLayoutParams(child, position);</span><br><span class="line">       .................</span><br><span class="line">       <span class="keyword">return</span> child;</span><br><span class="line">   &#125;</span><br><span class="line"> <span class="keyword">private</span> void setItemViewLayoutParams(View child, <span class="keyword">int</span> position) &#123;</span><br><span class="line">       <span class="keyword">final</span> ViewGroup.LayoutParams vlp = child.getLayoutParams();</span><br><span class="line">       LayoutParams lp;</span><br><span class="line">       <span class="keyword">if</span> (vlp == <span class="keyword">null</span>) &#123;</span><br><span class="line">           lp = (LayoutParams) generateDefaultLayoutParams();</span><br><span class="line">       &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!checkLayoutParams(vlp)) &#123;</span><br><span class="line">           lp = (LayoutParams) generateLayoutParams(vlp);</span><br><span class="line">       &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">           lp = (LayoutParams) vlp;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">if</span> (mAdapterHasStableIds) &#123;</span><br><span class="line">           lp.itemId = mAdapter.getItemId(position);</span><br><span class="line">       &#125;</span><br><span class="line">       lp.viewType = mAdapter.getItemViewType(position);</span><br><span class="line">       child.setLayoutParams(lp);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>View.java<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line">    * Set the layout parameters associated with this view. These supply</span><br><span class="line">    * parameters to the &lt;i&gt;parent&lt;/i&gt; of this view specifying how it should be</span><br><span class="line">    * arranged. There are many subclasses of ViewGroup.LayoutParams, and these</span><br><span class="line">    * correspond to the different subclasses of ViewGroup that are responsible</span><br><span class="line">    * for arranging their children.</span><br><span class="line">    *</span><br><span class="line">    * @param params The layout parameters for this view, cannot be null</span><br><span class="line">    */</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setLayoutParams</span>(<span class="params">ViewGroup.LayoutParams <span class="keyword">params</span></span>) </span>&#123;</span><br><span class="line">       <span class="keyword">if</span> (<span class="keyword">params</span> == <span class="keyword">null</span>) &#123;</span><br><span class="line">           <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException(<span class="string">"Layout parameters cannot be null"</span>);</span><br><span class="line">       &#125;</span><br><span class="line">       mLayoutParams = <span class="keyword">params</span>;</span><br><span class="line">       resolveLayoutParams();</span><br><span class="line">       <span class="keyword">if</span> (mParent instanceof ViewGroup) &#123;</span><br><span class="line">           ((ViewGroup) mParent).onSetLayoutParams(<span class="keyword">this</span>, <span class="keyword">params</span>);</span><br><span class="line">       &#125;</span><br><span class="line">       requestLayout();</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="RecyclerView_u4E2D_u5B50view_u7684onlyaout_uFF0ConMeasure_u6B21_u6570"><a href="#RecyclerView_u4E2D_u5B50view_u7684onlyaout_uFF0ConMeasure_u6B21_u6570" class="headerlink" title="RecyclerView中子view的onlyaout，onMeasure次数"></a>RecyclerView中子view的onlyaout，onMeasure次数</h1><p>RecyclerView会多次对子view.measure<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">data-&gt;com<span class="class">.nice</span><span class="class">.main</span><span class="class">.data</span><span class="class">.enumerable</span><span class="class">.Show</span>@<span class="number">183</span>bd061setdata</span><br><span class="line">data-&gt;com<span class="class">.nice</span><span class="class">.main</span><span class="class">.data</span><span class="class">.enumerable</span><span class="class">.Show</span>@<span class="number">183</span>bd061onMeasure</span><br><span class="line">data-&gt;com<span class="class">.nice</span><span class="class">.main</span><span class="class">.data</span><span class="class">.enumerable</span><span class="class">.Show</span>@<span class="number">183</span>bd061onMeasure</span><br><span class="line">data-&gt;com<span class="class">.nice</span><span class="class">.main</span><span class="class">.data</span><span class="class">.enumerable</span><span class="class">.Show</span>@<span class="number">183</span>bd061onMeasure</span><br><span class="line">data-&gt;com<span class="class">.nice</span><span class="class">.main</span><span class="class">.data</span><span class="class">.enumerable</span><span class="class">.Show</span>@<span class="number">183</span>bd061onMeasure</span><br><span class="line">data-&gt;com<span class="class">.nice</span><span class="class">.main</span><span class="class">.data</span><span class="class">.enumerable</span><span class="class">.Show</span>@<span class="number">183</span>bd061onLayout</span><br></pre></td></tr></table></figure></p>
+<h2 id="RecyclerView_u7684bindViewToPosition_u5F15_u8D77_u5B50view_u91CD_u7ED8"><a href="#RecyclerView_u7684bindViewToPosition_u5F15_u8D77_u5B50view_u91CD_u7ED8" class="headerlink" title="RecyclerView的bindViewToPosition引起子view重绘"></a>RecyclerView的bindViewToPosition引起子view重绘</h2><p>RecyclerView.java<br><figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">      * <span class="type">Binds</span> the given <span class="type">View</span> to the position. <span class="type">The</span> <span class="type">View</span> can be a <span class="type">View</span> previously retrieved via</span><br><span class="line">      * &#123;@link <span class="comment">#getViewForPosition(int)&#125; or created by</span></span><br><span class="line">      * &#123;@link <span class="type">Adapter</span><span class="comment">#onCreateViewHolder(ViewGroup, int)&#125;.</span></span><br><span class="line">      * &lt;p&gt;</span><br><span class="line">      * <span class="type">Generally</span>, a <span class="type">LayoutManager</span> should acquire its views via &#123;@link <span class="comment">#getViewForPosition(int)&#125;</span></span><br><span class="line">      * <span class="keyword">and</span> <span class="keyword">let</span> the <span class="type">RecyclerView</span> handle caching. <span class="type">This</span> <span class="keyword">is</span> a helper <span class="keyword">method</span> <span class="keyword">for</span> <span class="type">LayoutManager</span> who</span><br><span class="line">      * wants to handle its own recycling logic.</span><br><span class="line">      * &lt;p&gt;</span><br><span class="line">      * <span class="type">Note</span> that, &#123;@link <span class="comment">#getViewForPosition(int)&#125; already binds the View to the position so</span></span><br><span class="line">      * you don't need to call this <span class="keyword">method</span> unless you want to <span class="keyword">bind</span> this <span class="type">View</span> to another position.</span><br><span class="line">      *</span><br><span class="line">      * @param view <span class="type">The</span> view to update.</span><br><span class="line">      * @param position <span class="type">The</span> position <span class="keyword">of</span> the item to <span class="keyword">bind</span> to this <span class="type">View</span>.</span><br><span class="line">      */</span><br><span class="line">     public <span class="type">void</span> bindViewToPosition(<span class="type">View</span> view, <span class="type">int</span> position) &#123;</span><br><span class="line">         <span class="type">ViewHolder</span> holder = getChildViewHolderInt(view);</span><br><span class="line">         ............</span><br><span class="line">         final <span class="type">ViewGroup</span>.<span class="type">LayoutParams</span> lp = holder.itemView.getLayoutParams();</span><br><span class="line">         final <span class="type">LayoutParams</span> rvLayoutParams;</span><br><span class="line">         <span class="keyword">if</span> (lp == null) &#123;</span><br><span class="line">             rvLayoutParams = (<span class="type">LayoutParams</span>) generateDefaultLayoutParams();</span><br><span class="line">             holder.itemView.setLayoutParams(rvLayoutParams);</span><br><span class="line">         &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!checkLayoutParams(lp)) &#123;</span><br><span class="line">             rvLayoutParams = (<span class="type">LayoutParams</span>) generateLayoutParams(lp);</span><br><span class="line">             holder.itemView.setLayoutParams(rvLayoutParams);</span><br><span class="line">         &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">             rvLayoutParams = (<span class="type">LayoutParams</span>) lp;</span><br><span class="line">         &#125;</span><br><span class="line"></span><br><span class="line">         rvLayoutParams.mInsetsDirty = <span class="literal">true</span>;</span><br><span class="line">         rvLayoutParams.mViewHolder = holder;</span><br><span class="line">         rvLayoutParams.mPendingInvalidate = holder.itemView.getParent() == null;</span><br><span class="line">     &#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="RecyclerView_u4E2D_u7684_u5BF9_u5B50view_u7684measure"><a href="#RecyclerView_u4E2D_u7684_u5BF9_u5B50view_u7684measure" class="headerlink" title="RecyclerView中的对子view的measure"></a>RecyclerView中的对子view的measure</h2><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * Measure a child view using standard measurement policy, taking the padding</span><br><span class="line"> * of the parent RecyclerView and any added item decorations into account.</span><br><span class="line"> *</span><br><span class="line"> * &lt;p&gt;If the RecyclerView can be scrolled in either dimension the caller may</span><br><span class="line"> * pass 0 as the widthUsed or heightUsed parameters as they will be irrelevant.&lt;/p&gt;</span><br><span class="line"> *</span><br><span class="line"> * <span class="doctag">@param</span> child Child view to measure</span><br><span class="line"> * <span class="doctag">@param</span> widthUsed Width in pixels currently consumed by other views, if relevant</span><br><span class="line"> * <span class="doctag">@param</span> heightUsed Height in pixels currently consumed by other views, if relevant</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">measureChild</span><span class="params">(View child, <span class="keyword">int</span> widthUsed, <span class="keyword">int</span> heightUsed)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> LayoutParams lp = (LayoutParams) child.getLayoutParams();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> Rect insets = mRecyclerView.getItemDecorInsetsForChild(child);</span><br><span class="line">    widthUsed += insets.left + insets.right;</span><br><span class="line">    heightUsed += insets.top + insets.bottom;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> widthSpec = getChildMeasureSpec(getWidth(),</span><br><span class="line">            getPaddingLeft() + getPaddingRight() + widthUsed, lp.width,</span><br><span class="line">            canScrollHorizontally());</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> heightSpec = getChildMeasureSpec(getHeight(),</span><br><span class="line">            getPaddingTop() + getPaddingBottom() + heightUsed, lp.height,</span><br><span class="line">            canScrollVertically());</span><br><span class="line">    child.measure(widthSpec, heightSpec);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * Measure a child view using standard measurement policy, taking the padding</span><br><span class="line"> * of the parent RecyclerView, any added item decorations and the child margins</span><br><span class="line"> * into account.</span><br><span class="line"> *</span><br><span class="line"> * &lt;p&gt;If the RecyclerView can be scrolled in either dimension the caller may</span><br><span class="line"> * pass 0 as the widthUsed or heightUsed parameters as they will be irrelevant.&lt;/p&gt;</span><br><span class="line"> *</span><br><span class="line"> * <span class="doctag">@param</span> child Child view to measure</span><br><span class="line"> * <span class="doctag">@param</span> widthUsed Width in pixels currently consumed by other views, if relevant</span><br><span class="line"> * <span class="doctag">@param</span> heightUsed Height in pixels currently consumed by other views, if relevant</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">measureChildWithMargins</span><span class="params">(View child, <span class="keyword">int</span> widthUsed, <span class="keyword">int</span> heightUsed)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> LayoutParams lp = (LayoutParams) child.getLayoutParams();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> Rect insets = mRecyclerView.getItemDecorInsetsForChild(child);</span><br><span class="line">    widthUsed += insets.left + insets.right;</span><br><span class="line">    heightUsed += insets.top + insets.bottom;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> widthSpec = getChildMeasureSpec(getWidth(),</span><br><span class="line">            getPaddingLeft() + getPaddingRight() +</span><br><span class="line">                    lp.leftMargin + lp.rightMargin + widthUsed, lp.width,</span><br><span class="line">            canScrollHorizontally());</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> heightSpec = getChildMeasureSpec(getHeight(),</span><br><span class="line">            getPaddingTop() + getPaddingBottom() +</span><br><span class="line">                    lp.topMargin + lp.bottomMargin + heightUsed, lp.height,</span><br><span class="line">            canScrollVertically());</span><br><span class="line">    child.measure(widthSpec, heightSpec);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * Returns the measured width of the given child, plus the additional size of</span><br><span class="line"> * any insets applied by &#123;<span class="doctag">@link</span> ItemDecoration ItemDecorations&#125;.</span><br><span class="line"> *</span><br><span class="line"> * <span class="doctag">@param</span> child Child view to query</span><br><span class="line"> * <span class="doctag">@return</span> child's measured width plus &lt;code&gt;ItemDecoration&lt;/code&gt; insets</span><br><span class="line"> *</span><br><span class="line"> * <span class="doctag">@see</span> View#getMeasuredWidth()</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">int</span> <span class="title">getDecoratedMeasuredWidth</span><span class="params">(View child)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> Rect insets = ((LayoutParams) child.getLayoutParams()).mDecorInsets;</span><br><span class="line">    <span class="keyword">return</span> child.getMeasuredWidth() + insets.left + insets.right;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * Returns the measured height of the given child, plus the additional size of</span><br><span class="line"> * any insets applied by &#123;<span class="doctag">@link</span> ItemDecoration ItemDecorations&#125;.</span><br><span class="line"> *</span><br><span class="line"> * <span class="doctag">@param</span> child Child view to query</span><br><span class="line"> * <span class="doctag">@return</span> child's measured height plus &lt;code&gt;ItemDecoration&lt;/code&gt; insets</span><br><span class="line"> *</span><br><span class="line"> * <span class="doctag">@see</span> View#getMeasuredHeight()</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">int</span> <span class="title">getDecoratedMeasuredHeight</span><span class="params">(View child)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> Rect insets = ((LayoutParams) child.getLayoutParams()).mDecorInsets;</span><br><span class="line">    <span class="keyword">return</span> child.getMeasuredHeight() + insets.top + insets.bottom;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/listview/" rel="tag">#listview</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/01/11/Formatting and Styling/" rel="next" title="Formatting and Styling">
+                <i class="fa fa-chevron-left"></i> Formatting and Styling
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/01/26/android性能优化/" rel="prev" title="android性能优化">
+                android性能优化 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+        </div>
+
+        
+
+
+        
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/01/12/listview-relayout/"
+           data-title="关于listview子view的绘制" data-url="http://yoursite.com/2016/01/12/listview-relayout/">
+      </div>
+    
+  </div>
+
+
+      </div>
+
+      
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/default_avatar.jpg" alt="Shine Lee" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">Shine Lee</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">生命不息，折腾不止！！！</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/ljyao" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> github
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/3715142347" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> weibo
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Listview_u548CGridView_u4E2D_u7684_u5B50view_u7684onlayout_28_29_2Conmeasure_28_29_u6267_u884C_u6B21_u6570"><span class="nav-number">1.</span> <span class="nav-text">Listview和GridView中的子view的onlayout(),onmeasure()执行次数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#u5728AbsListView-java_u7C7B_u4E2DgetHeightForPosition_28_29_uFF0ConMeasure_u6267_u884C_u4E00_u6B21"><span class="nav-number">1.1.</span> <span class="nav-text">在AbsListView.java类中getHeightForPosition()，onMeasure执行一次</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u5728AbsListView-java_u7C7B_u4E2DobtainView_28_29_uFF0ConMeasure_2Conlayout_u5404_u6267_u884C_u4E00_u6B21"><span class="nav-number">1.2.</span> <span class="nav-text">在AbsListView.java类中obtainView()，onMeasure,onlayout各执行一次</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RecyclerView_u4E2D_u5B50view_u7684onlyaout_uFF0ConMeasure_u6B21_u6570"><span class="nav-number">2.</span> <span class="nav-text">RecyclerView中子view的onlyaout，onMeasure次数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RecyclerView_u7684bindViewToPosition_u5F15_u8D77_u5B50view_u91CD_u7ED8"><span class="nav-number">2.1.</span> <span class="nav-text">RecyclerView的bindViewToPosition引起子view重绘</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RecyclerView_u4E2D_u7684_u5BF9_u5B50view_u7684measure"><span class="nav-number">2.2.</span> <span class="nav-text">RecyclerView中的对子view的measure</span></a></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+      
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shine Lee</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+    
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"shinelee"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+     
+
+
+    
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+<script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+<script type="text/javascript" src="/js/motion.js?v=0.4.5.2" id="motion.global"></script>
+
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    motionMiddleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  <script type="text/javascript" src="/js/bootstrap.js"></script>
+
+  
+  
+
+  
+  
+
+</body>
+</html>
