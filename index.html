@@ -273,30 +273,15 @@
 
       
         
-          <span itemprop="articleBody">
-            
-              <h1 id="byte_u8F6Cint"><a href="#byte_u8F6Cint" class="headerlink" title="byte转int"></a>byte转int</h1><ul>
+          <h1 id="byte_u8F6Cint"><a href="#byte_u8F6Cint" class="headerlink" title="byte转int"></a>byte转int</h1><ul>
 <li>64-&gt;100<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">byteToInt</span>(<span class="params"><span class="keyword">byte</span> src</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> <span class="keyword">value</span>;</span><br><span class="line">    <span class="keyword">value</span> = src &amp; <span class="number">0xFF</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">value</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h1 id="byte_5B_5D_u8F6Cint_28_u4F4E_u4F4D_u5728_u524D_uFF0C_u9AD8_u4F4D_u5728_u540E_29"><a href="#byte_5B_5D_u8F6Cint_28_u4F4E_u4F4D_u5728_u524D_uFF0C_u9AD8_u4F4D_u5728_u540E_29" class="headerlink" title="byte[]转int(低位在前，高位在后)"></a>byte[]转int(低位在前，高位在后)</h1><ul>
-<li>E0 07 00 00-&gt;2016<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">/**</span><br><span class="line"> * byte数组中取int数值，本方法适用于(低位在前，高位在后)的顺序. </span><br><span class="line"> * @param src    byte数组</span><br><span class="line"> * @param offset 从数组的第offset位开始</span><br><span class="line"> * @return int数值</span><br><span class="line"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">bytesToInt</span><span class="params">(byte[] src, <span class="keyword">int</span> offset)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> value;</span><br><span class="line">    value = ((src[offset] &amp; <span class="number">0xFF</span>)</span><br><span class="line">            | ((src[offset + <span class="number">1</span>] &amp; <span class="number">0xFF</span>) &lt;&lt; <span class="number">8</span>)</span><br><span class="line">            | ((src[offset + <span class="number">2</span>] &amp; <span class="number">0xFF</span>) &lt;&lt; <span class="number">16</span>)</span><br><span class="line">            | ((src[offset + <span class="number">3</span>] &amp; <span class="number">0xFF</span>) &lt;&lt; <span class="number">24</span>));</span><br><span class="line">    <span class="keyword">return</span> value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h1 id="byte_5B_5D_u8F6Cint_28_u4F4E_u4F4D_u5728_u540E_uFF0C_u9AD8_u4F4D_u5728_u524D_29"><a href="#byte_5B_5D_u8F6Cint_28_u4F4E_u4F4D_u5728_u540E_uFF0C_u9AD8_u4F4D_u5728_u524D_29" class="headerlink" title="byte[]转int(低位在后，高位在前)"></a>byte[]转int(低位在后，高位在前)</h1><ul>
-<li>00 00 07 E0-&gt;2016<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * byte数组中取int数值，本方法适用于(低位在后，高位在前)的顺序。</span><br><span class="line"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">bytesToInt2</span><span class="params">(byte[] src, <span class="keyword">int</span> offset)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> value;</span><br><span class="line">    value = ((src[offset] &amp; <span class="number">0xFF</span>) &lt;&lt; <span class="number">24</span>)</span><br><span class="line">            | ((src[offset + <span class="number">1</span>] &amp; <span class="number">0xFF</span>) &lt;&lt; <span class="number">16</span>)</span><br><span class="line">            | ((src[offset + <span class="number">2</span>] &amp; <span class="number">0xFF</span>) &lt;&lt; <span class="number">8</span>)</span><br><span class="line">            | (src[offset + <span class="number">3</span>] &amp; <span class="number">0xFF</span>);</span><br><span class="line">    <span class="keyword">return</span> value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h1 id="int_u8F6Cbyte_5B_5D__28_u4F4E_u4F4D_u5728_u524D_uFF0C_u9AD8_u4F4D_u5728_u540E_29"><a href="#int_u8F6Cbyte_5B_5D__28_u4F4E_u4F4D_u5728_u524D_uFF0C_u9AD8_u4F4D_u5728_u540E_29" class="headerlink" title="int转byte[] (低位在前，高位在后)"></a>int转byte[] (低位在前，高位在后)</h1><ul>
-<li>2016-&gt;E0 07 00 00<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * <span class="type">int</span> 转 byte[]</span><br><span class="line"> * @param i <span class="number">2016</span></span><br><span class="line"> * @<span class="keyword">return</span> <span class="type">E0</span> <span class="number">07</span> <span class="number">00</span> <span class="number">00</span></span><br><span class="line"> */</span><br><span class="line">public <span class="keyword">static</span> byte[] intToByte(<span class="type">int</span> i) &#123;</span><br><span class="line">    byte[] <span class="literal">result</span> = new byte[<span class="number">4</span>];</span><br><span class="line">    <span class="literal">result</span>[<span class="number">0</span>] = (byte) ((i &gt;&gt; <span class="number">24</span>) &amp; <span class="number">0xFF</span>);</span><br><span class="line">    <span class="literal">result</span>[<span class="number">1</span>] = (byte) ((i &gt;&gt; <span class="number">16</span>) &amp; <span class="number">0xFF</span>);</span><br><span class="line">    <span class="literal">result</span>[<span class="number">2</span>] = (byte) ((i &gt;&gt; <span class="number">8</span>) &amp; <span class="number">0xFF</span>);</span><br><span class="line">    <span class="literal">result</span>[<span class="number">3</span>] = (byte) (i &amp; <span class="number">0xFF</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">result</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h1 id="int_u8F6Cbyte_5B_5D__28_u9AD8_u4F4D_u5728_u524D_uFF0C_u4F4E_u4F4D_u5728_u540E_29"><a href="#int_u8F6Cbyte_5B_5D__28_u9AD8_u4F4D_u5728_u524D_uFF0C_u4F4E_u4F4D_u5728_u540E_29" class="headerlink" title="int转byte[] (高位在前，低位在后)"></a>int转byte[] (高位在前，低位在后)</h1><ul>
-<li>2016-&gt;00 00 07 E0<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * 将int数值转换为占四个字节的byte数组高位在前，低位在后)的顺序</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> byte[] intToBytes2(<span class="keyword">int</span> value) &#123;</span><br><span class="line">    byte[] src = <span class="keyword">new</span> byte[<span class="number">4</span>];</span><br><span class="line">    src[<span class="number">0</span>] = (byte) ((value &gt;&gt; <span class="number">24</span>) &amp; <span class="number">0xFF</span>);</span><br><span class="line">    src[<span class="number">1</span>] = (byte) ((value &gt;&gt; <span class="number">16</span>) &amp; <span class="number">0xFF</span>);</span><br><span class="line">    src[<span class="number">2</span>] = (byte) ((value &gt;&gt; <span class="number">8</span>) &amp; <span class="number">0xFF</span>);</span><br><span class="line">    src[<span class="number">3</span>] = (byte) (value &amp; <span class="number">0xFF</span>);</span><br><span class="line">    <span class="keyword">return</span> src;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-
-            
-          </span>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/04/18/byte与int相互转换/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -481,12 +466,12 @@
 
       
         
-          <span itemprop="articleBody">
-            
-              <p>闲来无聊，写点小感想。<br>一个学长租的房子到期了，一块住实习生过年后就不来实习了，所以要重新找房子，为找房子前几周东奔西跑，看了好多选了附近的一个隔间，感觉条件不好又贵，最后还在租下了，原来住的房子没住够一年押金也没拿回来，下午拎着大包小包好多东西4个人跑了2趟搬过去；搬完东西下午就回到我的小黑屋，又开始了一个人的孤独。<br>忽然安静的屋子传来对面吵吵闹闹的声音，好像一家子人来了，家里给他带来了好多吃的，应该是要这里过年，小孩子特别开心，天真无邪，无忧无虑，充满了好奇心，不停的问着“爸爸…”，当孩子真好；一家子也不容易啊，出来漂泊一年各种原因回不去吧，只好让老婆孩子也过来，住的自建公寓条件特别差，真实辛苦他们一家子了，生活不容易啊！觉得北漂的很棒。<br>北漂一族周围人可能觉得光鲜，生活在一个大城市，拿着相对较高的工资，却吃着别人不知晓的苦。</p>
-
-            
-          </span>
+          <p>闲来无聊，写点小感想。<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/01/31/随心感想/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>

@@ -52,30 +52,18 @@
 
 
 <meta name="description" content="byte转int
-64-&amp;gt;10012345public static int byteToInt(byte src) &amp;#123;    int value;    value = src &amp;amp; 0xFF;    return value;&amp;#125;
-
-
-byte[]转int(低位在前，高位在后)
-E0 07 00 00-&amp;gt;20161234567891011121314 /**">
+64-&amp;gt;10012345public static int byteToInt(byte src) &amp;#123;    int value;    value = src &amp;amp; 0xFF;    return value;&amp;#125;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="byte与int相互转换">
 <meta property="og:url" content="http://yoursite.com/2016/04/18/byte与int相互转换/index.html">
 <meta property="og:site_name" content="Shine's blog">
 <meta property="og:description" content="byte转int
-64-&amp;gt;10012345public static int byteToInt(byte src) &amp;#123;    int value;    value = src &amp;amp; 0xFF;    return value;&amp;#125;
-
-
-byte[]转int(低位在前，高位在后)
-E0 07 00 00-&amp;gt;20161234567891011121314 /**">
-<meta property="og:updated_time" content="2016-04-18T07:47:37.905Z">
+64-&amp;gt;10012345public static int byteToInt(byte src) &amp;#123;    int value;    value = src &amp;amp; 0xFF;    return value;&amp;#125;">
+<meta property="og:updated_time" content="2016-04-18T08:01:55.100Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="byte与int相互转换">
 <meta name="twitter:description" content="byte转int
-64-&amp;gt;10012345public static int byteToInt(byte src) &amp;#123;    int value;    value = src &amp;amp; 0xFF;    return value;&amp;#125;
-
-
-byte[]转int(低位在前，高位在后)
-E0 07 00 00-&amp;gt;20161234567891011121314 /**">
+64-&amp;gt;10012345public static int byteToInt(byte src) &amp;#123;    int value;    value = src &amp;amp; 0xFF;    return value;&amp;#125;">
 
 
 
@@ -281,6 +269,7 @@ E0 07 00 00-&amp;gt;20161234567891011121314 /**">
 <li>64-&gt;100<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">byteToInt</span>(<span class="params"><span class="keyword">byte</span> src</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> <span class="keyword">value</span>;</span><br><span class="line">    <span class="keyword">value</span> = src &amp; <span class="number">0xFF</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">value</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
+<a id="more"></a>
 <h1 id="byte_5B_5D_u8F6Cint_28_u4F4E_u4F4D_u5728_u524D_uFF0C_u9AD8_u4F4D_u5728_u540E_29"><a href="#byte_5B_5D_u8F6Cint_28_u4F4E_u4F4D_u5728_u524D_uFF0C_u9AD8_u4F4D_u5728_u540E_29" class="headerlink" title="byte[]转int(低位在前，高位在后)"></a>byte[]转int(低位在前，高位在后)</h1><ul>
 <li>E0 07 00 00-&gt;2016<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">/**</span><br><span class="line"> * byte数组中取int数值，本方法适用于(低位在前，高位在后)的顺序. </span><br><span class="line"> * @param src    byte数组</span><br><span class="line"> * @param offset 从数组的第offset位开始</span><br><span class="line"> * @return int数值</span><br><span class="line"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">bytesToInt</span><span class="params">(byte[] src, <span class="keyword">int</span> offset)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> value;</span><br><span class="line">    value = ((src[offset] &amp; <span class="number">0xFF</span>)</span><br><span class="line">            | ((src[offset + <span class="number">1</span>] &amp; <span class="number">0xFF</span>) &lt;&lt; <span class="number">8</span>)</span><br><span class="line">            | ((src[offset + <span class="number">2</span>] &amp; <span class="number">0xFF</span>) &lt;&lt; <span class="number">16</span>)</span><br><span class="line">            | ((src[offset + <span class="number">3</span>] &amp; <span class="number">0xFF</span>) &lt;&lt; <span class="number">24</span>));</span><br><span class="line">    <span class="keyword">return</span> value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
