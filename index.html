@@ -207,15 +207,108 @@
 
     
     
+
+    
       
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/04/18/水波纹动画/" itemprop="url">
+                  水波纹动画
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-04-18T14:56:21+08:00" content="2016-04-18">
+              2016-04-18
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/18/水波纹动画/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/18/水波纹动画/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
       
-        
-        
-        
       
 
       
-    
+        
+          <span itemprop="articleBody">
+            
+              <h1 id="X_2CY_u8F74_u653E_u5927_uFF0C_u900F_u660E_u5EA6_u51CF_u5C11"><a href="#X_2CY_u8F74_u653E_u5927_uFF0C_u900F_u660E_u5EA6_u51CF_u5C11" class="headerlink" title="X,Y轴放大，透明度减少"></a>X,Y轴放大，透明度减少</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> AnimationSet <span class="title">initAnimationSet</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       AnimationSet animSet = <span class="keyword">new</span> AnimationSet(<span class="literal">true</span>);</span><br><span class="line">       ScaleAnimation scaleAnim = <span class="keyword">new</span> ScaleAnimation(<span class="number">1f</span>, <span class="number">1.2f</span>, <span class="number">1f</span>, <span class="number">1.2f</span>,</span><br><span class="line">               ScaleAnimation.RELATIVE_TO_SELF, <span class="number">0.5f</span>,</span><br><span class="line">               ScaleAnimation.RELATIVE_TO_SELF, <span class="number">0.5f</span>);</span><br><span class="line">       scaleAnim.setDuration(DURATION_ANIMATOR);</span><br><span class="line">       scaleAnim.setRepeatCount(Animation.INFINITE);<span class="comment">// 设置循环</span></span><br><span class="line">       AlphaAnimation alphaAnim = <span class="keyword">new</span> AlphaAnimation(<span class="number">1f</span>, <span class="number">0f</span>);</span><br><span class="line">       alphaAnim.setDuration(DURATION_ANIMATOR);</span><br><span class="line">       alphaAnim.setRepeatCount(Animation.INFINITE);<span class="comment">//设置循环</span></span><br><span class="line">       animSet.addAnimation(scaleAnim);</span><br><span class="line">       animSet.addAnimation(alphaAnim);</span><br><span class="line">       <span class="keyword">return</span> animSet;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
 
     
       
@@ -1188,7 +1281,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1202,7 +1295,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-count">8</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
