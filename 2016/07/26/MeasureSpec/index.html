@@ -35,7 +35,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="RecycleView," />
+  <meta name="keywords" content="自定义view," />
 
 
 
@@ -51,22 +51,16 @@
 
 
 
-<meta name="description" content="个人觉得RecycleView很强大，很好的扩展性，稳定，将会逐渐代替gridview和listview。
-GridLayoutManager   实现gridview功能。
-   使用GridLayoutManager给RecycleView加headview或footview，总共有3列，spansize表示表示该子view占几个位置。12345678910111213141516171819">
+<meta name="description" content="最近发现，重写了viewGroup的onMeasure方法，造成子view match_parent不起作用，代码如下：1234567@Overrideprotected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) &amp;#123;    int width = MeasureSpec.getSize(widthMeasure">
 <meta property="og:type" content="article">
-<meta property="og:title" content="RecycleView">
-<meta property="og:url" content="http://yoursite.com/2016/01/26/RecycleView/index.html">
+<meta property="og:title" content="MeasureSpec">
+<meta property="og:url" content="http://yoursite.com/2016/07/26/MeasureSpec/index.html">
 <meta property="og:site_name" content="Shine's blog">
-<meta property="og:description" content="个人觉得RecycleView很强大，很好的扩展性，稳定，将会逐渐代替gridview和listview。
-GridLayoutManager   实现gridview功能。
-   使用GridLayoutManager给RecycleView加headview或footview，总共有3列，spansize表示表示该子view占几个位置。12345678910111213141516171819">
-<meta property="og:updated_time" content="2016-01-26T10:52:42.000Z">
+<meta property="og:description" content="最近发现，重写了viewGroup的onMeasure方法，造成子view match_parent不起作用，代码如下：1234567@Overrideprotected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) &amp;#123;    int width = MeasureSpec.getSize(widthMeasure">
+<meta property="og:updated_time" content="2016-07-26T03:31:20.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="RecycleView">
-<meta name="twitter:description" content="个人觉得RecycleView很强大，很好的扩展性，稳定，将会逐渐代替gridview和listview。
-GridLayoutManager   实现gridview功能。
-   使用GridLayoutManager给RecycleView加headview或footview，总共有3列，spansize表示表示该子view占几个位置。12345678910111213141516171819">
+<meta name="twitter:title" content="MeasureSpec">
+<meta name="twitter:description" content="最近发现，重写了viewGroup的onMeasure方法，造成子view match_parent不起作用，代码如下：1234567@Overrideprotected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) &amp;#123;    int width = MeasureSpec.getSize(widthMeasure">
 
 
 
@@ -78,7 +72,7 @@ GridLayoutManager   实现gridview功能。
   };
 </script>
 
-  <title> RecycleView | Shine's blog </title>
+  <title> MeasureSpec | Shine's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -228,7 +222,7 @@ GridLayoutManager   实现gridview功能。
             
             
               
-                RecycleView
+                MeasureSpec
               
             
           </h1>
@@ -237,8 +231,8 @@ GridLayoutManager   实现gridview功能。
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2016-01-26T10:36:58+08:00" content="2016-01-26">
-              2016-01-26
+            <time itemprop="dateCreated" datetime="2016-07-26T10:43:15+08:00" content="2016-07-26">
+              2016-07-26
             </time>
           </span>
 
@@ -263,8 +257,8 @@ GridLayoutManager   实现gridview功能。
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/01/26/RecycleView/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/26/RecycleView/" itemprop="commentsCount"></span>
+                <a href="/2016/07/26/MeasureSpec/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/26/MeasureSpec/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -283,10 +277,20 @@ GridLayoutManager   实现gridview功能。
       
 
       
-        <span itemprop="articleBody"><pre><code>个人觉得RecycleView很强大，很好的扩展性，稳定，将会逐渐代替gridview和listview。
-</code></pre><h1 id="GridLayoutManager"><a href="#GridLayoutManager" class="headerlink" title="GridLayoutManager"></a>GridLayoutManager</h1><p>   实现gridview功能。</p>
-<p>   使用GridLayoutManager给RecycleView加headview或footview，总共有3列，spansize表示表示该子view占几个位置。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> RecyclerView.<span class="function">LayoutManager <span class="title">getLayoutManager</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       GridLayoutManager gridLayoutManager = <span class="keyword">new</span> GridLayoutManager(getActivity(), <span class="number">3</span>);</span><br><span class="line">       gridLayoutManager.setSpanSizeLookup(<span class="keyword">new</span> GridLayoutManager.SpanSizeLookup() &#123;</span><br><span class="line">           @<span class="function">Override</span><br><span class="line">           <span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getSpanSize</span><span class="params">(<span class="keyword">int</span> position)</span> </span>&#123;</span><br><span class="line">               <span class="keyword">int</span> spanSize;</span><br><span class="line">               <span class="keyword">switch</span> (adapter.getItemViewType(position)) &#123;</span><br><span class="line">                   <span class="keyword">case</span> ShowThumbnailData.LIVE:</span><br><span class="line">                   <span class="keyword">case</span> ShowThumbnailData.PHOTO:</span><br><span class="line">                   <span class="keyword">case</span> ShowThumbnailData.PLAYBACK:</span><br><span class="line">                       spanSize = <span class="number">1</span>;</span><br><span class="line">                       <span class="keyword">break</span>;</span><br><span class="line">                   <span class="keyword">case</span> ShowThumbnailData.HEADER:</span><br><span class="line">                       spanSize = <span class="number">3</span>;</span><br><span class="line">                       <span class="keyword">break</span>;</span><br><span class="line">                   <span class="keyword">case</span> ShowThumbnailData.LIVEV2:</span><br><span class="line">                       spanSize = <span class="number">3</span>;</span><br><span class="line">                   <span class="keyword">default</span>:</span><br><span class="line">                       spanSize = <span class="number">1</span>;</span><br><span class="line">                       <span class="keyword">break</span>;</span><br><span class="line">               &#125;</span><br><span class="line">               <span class="keyword">return</span> spanSize;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;);</span><br><span class="line">       <span class="keyword">return</span> gridLayoutManager;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
-<h1 id="StaggeredGridLayoutManager"><a href="#StaggeredGridLayoutManager" class="headerlink" title="StaggeredGridLayoutManager"></a>StaggeredGridLayoutManager</h1></span>
+        <span itemprop="articleBody"><p>最近发现，重写了viewGroup的onMeasure方法，造成子view match_parent不起作用，代码如下：<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> onMeasure(<span class="built_in">int</span> widthMeasureSpec, <span class="built_in">int</span> heightMeasureSpec) &#123;</span><br><span class="line">    <span class="built_in">int</span> <span class="variable">width</span> = MeasureSpec.getSize(widthMeasureSpec);</span><br><span class="line">    <span class="built_in">int</span> <span class="variable">height</span> = (<span class="built_in">int</span>) (<span class="variable">width</span> / <span class="number">0.75</span>f);</span><br><span class="line">    <span class="keyword">super</span>.onMeasure(<span class="variable">width</span>, <span class="variable">height</span>);</span><br><span class="line">    setMeasuredDimension(<span class="variable">width</span>, <span class="variable">height</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>功能为实现一个 宽：高为3/4的自定义view，发现view match_parent失效，变成自适应。</p>
+<p>虽然使用setLayoutParams,可以实现同样功能，但是会重绘一次，觉得性能差些，最后还是想通过onMeasure实现，通过查阅一些资料，找到问题所在。</p>
+<p> 先看MeasureSpec.getSize()源码：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">measureSpec &amp; ~MODE_MASK</span><br><span class="line"><span class="keyword">int</span> MODE_MASK  = <span class="number">0x3</span> &lt;&lt; MODE_SHIFT;</span><br></pre></td></tr></table></figure></p>
+<p>就是去掉前2位模式，得到实际值，当我计算后把这个值传给子View时，前2位为00，即UNSPECIFIED模式，造成子view自适应。</p>
+<p>解决办法就是加上模式值：<br>heightSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);</p>
+<h1 id="MeasureSpec_u5B98_u65B9_u6587_u6863"><a href="#MeasureSpec_u5B98_u65B9_u6587_u6863" class="headerlink" title="MeasureSpec官方文档"></a>MeasureSpec官方文档</h1><p>A MeasureSpec encapsulates the layout requirements passed from parent to child. Each MeasureSpec represents a requirement for either the width or the height. A MeasureSpec is comprised of a size and a mode. There are three possible modes:</p>
+<p>UNSPECIFIED：<br>The parent has not imposed any constraint on the child. It can be whatever size it wants.<br>mode UNSPECIFIED = 0 &lt;&lt; 30;</p>
+<p>EXACTLY：<br>The parent has determined an exact size for the child. The child is going to be given those bounds regardless of how big it wants to be.<br>mode EXACTLY = 1 &lt;&lt; 30;</p>
+<p>AT_MOST：<br>The child can be as large as it wants up to the specified size.<br>mode AT_MOST = 2 &lt;&lt; 30;</p>
+<p>MeasureSpecs are implemented as ints to reduce object allocation. This class is provided to pack and unpack the <size, mode=""> tuple into the int.</size,></p>
+<p>前2位表示模式，</p>
+</span>
       
     </div>
 
@@ -294,7 +298,7 @@ GridLayoutManager   实现gridview功能。
       
         <div class="post-tags">
           
-            <a href="/tags/RecycleView/" rel="tag">#RecycleView</a>
+            <a href="/tags/自定义view/" rel="tag">#自定义view</a>
           
         </div>
       
@@ -303,17 +307,13 @@ GridLayoutManager   实现gridview功能。
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/01/26/android性能优化/" rel="next" title="android性能优化">
-                <i class="fa fa-chevron-left"></i> android性能优化
+              <a href="/2016/04/19/android-shape/" rel="next" title="android shape">
+                <i class="fa fa-chevron-left"></i> android shape
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/01/26/nice实习总结/" rel="prev" title="nice实习总结">
-                nice实习总结 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -340,8 +340,8 @@ GridLayoutManager   实现gridview功能。
         
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/01/26/RecycleView/"
-           data-title="RecycleView" data-url="http://yoursite.com/2016/01/26/RecycleView/">
+      <div class="ds-thread" data-thread-key="2016/07/26/MeasureSpec/"
+           data-title="MeasureSpec" data-url="http://yoursite.com/2016/07/26/MeasureSpec/">
       </div>
     
   </div>
@@ -449,7 +449,7 @@ GridLayoutManager   实现gridview功能。
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#GridLayoutManager"><span class="nav-number">1.</span> <span class="nav-text">GridLayoutManager</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#StaggeredGridLayoutManager"><span class="nav-number">2.</span> <span class="nav-text">StaggeredGridLayoutManager</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MeasureSpec_u5B98_u65B9_u6587_u6863"><span class="nav-number">1.</span> <span class="nav-text">MeasureSpec官方文档</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
