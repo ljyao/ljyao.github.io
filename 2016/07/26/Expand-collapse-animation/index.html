@@ -35,7 +35,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="RecycleView," />
+  <meta name="keywords" content="android animation," />
 
 
 
@@ -51,22 +51,16 @@
 
 
 
-<meta name="description" content="个人觉得RecycleView很强大，很好的扩展性，稳定，将会逐渐代替gridview和listview。
-GridLayoutManager   实现gridview功能。
-   使用GridLayoutManager给RecycleView加headview或footview，总共有3列，spansize表示表示该子view占几个位置。12345678910111213141516171819">
+<meta name="description" content="view 高度伸展和收缩动画1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253public static void expand(final View v) &amp;#123;    v.measure(LayoutParams.MATCH_PARENT, La">
 <meta property="og:type" content="article">
-<meta property="og:title" content="RecycleView">
-<meta property="og:url" content="http://yoursite.com/2016/01/26/RecycleView/index.html">
+<meta property="og:title" content="Expand/collapse animation">
+<meta property="og:url" content="http://yoursite.com/2016/07/26/Expand-collapse-animation/index.html">
 <meta property="og:site_name" content="Shine's blog">
-<meta property="og:description" content="个人觉得RecycleView很强大，很好的扩展性，稳定，将会逐渐代替gridview和listview。
-GridLayoutManager   实现gridview功能。
-   使用GridLayoutManager给RecycleView加headview或footview，总共有3列，spansize表示表示该子view占几个位置。12345678910111213141516171819">
-<meta property="og:updated_time" content="2016-01-26T10:52:42.000Z">
+<meta property="og:description" content="view 高度伸展和收缩动画1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253public static void expand(final View v) &amp;#123;    v.measure(LayoutParams.MATCH_PARENT, La">
+<meta property="og:updated_time" content="2016-07-26T03:58:19.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="RecycleView">
-<meta name="twitter:description" content="个人觉得RecycleView很强大，很好的扩展性，稳定，将会逐渐代替gridview和listview。
-GridLayoutManager   实现gridview功能。
-   使用GridLayoutManager给RecycleView加headview或footview，总共有3列，spansize表示表示该子view占几个位置。12345678910111213141516171819">
+<meta name="twitter:title" content="Expand/collapse animation">
+<meta name="twitter:description" content="view 高度伸展和收缩动画1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253public static void expand(final View v) &amp;#123;    v.measure(LayoutParams.MATCH_PARENT, La">
 
 
 
@@ -78,7 +72,7 @@ GridLayoutManager   实现gridview功能。
   };
 </script>
 
-  <title> RecycleView | Shine's blog </title>
+  <title> Expand/collapse animation | Shine's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -228,7 +222,7 @@ GridLayoutManager   实现gridview功能。
             
             
               
-                RecycleView
+                Expand/collapse animation
               
             
           </h1>
@@ -237,8 +231,8 @@ GridLayoutManager   实现gridview功能。
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2016-01-26T10:36:58+08:00" content="2016-01-26">
-              2016-01-26
+            <time itemprop="dateCreated" datetime="2016-07-26T11:55:34+08:00" content="2016-07-26">
+              2016-07-26
             </time>
           </span>
 
@@ -263,8 +257,8 @@ GridLayoutManager   实现gridview功能。
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/01/26/RecycleView/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/26/RecycleView/" itemprop="commentsCount"></span>
+                <a href="/2016/07/26/Expand-collapse-animation/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/26/Expand-collapse-animation/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -283,10 +277,8 @@ GridLayoutManager   实现gridview功能。
       
 
       
-        <span itemprop="articleBody"><pre><code>个人觉得RecycleView很强大，很好的扩展性，稳定，将会逐渐代替gridview和listview。
-</code></pre><h1 id="GridLayoutManager"><a href="#GridLayoutManager" class="headerlink" title="GridLayoutManager"></a>GridLayoutManager</h1><p>   实现gridview功能。</p>
-<p>   使用GridLayoutManager给RecycleView加headview或footview，总共有3列，spansize表示表示该子view占几个位置。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> RecyclerView.<span class="function">LayoutManager <span class="title">getLayoutManager</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       GridLayoutManager gridLayoutManager = <span class="keyword">new</span> GridLayoutManager(getActivity(), <span class="number">3</span>);</span><br><span class="line">       gridLayoutManager.setSpanSizeLookup(<span class="keyword">new</span> GridLayoutManager.SpanSizeLookup() &#123;</span><br><span class="line">           @<span class="function">Override</span><br><span class="line">           <span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getSpanSize</span><span class="params">(<span class="keyword">int</span> position)</span> </span>&#123;</span><br><span class="line">               <span class="keyword">int</span> spanSize;</span><br><span class="line">               <span class="keyword">switch</span> (adapter.getItemViewType(position)) &#123;</span><br><span class="line">                   <span class="keyword">case</span> ShowThumbnailData.LIVE:</span><br><span class="line">                   <span class="keyword">case</span> ShowThumbnailData.PHOTO:</span><br><span class="line">                   <span class="keyword">case</span> ShowThumbnailData.PLAYBACK:</span><br><span class="line">                       spanSize = <span class="number">1</span>;</span><br><span class="line">                       <span class="keyword">break</span>;</span><br><span class="line">                   <span class="keyword">case</span> ShowThumbnailData.HEADER:</span><br><span class="line">                       spanSize = <span class="number">3</span>;</span><br><span class="line">                       <span class="keyword">break</span>;</span><br><span class="line">                   <span class="keyword">case</span> ShowThumbnailData.LIVEV2:</span><br><span class="line">                       spanSize = <span class="number">3</span>;</span><br><span class="line">                   <span class="keyword">default</span>:</span><br><span class="line">                       spanSize = <span class="number">1</span>;</span><br><span class="line">                       <span class="keyword">break</span>;</span><br><span class="line">               &#125;</span><br><span class="line">               <span class="keyword">return</span> spanSize;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;);</span><br><span class="line">       <span class="keyword">return</span> gridLayoutManager;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
-<h1 id="StaggeredGridLayoutManager"><a href="#StaggeredGridLayoutManager" class="headerlink" title="StaggeredGridLayoutManager"></a>StaggeredGridLayoutManager</h1></span>
+        <span itemprop="articleBody"><p>view 高度伸展和收缩动画<br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">void</span> <span class="title">expand</span><span class="params">(<span class="keyword">final</span> View v)</span> </span>&#123;</span><br><span class="line">    v.measure(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> targetHeight = v.getMeasuredHeight();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Older versions of android (pre API 21) cancel animations for views with a height of 0.</span></span><br><span class="line">    v.getLayoutParams().height = <span class="number">1</span>;</span><br><span class="line">    v.setVisibility(View.VISIBLE);</span><br><span class="line">    Animation a = <span class="keyword">new</span> Animation()</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="annotation">@Override</span></span><br><span class="line">        <span class="keyword">protected</span> <span class="function"><span class="keyword">void</span> <span class="title">applyTransformation</span><span class="params">(<span class="keyword">float</span> interpolatedTime, Transformation t)</span> </span>&#123;</span><br><span class="line">            v.getLayoutParams().height = interpolatedTime == <span class="number">1</span></span><br><span class="line">                    ? LayoutParams.WRAP_CONTENT</span><br><span class="line">                    : (<span class="keyword">int</span>)(targetHeight * interpolatedTime);</span><br><span class="line">            v.requestLayout();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="annotation">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">boolean</span> <span class="title">willChangeBounds</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 1dp/ms</span></span><br><span class="line">    a.setDuration((<span class="keyword">int</span>)(targetHeight / v.getContext().getResources().getDisplayMetrics().density));</span><br><span class="line">    v.startAnimation(a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">void</span> <span class="title">collapse</span><span class="params">(<span class="keyword">final</span> View v)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> initialHeight = v.getMeasuredHeight();</span><br><span class="line"></span><br><span class="line">    Animation a = <span class="keyword">new</span> Animation()</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="annotation">@Override</span></span><br><span class="line">        <span class="keyword">protected</span> <span class="function"><span class="keyword">void</span> <span class="title">applyTransformation</span><span class="params">(<span class="keyword">float</span> interpolatedTime, Transformation t)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(interpolatedTime == <span class="number">1</span>)&#123;</span><br><span class="line">                v.setVisibility(View.GONE);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                v.getLayoutParams().height = initialHeight - (<span class="keyword">int</span>)(initialHeight * interpolatedTime);</span><br><span class="line">                v.requestLayout();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="annotation">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">boolean</span> <span class="title">willChangeBounds</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 1dp/ms</span></span><br><span class="line">    a.setDuration((<span class="keyword">int</span>)(initialHeight / v.getContext().getResources().getDisplayMetrics().density));</span><br><span class="line">    v.startAnimation(a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</span>
       
     </div>
 
@@ -294,7 +286,7 @@ GridLayoutManager   实现gridview功能。
       
         <div class="post-tags">
           
-            <a href="/tags/RecycleView/" rel="tag">#RecycleView</a>
+            <a href="/tags/android-animation/" rel="tag">#android animation</a>
           
         </div>
       
@@ -303,17 +295,13 @@ GridLayoutManager   实现gridview功能。
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/01/26/android性能优化/" rel="next" title="android性能优化">
-                <i class="fa fa-chevron-left"></i> android性能优化
+              <a href="/2016/07/26/MeasureSpec/" rel="next" title="MeasureSpec">
+                <i class="fa fa-chevron-left"></i> MeasureSpec
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/01/26/nice实习总结/" rel="prev" title="nice实习总结">
-                nice实习总结 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -340,8 +328,8 @@ GridLayoutManager   实现gridview功能。
         
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/01/26/RecycleView/"
-           data-title="RecycleView" data-url="http://yoursite.com/2016/01/26/RecycleView/">
+      <div class="ds-thread" data-thread-key="2016/07/26/Expand-collapse-animation/"
+           data-title="Expand/collapse animation" data-url="http://yoursite.com/2016/07/26/Expand-collapse-animation/">
       </div>
     
   </div>
@@ -449,7 +437,7 @@ GridLayoutManager   实现gridview功能。
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#GridLayoutManager"><span class="nav-number">1.</span> <span class="nav-text">GridLayoutManager</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#StaggeredGridLayoutManager"><span class="nav-number">2.</span> <span class="nav-text">StaggeredGridLayoutManager</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
