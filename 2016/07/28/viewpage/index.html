@@ -57,7 +57,7 @@
 <meta property="og:url" content="http://yoursite.com/2016/07/28/viewpage/index.html">
 <meta property="og:site_name" content="Shine's blog">
 <meta property="og:description" content="ViewPagerLayout manager that allows the user to flip left and right through pages of data. You supply an implementation of a PagerAdapter to generate the pages that the view shows.">
-<meta property="og:updated_time" content="2016-07-29T09:46:14.000Z">
+<meta property="og:updated_time" content="2016-07-29T09:48:11.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="viewpage">
 <meta name="twitter:description" content="ViewPagerLayout manager that allows the user to flip left and right through pages of data. You supply an implementation of a PagerAdapter to generate the pages that the view shows.">
@@ -278,7 +278,10 @@
 
       
         <span itemprop="articleBody"><h1 id="ViewPager"><a href="#ViewPager" class="headerlink" title="ViewPager"></a>ViewPager</h1><p>Layout manager that allows the user to flip left and right through pages of data. You supply an implementation of a PagerAdapter to generate the pages that the view shows.<br><a id="more"></a><br>ViewPager is most often used in conjunction with Fragment, which is a convenient way to supply and manage the lifecycle of each page. There are standard adapters implemented for using fragments with the ViewPager, which cover the most common use cases. These are FragmentPagerAdapter and FragmentStatePagerAdapter; each of these classes have simple code showing how to build a full user interface with them.</p>
-<h1 id="PagerAdapter"><a href="#PagerAdapter" class="headerlink" title="PagerAdapter"></a>PagerAdapter</h1><h1 id="FragmentPagerAdapter"><a href="#FragmentPagerAdapter" class="headerlink" title="FragmentPagerAdapter"></a>FragmentPagerAdapter</h1><p>Implementation of PagerAdapter that represents each page as a Fragment that is persistently kept in the fragment manager as long as the user can return to the page.</p>
+<h1 id="PagerAdapter"><a href="#PagerAdapter" class="headerlink" title="PagerAdapter"></a>PagerAdapter</h1><p>Base class providing the adapter to populate pages inside of a ViewPager. You will most likely want to use a more specific implementation of this, such as FragmentPagerAdapter or FragmentStatePagerAdapter.</p>
+<p>When you implement a PagerAdapter, you must override the following methods at minimum:</p>
+<p>instantiateItem(ViewGroup, int)<br>destroyItem(ViewGroup, int, Object)<br>getCount()<br>isViewFromObject(View, Object)</p>
+<h1 id="FragmentPagerAdapter"><a href="#FragmentPagerAdapter" class="headerlink" title="FragmentPagerAdapter"></a>FragmentPagerAdapter</h1><p>Implementation of PagerAdapter that represents each page as a Fragment that is persistently kept in the fragment manager as long as the user can return to the page.</p>
 <p>This version of the pager is best for use when there are a handful of typically more static fragments to be paged through, such as a set of tabs. The fragment of each page the user visits will be kept in memory, though its view hierarchy may be destroyed when not visible. This can result in using a significant amount of memory since fragment instances can hold on to an arbitrary amount of state. For larger sets of pages, consider FragmentStatePagerAdapter.</p>
 <p>适合于 Fragment数量不多的情况。当某个页面不可见时，该页面对应的View可能会被销毁，但是所有的Fragment都会一直存在于内存中。如果Fragment需要保存的状态较多时，会导致占用内存较大，因此对于Fragment数量较多的情况，建议使用FragmentStatePagerAdapter。</p>
 <h1 id="FragmentStatePagerAdapter"><a href="#FragmentStatePagerAdapter" class="headerlink" title="FragmentStatePagerAdapter"></a>FragmentStatePagerAdapter</h1><p>Implementation of PagerAdapter that uses a Fragment to manage each page. This class also handles saving and restoring of fragment’s state.</p>
