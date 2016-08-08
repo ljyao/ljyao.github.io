@@ -1,0 +1,735 @@
+<!doctype html>
+<html class="theme-next   use-motion ">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="android animation," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
+
+
+
+
+
+
+<meta name="description" content="一、Property Animation创建一个动画通过修改对象属性在一段时间。二、View Animation包含2种类型：Tween animation（补间动画）:创建一个动画通过执行一系列变化在一个图像上。Frame animation（帧动画）:创建一个动画通过顺序播放一系列图片。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Property Animation and View Animation">
+<meta property="og:url" content="http://yoursite.com/2016/08/01/Property-Animation-and-View-Animation/index.html">
+<meta property="og:site_name" content="Shine's blog">
+<meta property="og:description" content="一、Property Animation创建一个动画通过修改对象属性在一段时间。二、View Animation包含2种类型：Tween animation（补间动画）:创建一个动画通过执行一系列变化在一个图像上。Frame animation（帧动画）:创建一个动画通过顺序播放一系列图片。">
+<meta property="og:updated_time" content="2016-08-01T10:32:02.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Property Animation and View Animation">
+<meta name="twitter:description" content="一、Property Animation创建一个动画通过修改对象属性在一段时间。二、View Animation包含2种类型：Tween animation（补间动画）:创建一个动画通过执行一系列变化在一个图像上。Frame animation（帧动画）:创建一个动画通过顺序播放一系列图片。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'hide',
+    motion: true
+  };
+</script>
+
+  <title> Property Animation and View Animation | Shine's blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?6e3e65b6fa6d46bfec86b332d7db0bcb";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i class="" style="transform: translateX(100%);"></i></span>
+      <span class="site-title">Shine's blog</span>
+      <span class="logo-line-after"><i class="" style="transform: translateX(-100%);"></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">生命不息，折腾不止！！！</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Property Animation and View Animation
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-08-01T14:42:51+08:00" content="2016-08-01">
+              2016-08-01
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/01/Property-Animation-and-View-Animation/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/01/Property-Animation-and-View-Animation/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>一、Property Animation<br>创建一个动画通过修改对象属性在一段时间。<br>二、View Animation<br>包含2种类型：<br>Tween animation（补间动画）:<br>创建一个动画通过执行一系列变化在一个图像上。<br>Frame animation（帧动画）:<br>创建一个动画通过顺序播放一系列图片。</p>
+<a id="more"></a>
+<h1 id="Property_Animation"><a href="#Property_Animation" class="headerlink" title="Property Animation"></a>Property Animation</h1><figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="atom">set</span></span><br><span class="line">  <span class="atom">android</span>:<span class="atom">ordering</span>=[<span class="string">"together"</span> | <span class="string">"sequentially"</span>]&gt;</span><br><span class="line"></span><br><span class="line">    &lt;<span class="atom">objectAnimator</span></span><br><span class="line">        <span class="atom">android</span>:<span class="atom">propertyName</span>=<span class="string">"string"</span></span><br><span class="line">        <span class="atom">android</span>:<span class="atom">duration</span>=<span class="string">"int"</span></span><br><span class="line">        <span class="atom">android</span>:<span class="atom">valueFrom</span>=<span class="string">"float | int | color"</span></span><br><span class="line">        <span class="atom">android</span>:<span class="atom">valueTo</span>=<span class="string">"float | int | color"</span></span><br><span class="line">        <span class="atom">android</span>:<span class="atom">startOffset</span>=<span class="string">"int"</span></span><br><span class="line">        <span class="atom">android</span>:<span class="atom">repeatCount</span>=<span class="string">"int"</span></span><br><span class="line">        <span class="atom">android</span>:<span class="atom">repeatMode</span>=[<span class="string">"repeat"</span> | <span class="string">"reverse"</span>]</span><br><span class="line">        <span class="atom">android</span>:<span class="atom">valueType</span>=[<span class="string">"intType"</span> | <span class="string">"floatType"</span>]/&gt;</span><br><span class="line"></span><br><span class="line">    &lt;<span class="atom">animator</span></span><br><span class="line">        <span class="atom">android</span>:<span class="atom">duration</span>=<span class="string">"int"</span></span><br><span class="line">        <span class="atom">android</span>:<span class="atom">valueFrom</span>=<span class="string">"float | int | color"</span></span><br><span class="line">        <span class="atom">android</span>:<span class="atom">valueTo</span>=<span class="string">"float | int | color"</span></span><br><span class="line">        <span class="atom">android</span>:<span class="atom">startOffset</span>=<span class="string">"int"</span></span><br><span class="line">        <span class="atom">android</span>:<span class="atom">repeatCount</span>=<span class="string">"int"</span></span><br><span class="line">        <span class="atom">android</span>:<span class="atom">repeatMode</span>=[<span class="string">"repeat"</span> | <span class="string">"reverse"</span>]</span><br><span class="line">        <span class="atom">android</span>:<span class="atom">valueType</span>=[<span class="string">"intType"</span> | <span class="string">"floatType"</span>]/&gt;</span><br><span class="line"></span><br><span class="line">    &lt;<span class="atom">set</span>&gt;</span><br><span class="line">        ...</span><br><span class="line">    &lt;/<span class="atom">set</span>&gt;</span><br><span class="line">&lt;/<span class="atom">set</span>&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="View_Animation"><a href="#View_Animation" class="headerlink" title="View Animation"></a>View Animation</h1><p>View动画框架支持补间动画和帧动画，它们都是被定义在XML中。</p>
+<h2 id="Tween_animation_uFF08_u8865_u95F4_u52A8_u753B_uFF09_3A"><a href="#Tween_animation_uFF08_u8865_u95F4_u52A8_u753B_uFF09_3A" class="headerlink" title="Tween animation（补间动画）:"></a>Tween animation（补间动画）:</h2><p>一种定义在XML中的动画，可以生动的执行过渡动画,像：旋转，逐渐消失，移动，伸展动画。</p>
+<h3 id="u6587_u4EF6_u4F4D_u7F6E"><a href="#u6587_u4EF6_u4F4D_u7F6E" class="headerlink" title="文件位置"></a>文件位置</h3><p>res/anim/filename.xml</p>
+<h3 id="u8BED_u6CD5_uFF1A"><a href="#u8BED_u6CD5_uFF1A" class="headerlink" title="语法："></a>语法：</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">set</span> <span class="attribute">xmlns:android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span></span><br><span class="line">    <span class="attribute">android:interpolator</span>=<span class="value">"@[package:]anim/interpolator_resource"</span></span><br><span class="line">    <span class="attribute">android:shareInterpolator</span>=<span class="value">["true"</span> | "<span class="attribute">false</span>"] &gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">alpha</span></span><br><span class="line">        <span class="attribute">android:fromAlpha</span>=<span class="value">"float"</span></span><br><span class="line">        <span class="attribute">android:toAlpha</span>=<span class="value">"float"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">scale</span></span><br><span class="line">        <span class="attribute">android:fromXScale</span>=<span class="value">"float"</span></span><br><span class="line">        <span class="attribute">android:toXScale</span>=<span class="value">"float"</span></span><br><span class="line">        <span class="attribute">android:fromYScale</span>=<span class="value">"float"</span></span><br><span class="line">        <span class="attribute">android:toYScale</span>=<span class="value">"float"</span></span><br><span class="line">        <span class="attribute">android:pivotX</span>=<span class="value">"float"</span></span><br><span class="line">        <span class="attribute">android:pivotY</span>=<span class="value">"float"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">translate</span></span><br><span class="line">        <span class="attribute">android:fromXDelta</span>=<span class="value">"float"</span></span><br><span class="line">        <span class="attribute">android:toXDelta</span>=<span class="value">"float"</span></span><br><span class="line">        <span class="attribute">android:fromYDelta</span>=<span class="value">"float"</span></span><br><span class="line">        <span class="attribute">android:toYDelta</span>=<span class="value">"float"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">rotate</span></span><br><span class="line">        <span class="attribute">android:fromDegrees</span>=<span class="value">"float"</span></span><br><span class="line">        <span class="attribute">android:toDegrees</span>=<span class="value">"float"</span></span><br><span class="line">        <span class="attribute">android:pivotX</span>=<span class="value">"float"</span></span><br><span class="line">        <span class="attribute">android:pivotY</span>=<span class="value">"float"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">set</span>&gt;</span></span><br><span class="line">        ...</span><br><span class="line">    <span class="tag">&lt;/<span class="title">set</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">set</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>文件必需包含一个根元素:  <alpha>, <scale>, <translate>, <rotate>中一个, 或是 <set> 元素， 她包含着一组或多组其他元素(甚至嵌套 <set> 元素.</set></set></rotate></translate></scale></alpha></p>
+<h3 id="u5143_u7D20_3A"><a href="#u5143_u7D20_3A" class="headerlink" title="元素:"></a>元素:</h3><p><set><br>包含其他动画元素(<alpha>, <scale>, <translate>, <rotate>) 或其他 <set> 元素. 代表一个AnimationSet.<br>attributes:</set></rotate></translate></scale></alpha></set></p>
+<p>android:interpolator<br>Interpolator resource. An Interpolator to apply on the animation. The value must be a reference to a resource that specifies an interpolator (not an interpolator class name). There are default interpolator resources available from the platform or you can create your own interpolator resource. See the discussion below for more about Interpolators.<br>android:shareInterpolator<br>Boolean. “true” if you want to share the same interpolator among all child elements.</p>
+<p><alpha><br>A fade-in or fade-out animation. Represents an AlphaAnimation.<br>attributes:</alpha></p>
+<p>android:fromAlpha<br>Float. Starting opacity offset, where 0.0 is transparent and 1.0 is opaque.<br>android:toAlpha<br>Float. Ending opacity offset, where 0.0 is transparent and 1.0 is opaque.<br>For more attributes supported by <alpha>, see the Animation class reference (of which, all XML attributes are inherrited by this element).</alpha></p>
+<p><scale><br>A resizing animation. You can specify the center point of the image from which it grows outward (or inward) by specifying pivotX and pivotY. For example, if these values are 0, 0 (top-left corner), all growth will be down and to the right. Represents a ScaleAnimation.<br>attributes:</scale></p>
+<p>android:fromXScale<br>Float. Starting X size offset, where 1.0 is no change.<br>android:toXScale<br>Float. Ending X size offset, where 1.0 is no change.<br>android:fromYScale<br>Float. Starting Y size offset, where 1.0 is no change.<br>android:toYScale<br>Float. Ending Y size offset, where 1.0 is no change.<br>android:pivotX<br>Float. The X coordinate to remain fixed when the object is scaled.<br>android:pivotY<br>Float. The Y coordinate to remain fixed when the object is scaled.<br>For more attributes supported by <scale>, see the Animation class reference (of which, all XML attributes are inherrited by this element).</scale></p>
+<p><translate><br>A vertical and/or horizontal motion. Supports the following attributes in any of the following three formats: values from -100 to 100 ending with “%”, indicating a percentage relative to itself; values from -100 to 100 ending in “%p”, indicating a percentage relative to its parent; a float value with no suffix, indicating an absolute value. Represents a TranslateAnimation.<br>attributes:</translate></p>
+<p>android:fromXDelta<br>Float or percentage. Starting X offset. Expressed either: in pixels relative to the normal position (such as “5”), in percentage relative to the element width (such as “5%”), or in percentage relative to the parent width (such as “5%p”).<br>android:toXDelta<br>Float or percentage. Ending X offset. Expressed either: in pixels relative to the normal position (such as “5”), in percentage relative to the element width (such as “5%”), or in percentage relative to the parent width (such as “5%p”).<br>android:fromYDelta<br>Float or percentage. Starting Y offset. Expressed either: in pixels relative to the normal position (such as “5”), in percentage relative to the element height (such as “5%”), or in percentage relative to the parent height (such as “5%p”).<br>android:toYDelta<br>Float or percentage. Ending Y offset. Expressed either: in pixels relative to the normal position (such as “5”), in percentage relative to the element height (such as “5%”), or in percentage relative to the parent height (such as “5%p”).<br>For more attributes supported by <translate>, see the Animation class reference (of which, all XML attributes are inherrited by this element).</translate></p>
+<p><rotate><br>A rotation animation. Represents a RotateAnimation.<br>attributes:</rotate></p>
+<p>android:fromDegrees<br>Float. Starting angular position, in degrees.<br>android:toDegrees<br>Float. Ending angular position, in degrees.<br>android:pivotX<br>Float or percentage. The X coordinate of the center of rotation. Expressed either: in pixels relative to the object’s left edge (such as “5”), in percentage relative to the object’s left edge (such as “5%”), or in percentage relative to the parent container’s left edge (such as “5%p”).<br>android:pivotY<br>Float or percentage. The Y coordinate of the center of rotation. Expressed either: in pixels relative to the object’s top edge (such as “5”), in percentage relative to the object’s top edge (such as “5%”), or in percentage relative to the parent container’s top edge (such as “5%p”).<br>For more attributes supported by <rotate>, see the Animation class reference (of which, all XML attributes are inherrited by this element).</rotate></p>
+<h3 id="u4F8B_u5B50_3A"><a href="#u4F8B_u5B50_3A" class="headerlink" title="例子:"></a>例子:</h3><p>1.xml代码<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">set</span> <span class="attribute">xmlns:android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span></span><br><span class="line">    <span class="attribute">android:shareInterpolator</span>=<span class="value">"false"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">scale</span></span><br><span class="line">        <span class="attribute">android:interpolator</span>=<span class="value">"@android:anim/accelerate_decelerate_interpolator"</span></span><br><span class="line">        <span class="attribute">android:fromXScale</span>=<span class="value">"1.0"</span></span><br><span class="line">        <span class="attribute">android:toXScale</span>=<span class="value">"1.4"</span></span><br><span class="line">        <span class="attribute">android:fromYScale</span>=<span class="value">"1.0"</span></span><br><span class="line">        <span class="attribute">android:toYScale</span>=<span class="value">"0.6"</span></span><br><span class="line">        <span class="attribute">android:pivotX</span>=<span class="value">"50%"</span></span><br><span class="line">        <span class="attribute">android:pivotY</span>=<span class="value">"50%"</span></span><br><span class="line">        <span class="attribute">android:fillAfter</span>=<span class="value">"false"</span></span><br><span class="line">        <span class="attribute">android:duration</span>=<span class="value">"700"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">set</span></span><br><span class="line">        <span class="attribute">android:interpolator</span>=<span class="value">"@android:anim/accelerate_interpolator"</span></span><br><span class="line">        <span class="attribute">android:startOffset</span>=<span class="value">"700"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">scale</span></span><br><span class="line">            <span class="attribute">android:fromXScale</span>=<span class="value">"1.4"</span></span><br><span class="line">            <span class="attribute">android:toXScale</span>=<span class="value">"0.0"</span></span><br><span class="line">            <span class="attribute">android:fromYScale</span>=<span class="value">"0.6"</span></span><br><span class="line">            <span class="attribute">android:toYScale</span>=<span class="value">"0.0"</span></span><br><span class="line">            <span class="attribute">android:pivotX</span>=<span class="value">"50%"</span></span><br><span class="line">            <span class="attribute">android:pivotY</span>=<span class="value">"50%"</span></span><br><span class="line">            <span class="attribute">android:duration</span>=<span class="value">"400"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">rotate</span></span><br><span class="line">            <span class="attribute">android:fromDegrees</span>=<span class="value">"0"</span></span><br><span class="line">            <span class="attribute">android:toDegrees</span>=<span class="value">"-45"</span></span><br><span class="line">            <span class="attribute">android:toYScale</span>=<span class="value">"0.0"</span></span><br><span class="line">            <span class="attribute">android:pivotX</span>=<span class="value">"50%"</span></span><br><span class="line">            <span class="attribute">android:pivotY</span>=<span class="value">"50%"</span></span><br><span class="line">            <span class="attribute">android:duration</span>=<span class="value">"400"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">set</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">set</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>2.播放动画<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ImageView <span class="built_in">image</span> = (ImageView) findViewById(R.id.<span class="built_in">image</span>);</span><br><span class="line">Animation hyperspaceJump = AnimationUtils.loadAnimation(<span class="keyword">this</span>, R.anim.hyperspace_jump);</span><br><span class="line"><span class="built_in">image</span>.startAnimation(hyperspaceJump);</span><br></pre></td></tr></table></figure></p>
+<h2 id="Frame_animation_uFF08_u5E27_u52A8_u753B_uFF09_3A"><a href="#Frame_animation_uFF08_u5E27_u52A8_u753B_uFF09_3A" class="headerlink" title="Frame animation（帧动画）:"></a>Frame animation（帧动画）:</h2><p>一种定义在XML中的动画，顺序显示一组图片（像电影）</p>
+<h3 id="u6587_u4EF6_u4F4D_u7F6E_uFF1A"><a href="#u6587_u4EF6_u4F4D_u7F6E_uFF1A" class="headerlink" title="文件位置："></a>文件位置：</h3><p>res/drawable/ 文件下，放在res/anim/会报错<br>如：res/drawable/filename.xml</p>
+<h3 id="u8BED_u6CD5_uFF1A-1"><a href="#u8BED_u6CD5_uFF1A-1" class="headerlink" title="语法："></a>语法：</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">animation-list</span> <span class="attribute">xmlns:android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span></span><br><span class="line">    <span class="attribute">android:oneshot</span>=<span class="value">["true"</span> | "<span class="attribute">false</span>"] &gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">item</span></span><br><span class="line">        <span class="attribute">android:drawable</span>=<span class="value">"@[package:]drawable/drawable_resource_name"</span></span><br><span class="line">        <span class="attribute">android:duration</span>=<span class="value">"integer"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">animation-list</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="u5143_u7D20_3A-1"><a href="#u5143_u7D20_3A-1" class="headerlink" title="元素:"></a>元素:</h3><p>/<animation-list>/<br>必需的，一定要放在根元素， 包含一个或多个 <item> 元素.<br>属性:<br>android:oneshot<br>Boolean. “true” 播放动画一次; “false” 循环播放动画.</item></animation-list></p>
+<p><item><br>动画的一帧，一定包含在 <animation-list> 元素下.<br>属性:<br>android:drawable<br>图片资源. 该帧动画对应得图片.<br>android:duration<br>Integer. 显示该帧动画时间，单位毫秒ms.</animation-list></item></p>
+<h3 id="u4F8B_u5B50_3A-1"><a href="#u4F8B_u5B50_3A-1" class="headerlink" title="例子:"></a>例子:</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">animation-list</span> <span class="attribute">xmlns:android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span></span><br><span class="line">    <span class="attribute">android:oneshot</span>=<span class="value">"false"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">item</span> <span class="attribute">android:drawable</span>=<span class="value">"@drawable/rocket_thrust1"</span> <span class="attribute">android:duration</span>=<span class="value">"200"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">item</span> <span class="attribute">android:drawable</span>=<span class="value">"@drawable/rocket_thrust2"</span> <span class="attribute">android:duration</span>=<span class="value">"200"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">item</span> <span class="attribute">android:drawable</span>=<span class="value">"@drawable/rocket_thrust3"</span> <span class="attribute">android:duration</span>=<span class="value">"200"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">animation-list</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>设置动画作为一个View的背景, 然后播放动画：<br><figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ImageView rocketImage = (ImageView) findViewById(R.id.rocket_image)<span class="comment">;</span></span><br><span class="line">rocketImage.setBackgroundResource(R.drawable.rocket_thrust)<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">rocketAnimation = (AnimationDrawable) rocketImage.getBackground()<span class="comment">;</span></span><br><span class="line">rocketAnimation.start()<span class="comment">;</span></span><br></pre></td></tr></table></figure></p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/android-animation/" rel="tag">#android animation</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/28/viewpage/" rel="next" title="viewpage">
+                <i class="fa fa-chevron-left"></i> viewpage
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/04/Drawable-Resources/" rel="prev" title="Drawable Resources">
+                Drawable Resources <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+        </div>
+
+        
+
+
+        
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/08/01/Property-Animation-and-View-Animation/"
+           data-title="Property Animation and View Animation" data-url="http://yoursite.com/2016/08/01/Property-Animation-and-View-Animation/">
+      </div>
+    
+  </div>
+
+
+      </div>
+
+      
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/default_avatar.jpg" alt="Shine Lee" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">Shine Lee</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">生命不息，折腾不止！！！</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">18</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/ljyao" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> github
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/3715142347" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> weibo
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Property_Animation"><span class="nav-number">1.</span> <span class="nav-text">Property Animation</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#View_Animation"><span class="nav-number">2.</span> <span class="nav-text">View Animation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tween_animation_uFF08_u8865_u95F4_u52A8_u753B_uFF09_3A"><span class="nav-number">2.1.</span> <span class="nav-text">Tween animation（补间动画）:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#u6587_u4EF6_u4F4D_u7F6E"><span class="nav-number">2.1.1.</span> <span class="nav-text">文件位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u8BED_u6CD5_uFF1A"><span class="nav-number">2.1.2.</span> <span class="nav-text">语法：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u5143_u7D20_3A"><span class="nav-number">2.1.3.</span> <span class="nav-text">元素:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u4F8B_u5B50_3A"><span class="nav-number">2.1.4.</span> <span class="nav-text">例子:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Frame_animation_uFF08_u5E27_u52A8_u753B_uFF09_3A"><span class="nav-number">2.2.</span> <span class="nav-text">Frame animation（帧动画）:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#u6587_u4EF6_u4F4D_u7F6E_uFF1A"><span class="nav-number">2.2.1.</span> <span class="nav-text">文件位置：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u8BED_u6CD5_uFF1A-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">语法：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u5143_u7D20_3A-1"><span class="nav-number">2.2.3.</span> <span class="nav-text">元素:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u4F8B_u5B50_3A-1"><span class="nav-number">2.2.4.</span> <span class="nav-text">例子:</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+      
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shine Lee</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+    
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"shinelee"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+     
+
+
+    
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+<script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+<script type="text/javascript" src="/js/motion.js?v=0.4.5.2" id="motion.global"></script>
+
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    motionMiddleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  <script type="text/javascript" src="/js/bootstrap.js"></script>
+
+  
+  
+
+  
+  
+
+</body>
+</html>
