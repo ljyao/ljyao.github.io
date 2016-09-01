@@ -51,19 +51,16 @@
 
 
 
-<meta name="description" content="package com.nice.main.views;
-import android.content.Context;import android.media.MediaPlayer;import android.util.AttributeSet;import android.util.Log;import android.view.SurfaceHolder;import android.v">
+<meta name="description" content="同时播放多个视频时，播放完上一个视频切换到下一个视频，需要MediaPlayer先释放上一个视频，然后加载下一个视频，这时候难免会有一会卡顿出现；我解决方案是：通过MediaPlayer渲染到SurfaceView去播放视频，使用2个MediaPlayer，当第一个视频准备好时，去预加载下一个视频，减少MediaPlayer释放和加载视频消耗的时间。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="preload video">
 <meta property="og:url" content="http://yoursite.com/2016/08/08/preload-video/index.html">
 <meta property="og:site_name" content="Shine's blog">
-<meta property="og:description" content="package com.nice.main.views;
-import android.content.Context;import android.media.MediaPlayer;import android.util.AttributeSet;import android.util.Log;import android.view.SurfaceHolder;import android.v">
-<meta property="og:updated_time" content="2016-08-08T08:15:06.000Z">
+<meta property="og:description" content="同时播放多个视频时，播放完上一个视频切换到下一个视频，需要MediaPlayer先释放上一个视频，然后加载下一个视频，这时候难免会有一会卡顿出现；我解决方案是：通过MediaPlayer渲染到SurfaceView去播放视频，使用2个MediaPlayer，当第一个视频准备好时，去预加载下一个视频，减少MediaPlayer释放和加载视频消耗的时间。">
+<meta property="og:updated_time" content="2016-09-01T11:17:29.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="preload video">
-<meta name="twitter:description" content="package com.nice.main.views;
-import android.content.Context;import android.media.MediaPlayer;import android.util.AttributeSet;import android.util.Log;import android.view.SurfaceHolder;import android.v">
+<meta name="twitter:description" content="同时播放多个视频时，播放完上一个视频切换到下一个视频，需要MediaPlayer先释放上一个视频，然后加载下一个视频，这时候难免会有一会卡顿出现；我解决方案是：通过MediaPlayer渲染到SurfaceView去播放视频，使用2个MediaPlayer，当第一个视频准备好时，去预加载下一个视频，减少MediaPlayer释放和加载视频消耗的时间。">
 
 
 
@@ -265,131 +262,8 @@ import android.content.Context;import android.media.MediaPlayer;import android.u
       
 
       
-        <span itemprop="articleBody"><p>package com.nice.main.views;</p>
-<p>import android.content.Context;<br>import android.media.MediaPlayer;<br>import android.util.AttributeSet;<br>import android.util.Log;<br>import android.view.SurfaceHolder;<br>import android.view.SurfaceView;<br>import android.widget.RelativeLayout;</p>
-<p>import com.nice.main.R;<br>import com.nice.utils.Worker;</p>
-<p>import org.androidannotations.annotations.AfterViews;<br>import org.androidannotations.annotations.EViewGroup;<br>import org.androidannotations.annotations.ViewById;</p>
-<p>/**</p>
-<ul>
-<li><p>Created by shine on 16/8/5.<br>*/<br>@EViewGroup(R.layout.view_preload_video)<br>public class PreLoadVideoView extends RelativeLayout implements SurfaceHolder.Callback {<br> @ViewById(R.id.video_surface)<br> protected SurfaceView surface;<br> private MediaPlayer mediaPlayer;<br> private MediaPlayer nextMediaPlayer;<br> private SurfaceHolder surfaceHolder;</p>
-<p> public PreLoadVideoView(Context context, AttributeSet attrs) {</p>
-<pre><code>super(context, attrs);
-
-Worker.postWorker(new Runnable() {
-    @Override
-    public void run() {
-        initMediaPlayer();
-        Log.i(&quot;PreLoadVideoView&quot;, &quot;postWorker-&gt;initMediaPlayer-&gt;end&quot;);
-    }
-});
-</code></pre><p> }</p>
-<p> @AfterViews<br> public void initView() {</p>
-<pre><code>surfaceHolder = surface.getHolder();
-surfaceHolder.addCallback(this);
-surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-</code></pre><p> }</p>
-<p> private void initMediaPlayer() {</p>
-<pre><code>if (mediaPlayer == null) {
-    synchronized (this) {
-        if (mediaPlayer == null) {
-            try {
-                mediaPlayer = MediaPlayer.create(getContext(), R.raw.video_guide);
-                mediaPlayer.setOnInfoListener(new MediaPlayer.OnInfoListener() {
-                    @Override
-                    public boolean onInfo(MediaPlayer mp, int what, int extra) {
-                        Log.i(&quot;PreLoadVideoView&quot;, &quot;what&quot; + what + &quot;  extra&quot; + extra);
-                        return false;
-                    }
-                });
-                mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                    @Override
-                    public void onPrepared(MediaPlayer mp) {
-                        Log.i(&quot;PreLoadVideoView&quot;, &quot;onPrepared&quot;);
-
-                        //next
-                        initNextMediaPlayer();
-                    }
-                });
-                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mp) {
-                        playNextVideo();
-                    }
-                });
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-}
-</code></pre><p> }</p>
-<p> private void initNextMediaPlayer() {</p>
-<pre><code>Worker.postWorker(new Runnable() {
-    @Override
-    public void run() {
-        nextMediaPlayer = MediaPlayer.create(getContext(), R.raw.video_publish_guide_bg);
-        nextMediaPlayer.setLooping(true);
-    }
-});
-</code></pre><p> }</p>
-</li>
-</ul>
-<pre><code>private void playNextVideo() {
-    if (nextMediaPlayer == null) {
-        return;
-    }
-
-    Worker.postWorker(new Runnable() {
-        @Override
-        public void run() {
-            mediaPlayer.release();
-            mediaPlayer = nextMediaPlayer;
-            nextMediaPlayer.setDisplay(surfaceHolder);
-            nextMediaPlayer.start();
-        }
-    });
-}
-
-@Override
-public void surfaceCreated(SurfaceHolder holder) {
-    Log.i(&quot;PreLoadVideoView&quot;, &quot;surfaceCreated&quot;);
-
-    if (mediaPlayer == null) {
-        initMediaPlayer();
-    }
-
-    mediaPlayer.setDisplay(surfaceHolder);
-    mediaPlayer.start();
-}
-
-@Override
-public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-
-}
-
-@Override
-public void surfaceDestroyed(SurfaceHolder holder) {
-
-}
-
-public void release() {
-    if (mediaPlayer != null) {
-        if (mediaPlayer.isPlaying()) {
-            mediaPlayer.stop();
-        }
-        mediaPlayer.release();
-        mediaPlayer = null;
-    }
-    if (nextMediaPlayer != null) {
-        if (nextMediaPlayer.isPlaying()) {
-            nextMediaPlayer.stop();
-        }
-        nextMediaPlayer.release();
-        nextMediaPlayer = null;
-    }
-}
-</code></pre><p>}</p>
+        <span itemprop="articleBody"><p>同时播放多个视频时，播放完上一个视频切换到下一个视频，需要MediaPlayer先释放上一个视频，然后加载下一个视频，这时候难免会有一会卡顿出现；我解决方案是：通过MediaPlayer渲染到SurfaceView去播放视频，使用2个MediaPlayer，当第一个视频准备好时，去预加载下一个视频，减少MediaPlayer释放和加载视频消耗的时间。<br><a id="more"></a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PreLoadVideoView</span> <span class="keyword">extends</span> <span class="title">RelativeLayout</span> <span class="keyword">implements</span> <span class="title">SurfaceHolder</span>.<span class="title">Callback</span> </span>&#123;</span><br><span class="line">    <span class="annotation">@ViewById</span>(R.id.video_surface)</span><br><span class="line">    <span class="keyword">protected</span> SurfaceView surface;</span><br><span class="line">    <span class="keyword">private</span> MediaPlayer mediaPlayer;</span><br><span class="line">    <span class="keyword">private</span> MediaPlayer nextMediaPlayer;</span><br><span class="line">    <span class="keyword">private</span> SurfaceHolder surfaceHolder;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">PreLoadVideoView</span><span class="params">(Context context, AttributeSet attrs)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(context, attrs);</span><br><span class="line"></span><br><span class="line">        Worker.postWorker(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="annotation">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                initMediaPlayer();</span><br><span class="line">                Log.i(<span class="string">"PreLoadVideoView"</span>, <span class="string">"postWorker-&gt;initMediaPlayer-&gt;end"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@AfterViews</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">initView</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        surfaceHolder = surface.getHolder();</span><br><span class="line">        surfaceHolder.addCallback(<span class="keyword">this</span>);</span><br><span class="line">        surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initMediaPlayer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (mediaPlayer == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (<span class="keyword">this</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (mediaPlayer == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        mediaPlayer = MediaPlayer.create(getContext(), R.raw.video_guide);</span><br><span class="line">                        mediaPlayer.setOnInfoListener(<span class="keyword">new</span> MediaPlayer.OnInfoListener() &#123;</span><br><span class="line">                            <span class="annotation">@Override</span></span><br><span class="line">                            <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onInfo</span><span class="params">(MediaPlayer mp, <span class="keyword">int</span> what, <span class="keyword">int</span> extra)</span> </span>&#123;</span><br><span class="line">                                Log.i(<span class="string">"PreLoadVideoView"</span>, <span class="string">"what"</span> + what + <span class="string">"  extra"</span> + extra);</span><br><span class="line">                                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;);</span><br><span class="line">                        mediaPlayer.setOnPreparedListener(<span class="keyword">new</span> MediaPlayer.OnPreparedListener() &#123;</span><br><span class="line">                            <span class="annotation">@Override</span></span><br><span class="line">                            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onPrepared</span><span class="params">(MediaPlayer mp)</span> </span>&#123;</span><br><span class="line">                                Log.i(<span class="string">"PreLoadVideoView"</span>, <span class="string">"onPrepared"</span>);</span><br><span class="line"></span><br><span class="line">                                <span class="comment">//next</span></span><br><span class="line">                                initNextMediaPlayer();</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;);</span><br><span class="line">                        mediaPlayer.setOnCompletionListener(<span class="keyword">new</span> MediaPlayer.OnCompletionListener() &#123;</span><br><span class="line">                            <span class="annotation">@Override</span></span><br><span class="line">                            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCompletion</span><span class="params">(MediaPlayer mp)</span> </span>&#123;</span><br><span class="line">                                playNextVideo();</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;);</span><br><span class="line"></span><br><span class="line">                    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                        e.printStackTrace();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initNextMediaPlayer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Worker.postWorker(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="annotation">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                nextMediaPlayer = MediaPlayer.create(getContext(), R.raw.video_publish_guide_bg);</span><br><span class="line">                nextMediaPlayer.setLooping(<span class="keyword">true</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">playNextVideo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (nextMediaPlayer == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Worker.postWorker(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="annotation">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                mediaPlayer.release();</span><br><span class="line">                mediaPlayer = nextMediaPlayer;</span><br><span class="line">                nextMediaPlayer.setDisplay(surfaceHolder);</span><br><span class="line">                nextMediaPlayer.start();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">surfaceCreated</span><span class="params">(SurfaceHolder holder)</span> </span>&#123;</span><br><span class="line">        Log.i(<span class="string">"PreLoadVideoView"</span>, <span class="string">"surfaceCreated"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (mediaPlayer == <span class="keyword">null</span>) &#123;</span><br><span class="line">            initMediaPlayer();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        mediaPlayer.setDisplay(surfaceHolder);</span><br><span class="line">        mediaPlayer.start();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">surfaceChanged</span><span class="params">(SurfaceHolder holder, <span class="keyword">int</span> format, <span class="keyword">int</span> width, <span class="keyword">int</span> height)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">surfaceDestroyed</span><span class="params">(SurfaceHolder holder)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">release</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (mediaPlayer != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (mediaPlayer.isPlaying()) &#123;</span><br><span class="line">                mediaPlayer.stop();</span><br><span class="line">            &#125;</span><br><span class="line">            mediaPlayer.release();</span><br><span class="line">            mediaPlayer = <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (nextMediaPlayer != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nextMediaPlayer.isPlaying()) &#123;</span><br><span class="line">                nextMediaPlayer.stop();</span><br><span class="line">            &#125;</span><br><span class="line">            nextMediaPlayer.release();</span><br><span class="line">            nextMediaPlayer = <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </span>
       
     </div>
