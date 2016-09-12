@@ -230,6 +230,187 @@
             
               
                 
+                <a class="post-title-link" href="/2016/09/12/Android不透明度16进制值/" itemprop="url">
+                  Android不透明度16进制值
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-09-12T10:25:28+08:00" content="2016-09-12">
+              2016-09-12
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/12/Android不透明度16进制值/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/12/Android不透明度16进制值/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <p>100% — FF<br>95% — F2<br>90% — E6<br>85% — D9<br>80% — CC<br>75% — BF<br>70% — B3<br>65% — A6<br>60% — 99<br>55% — 8C<br>50% — 80<br>45% — 73<br>40% — 66<br>35% — 59<br>30% — 4D<br>25% — 40<br>20% — 33<br>15% — 26<br>10% — 1A<br>5% — 0D<br>0% — 00</p>
+<p>格式如#00FFFFFF，前两位代表不透明度的十六进制。00表示完全透明，FF就是全不透明。依次递增。</p>
+
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/08/release和debug共存/" itemprop="url">
+                  release和debug包共存
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-09-08T20:44:28+08:00" content="2016-09-08">
+              2016-09-08
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/08/release和debug共存/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/08/release和debug共存/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <p>PackageName，所有的Android应用程序都有一个包名。包名是设备上的这个应用程序的唯一标识，所以应用共存从包名下手。</p>
+<h1 id="1-_u4FEE_u6539AndroidManifest_u4E2Dpackage"><a href="#1-_u4FEE_u6539AndroidManifest_u4E2Dpackage" class="headerlink" title="1.修改AndroidManifest中package"></a>1.修改AndroidManifest中package</h1><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;manifest <span class="string">xmlns:</span>android=<span class="string">"http://schemas.android.com/apk/res/android"</span></span><br><span class="line">    <span class="keyword">package</span>=<span class="string">"com.example.my.app"</span></span><br><span class="line"><span class="label">    android:</span>versionCode=<span class="string">"1"</span></span><br><span class="line"><span class="label">    android:</span>versionName=<span class="string">"1.0"</span> &gt;</span><br></pre></td></tr></table></figure>
+<p>大量的包、R.java的重命名，不推荐。</p>
+<h1 id="2-__u914D_u7F6E_u5E94_u7528_u7684build-gradle_u6587_u4EF6"><a href="#2-__u914D_u7F6E_u5E94_u7528_u7684build-gradle_u6587_u4EF6" class="headerlink" title="2. 配置应用的build.gradle文件"></a>2. 配置应用的build.gradle文件</h1><figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">android&#123;</span><br><span class="line">        ...</span><br><span class="line">        buildTypes&#123;</span><br><span class="line">            debug&#123;</span><br><span class="line">                //在编译打包时会给包名加上后缀</span><br><span class="line">                applicationIdSuffix<span class="string">'.debug'</span></span><br><span class="line">            &#125;</span><br><span class="line">            release&#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>遇到的问题：<br>error:Install shows error in console: INSTALL FAILED CONFLICTING PROVIDER<br>修改AndroidManifest.xml<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;provider</span><br><span class="line">    android:<span class="property">name</span>=<span class="string">""</span></span><br><span class="line">    android:authorities=<span class="string">""</span></span><br><span class="line">    android:exported=<span class="string">"false"</span> /&gt;</span><br></pre></td></tr></table></figure></p>
+
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/09/08/parcelable-to-bytes/" itemprop="url">
                   parcelable to bytes
                 </a>
@@ -1014,205 +1195,12 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/04/18/byte与int相互转换/" itemprop="url">
-                  byte与int相互转换
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            发表于
-            <time itemprop="dateCreated" datetime="2016-04-18T15:18:24+08:00" content="2016-04-18">
-              2016-04-18
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/04/18/byte与int相互转换/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/18/byte与int相互转换/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <h1 id="byte_u8F6Cint"><a href="#byte_u8F6Cint" class="headerlink" title="byte转int"></a>byte转int</h1><ul>
-<li>64-&gt;100<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">byteToInt</span>(<span class="params"><span class="keyword">byte</span> src</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> <span class="keyword">value</span>;</span><br><span class="line">    <span class="keyword">value</span> = src &amp; <span class="number">0xFF</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">value</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/04/18/byte与int相互转换/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/04/18/水波纹动画/" itemprop="url">
-                  水波纹动画
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            发表于
-            <time itemprop="dateCreated" datetime="2016-04-18T14:56:21+08:00" content="2016-04-18">
-              2016-04-18
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp; 分类于
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/android/" itemprop="url" rel="index">
-                    <span itemprop="name">android</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/04/18/水波纹动画/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/18/水波纹动画/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody">
-            
-              <h1 id="X_2CY_u8F74_u653E_u5927_uFF0C_u900F_u660E_u5EA6_u51CF_u5C11"><a href="#X_2CY_u8F74_u653E_u5927_uFF0C_u900F_u660E_u5EA6_u51CF_u5C11" class="headerlink" title="X,Y轴放大，透明度减少"></a>X,Y轴放大，透明度减少</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> AnimationSet <span class="title">initAnimationSet</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       AnimationSet animSet = <span class="keyword">new</span> AnimationSet(<span class="literal">true</span>);</span><br><span class="line">       ScaleAnimation scaleAnim = <span class="keyword">new</span> ScaleAnimation(<span class="number">1f</span>, <span class="number">1.2f</span>, <span class="number">1f</span>, <span class="number">1.2f</span>,</span><br><span class="line">               ScaleAnimation.RELATIVE_TO_SELF, <span class="number">0.5f</span>,</span><br><span class="line">               ScaleAnimation.RELATIVE_TO_SELF, <span class="number">0.5f</span>);</span><br><span class="line">       scaleAnim.setDuration(DURATION_ANIMATOR);</span><br><span class="line">       scaleAnim.setRepeatCount(Animation.INFINITE);<span class="comment">// 设置循环</span></span><br><span class="line">       AlphaAnimation alphaAnim = <span class="keyword">new</span> AlphaAnimation(<span class="number">1f</span>, <span class="number">0f</span>);</span><br><span class="line">       alphaAnim.setDuration(DURATION_ANIMATOR);</span><br><span class="line">       alphaAnim.setRepeatCount(Animation.INFINITE);<span class="comment">//设置循环</span></span><br><span class="line">       animSet.addAnimation(scaleAnim);</span><br><span class="line">       animSet.addAnimation(alphaAnim);</span><br><span class="line">       <span class="keyword">return</span> animSet;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-            
-          </span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1253,7 +1241,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-count">21</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1267,7 +1255,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-count">15</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

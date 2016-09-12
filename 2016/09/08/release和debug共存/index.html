@@ -35,7 +35,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="java," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -51,19 +51,19 @@
 
 
 
-<meta name="description" content="byte转int
-64-&amp;gt;10012345public static int byteToInt(byte src) &amp;#123;    int value;    value = src &amp;amp; 0xFF;    return value;&amp;#125;">
+<meta name="description" content="PackageName，所有的Android应用程序都有一个包名。包名是设备上的这个应用程序的唯一标识，所以应用共存从包名下手。
+1.修改AndroidManifest中package1234&amp;lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;    package=&quot;com.example.my.app&quot;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="byte与int相互转换">
-<meta property="og:url" content="http://yoursite.com/2016/04/18/byte与int相互转换/index.html">
+<meta property="og:title" content="release和debug包共存">
+<meta property="og:url" content="http://yoursite.com/2016/09/08/release和debug共存/index.html">
 <meta property="og:site_name" content="Shine's blog">
-<meta property="og:description" content="byte转int
-64-&amp;gt;10012345public static int byteToInt(byte src) &amp;#123;    int value;    value = src &amp;amp; 0xFF;    return value;&amp;#125;">
-<meta property="og:updated_time" content="2016-04-18T08:01:56.000Z">
+<meta property="og:description" content="PackageName，所有的Android应用程序都有一个包名。包名是设备上的这个应用程序的唯一标识，所以应用共存从包名下手。
+1.修改AndroidManifest中package1234&amp;lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;    package=&quot;com.example.my.app&quot;">
+<meta property="og:updated_time" content="2016-09-12T02:35:20.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="byte与int相互转换">
-<meta name="twitter:description" content="byte转int
-64-&amp;gt;10012345public static int byteToInt(byte src) &amp;#123;    int value;    value = src &amp;amp; 0xFF;    return value;&amp;#125;">
+<meta name="twitter:title" content="release和debug包共存">
+<meta name="twitter:description" content="PackageName，所有的Android应用程序都有一个包名。包名是设备上的这个应用程序的唯一标识，所以应用共存从包名下手。
+1.修改AndroidManifest中package1234&amp;lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;    package=&quot;com.example.my.app&quot;">
 
 
 
@@ -75,7 +75,7 @@
   };
 </script>
 
-  <title> byte与int相互转换 | Shine's blog </title>
+  <title> release和debug包共存 | Shine's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -225,7 +225,7 @@
             
             
               
-                byte与int相互转换
+                release和debug包共存
               
             
           </h1>
@@ -234,8 +234,8 @@
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2016-04-18T15:18:24+08:00" content="2016-04-18">
-              2016-04-18
+            <time itemprop="dateCreated" datetime="2016-09-08T20:44:28+08:00" content="2016-09-08">
+              2016-09-08
             </time>
           </span>
 
@@ -245,8 +245,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/04/18/byte与int相互转换/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/18/byte与int相互转换/" itemprop="commentsCount"></span>
+                <a href="/2016/09/08/release和debug共存/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/08/release和debug共存/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -265,53 +265,32 @@
       
 
       
-        <span itemprop="articleBody"><h1 id="byte_u8F6Cint"><a href="#byte_u8F6Cint" class="headerlink" title="byte转int"></a>byte转int</h1><ul>
-<li>64-&gt;100<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">byteToInt</span>(<span class="params"><span class="keyword">byte</span> src</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> <span class="keyword">value</span>;</span><br><span class="line">    <span class="keyword">value</span> = src &amp; <span class="number">0xFF</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">value</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<a id="more"></a>
-<h1 id="byte_5B_5D_u8F6Cint_28_u4F4E_u4F4D_u5728_u524D_uFF0C_u9AD8_u4F4D_u5728_u540E_29"><a href="#byte_5B_5D_u8F6Cint_28_u4F4E_u4F4D_u5728_u524D_uFF0C_u9AD8_u4F4D_u5728_u540E_29" class="headerlink" title="byte[]转int(低位在前，高位在后)"></a>byte[]转int(低位在前，高位在后)</h1><ul>
-<li>E0 07 00 00-&gt;2016<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">/**</span><br><span class="line"> * byte数组中取int数值，本方法适用于(低位在前，高位在后)的顺序. </span><br><span class="line"> * @param src    byte数组</span><br><span class="line"> * @param offset 从数组的第offset位开始</span><br><span class="line"> * @return int数值</span><br><span class="line"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">bytesToInt</span><span class="params">(byte[] src, <span class="keyword">int</span> offset)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> value;</span><br><span class="line">    value = ((src[offset] &amp; <span class="number">0xFF</span>)</span><br><span class="line">            | ((src[offset + <span class="number">1</span>] &amp; <span class="number">0xFF</span>) &lt;&lt; <span class="number">8</span>)</span><br><span class="line">            | ((src[offset + <span class="number">2</span>] &amp; <span class="number">0xFF</span>) &lt;&lt; <span class="number">16</span>)</span><br><span class="line">            | ((src[offset + <span class="number">3</span>] &amp; <span class="number">0xFF</span>) &lt;&lt; <span class="number">24</span>));</span><br><span class="line">    <span class="keyword">return</span> value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h1 id="byte_5B_5D_u8F6Cint_28_u4F4E_u4F4D_u5728_u540E_uFF0C_u9AD8_u4F4D_u5728_u524D_29"><a href="#byte_5B_5D_u8F6Cint_28_u4F4E_u4F4D_u5728_u540E_uFF0C_u9AD8_u4F4D_u5728_u524D_29" class="headerlink" title="byte[]转int(低位在后，高位在前)"></a>byte[]转int(低位在后，高位在前)</h1><ul>
-<li>00 00 07 E0-&gt;2016<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * byte数组中取int数值，本方法适用于(低位在后，高位在前)的顺序。</span><br><span class="line"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">bytesToInt2</span><span class="params">(byte[] src, <span class="keyword">int</span> offset)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> value;</span><br><span class="line">    value = ((src[offset] &amp; <span class="number">0xFF</span>) &lt;&lt; <span class="number">24</span>)</span><br><span class="line">            | ((src[offset + <span class="number">1</span>] &amp; <span class="number">0xFF</span>) &lt;&lt; <span class="number">16</span>)</span><br><span class="line">            | ((src[offset + <span class="number">2</span>] &amp; <span class="number">0xFF</span>) &lt;&lt; <span class="number">8</span>)</span><br><span class="line">            | (src[offset + <span class="number">3</span>] &amp; <span class="number">0xFF</span>);</span><br><span class="line">    <span class="keyword">return</span> value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h1 id="int_u8F6Cbyte_5B_5D__28_u4F4E_u4F4D_u5728_u524D_uFF0C_u9AD8_u4F4D_u5728_u540E_29"><a href="#int_u8F6Cbyte_5B_5D__28_u4F4E_u4F4D_u5728_u524D_uFF0C_u9AD8_u4F4D_u5728_u540E_29" class="headerlink" title="int转byte[] (低位在前，高位在后)"></a>int转byte[] (低位在前，高位在后)</h1><ul>
-<li>2016-&gt;E0 07 00 00<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * <span class="type">int</span> 转 byte[]</span><br><span class="line"> * @param i <span class="number">2016</span></span><br><span class="line"> * @<span class="keyword">return</span> <span class="type">E0</span> <span class="number">07</span> <span class="number">00</span> <span class="number">00</span></span><br><span class="line"> */</span><br><span class="line">public <span class="keyword">static</span> byte[] intToByte(<span class="type">int</span> i) &#123;</span><br><span class="line">    byte[] <span class="literal">result</span> = new byte[<span class="number">4</span>];</span><br><span class="line">    <span class="literal">result</span>[<span class="number">0</span>] = (byte) ((i &gt;&gt; <span class="number">24</span>) &amp; <span class="number">0xFF</span>);</span><br><span class="line">    <span class="literal">result</span>[<span class="number">1</span>] = (byte) ((i &gt;&gt; <span class="number">16</span>) &amp; <span class="number">0xFF</span>);</span><br><span class="line">    <span class="literal">result</span>[<span class="number">2</span>] = (byte) ((i &gt;&gt; <span class="number">8</span>) &amp; <span class="number">0xFF</span>);</span><br><span class="line">    <span class="literal">result</span>[<span class="number">3</span>] = (byte) (i &amp; <span class="number">0xFF</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">result</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h1 id="int_u8F6Cbyte_5B_5D__28_u9AD8_u4F4D_u5728_u524D_uFF0C_u4F4E_u4F4D_u5728_u540E_29"><a href="#int_u8F6Cbyte_5B_5D__28_u9AD8_u4F4D_u5728_u524D_uFF0C_u4F4E_u4F4D_u5728_u540E_29" class="headerlink" title="int转byte[] (高位在前，低位在后)"></a>int转byte[] (高位在前，低位在后)</h1><ul>
-<li>2016-&gt;00 00 07 E0<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * 将int数值转换为占四个字节的byte数组高位在前，低位在后)的顺序</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> byte[] intToBytes2(<span class="keyword">int</span> value) &#123;</span><br><span class="line">    byte[] src = <span class="keyword">new</span> byte[<span class="number">4</span>];</span><br><span class="line">    src[<span class="number">0</span>] = (byte) ((value &gt;&gt; <span class="number">24</span>) &amp; <span class="number">0xFF</span>);</span><br><span class="line">    src[<span class="number">1</span>] = (byte) ((value &gt;&gt; <span class="number">16</span>) &amp; <span class="number">0xFF</span>);</span><br><span class="line">    src[<span class="number">2</span>] = (byte) ((value &gt;&gt; <span class="number">8</span>) &amp; <span class="number">0xFF</span>);</span><br><span class="line">    src[<span class="number">3</span>] = (byte) (value &amp; <span class="number">0xFF</span>);</span><br><span class="line">    <span class="keyword">return</span> src;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
+        <span itemprop="articleBody"><p>PackageName，所有的Android应用程序都有一个包名。包名是设备上的这个应用程序的唯一标识，所以应用共存从包名下手。</p>
+<h1 id="1-_u4FEE_u6539AndroidManifest_u4E2Dpackage"><a href="#1-_u4FEE_u6539AndroidManifest_u4E2Dpackage" class="headerlink" title="1.修改AndroidManifest中package"></a>1.修改AndroidManifest中package</h1><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;manifest <span class="string">xmlns:</span>android=<span class="string">"http://schemas.android.com/apk/res/android"</span></span><br><span class="line">    <span class="keyword">package</span>=<span class="string">"com.example.my.app"</span></span><br><span class="line"><span class="label">    android:</span>versionCode=<span class="string">"1"</span></span><br><span class="line"><span class="label">    android:</span>versionName=<span class="string">"1.0"</span> &gt;</span><br></pre></td></tr></table></figure>
+<p>大量的包、R.java的重命名，不推荐。</p>
+<h1 id="2-__u914D_u7F6E_u5E94_u7528_u7684build-gradle_u6587_u4EF6"><a href="#2-__u914D_u7F6E_u5E94_u7528_u7684build-gradle_u6587_u4EF6" class="headerlink" title="2. 配置应用的build.gradle文件"></a>2. 配置应用的build.gradle文件</h1><figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">android&#123;</span><br><span class="line">        ...</span><br><span class="line">        buildTypes&#123;</span><br><span class="line">            debug&#123;</span><br><span class="line">                //在编译打包时会给包名加上后缀</span><br><span class="line">                applicationIdSuffix<span class="string">'.debug'</span></span><br><span class="line">            &#125;</span><br><span class="line">            release&#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>遇到的问题：<br>error:Install shows error in console: INSTALL FAILED CONFLICTING PROVIDER<br>修改AndroidManifest.xml<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;provider</span><br><span class="line">    android:<span class="property">name</span>=<span class="string">""</span></span><br><span class="line">    android:authorities=<span class="string">""</span></span><br><span class="line">    android:exported=<span class="string">"false"</span> /&gt;</span><br></pre></td></tr></table></figure></p>
 </span>
       
     </div>
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/java/" rel="tag">#java</a>
-          
-        </div>
-      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/04/18/水波纹动画/" rel="next" title="水波纹动画">
-                <i class="fa fa-chevron-left"></i> 水波纹动画
+              <a href="/2016/09/08/parcelable-to-bytes/" rel="next" title="parcelable to bytes">
+                <i class="fa fa-chevron-left"></i> parcelable to bytes
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/04/19/android-shape/" rel="prev" title="android shape">
-                android shape <i class="fa fa-chevron-right"></i>
+              <a href="/2016/09/12/Android不透明度16进制值/" rel="prev" title="Android不透明度16进制值">
+                Android不透明度16进制值 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -339,8 +318,8 @@
         
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/04/18/byte与int相互转换/"
-           data-title="byte与int相互转换" data-url="http://yoursite.com/2016/04/18/byte与int相互转换/">
+      <div class="ds-thread" data-thread-key="2016/09/08/release和debug共存/"
+           data-title="release和debug包共存" data-url="http://yoursite.com/2016/09/08/release和debug共存/">
       </div>
     
   </div>
@@ -448,7 +427,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#byte_u8F6Cint"><span class="nav-number">1.</span> <span class="nav-text">byte转int</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#byte_5B_5D_u8F6Cint_28_u4F4E_u4F4D_u5728_u524D_uFF0C_u9AD8_u4F4D_u5728_u540E_29"><span class="nav-number">2.</span> <span class="nav-text">byte[]转int(低位在前，高位在后)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#byte_5B_5D_u8F6Cint_28_u4F4E_u4F4D_u5728_u540E_uFF0C_u9AD8_u4F4D_u5728_u524D_29"><span class="nav-number">3.</span> <span class="nav-text">byte[]转int(低位在后，高位在前)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#int_u8F6Cbyte_5B_5D__28_u4F4E_u4F4D_u5728_u524D_uFF0C_u9AD8_u4F4D_u5728_u540E_29"><span class="nav-number">4.</span> <span class="nav-text">int转byte[] (低位在前，高位在后)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#int_u8F6Cbyte_5B_5D__28_u9AD8_u4F4D_u5728_u524D_uFF0C_u4F4E_u4F4D_u5728_u540E_29"><span class="nav-number">5.</span> <span class="nav-text">int转byte[] (高位在前，低位在后)</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-_u4FEE_u6539AndroidManifest_u4E2Dpackage"><span class="nav-number">1.</span> <span class="nav-text">1.修改AndroidManifest中package</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-__u914D_u7F6E_u5E94_u7528_u7684build-gradle_u6587_u4EF6"><span class="nav-number">2.</span> <span class="nav-text">2. 配置应用的build.gradle文件</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
