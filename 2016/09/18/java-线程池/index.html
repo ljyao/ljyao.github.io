@@ -57,7 +57,7 @@
 <meta property="og:url" content="http://yoursite.com/2016/09/18/java-线程池/index.html">
 <meta property="og:site_name" content="Shine's blog">
 <meta property="og:description" content="ThreadPoolExecutorExecutor是一个顶层接口，在它里面只声明了一个方法execute(Runnable)；ExecutorService是一个接口，继承了Executor接口，并声明了一些方法：submit、invokeAll、invokeAny以及shutDown等；AbstractExecutorService是一个抽象类，实现了ExecutorService接口，基本实">
-<meta property="og:updated_time" content="2016-09-18T07:19:42.000Z">
+<meta property="og:updated_time" content="2016-09-18T10:42:02.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java 线程池">
 <meta name="twitter:description" content="ThreadPoolExecutorExecutor是一个顶层接口，在它里面只声明了一个方法execute(Runnable)；ExecutorService是一个接口，继承了Executor接口，并声明了一些方法：submit、invokeAll、invokeAny以及shutDown等；AbstractExecutorService是一个抽象类，实现了ExecutorService接口，基本实">
@@ -141,16 +141,6 @@
               <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
             
             首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories" rel="section">
-            
-              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
-            
-            分类
           </a>
         </li>
       
@@ -262,9 +252,9 @@
       
 
       
-        <span itemprop="articleBody"><h1 id="ThreadPoolExecutor"><a href="#ThreadPoolExecutor" class="headerlink" title="ThreadPoolExecutor"></a>ThreadPoolExecutor</h1><p>Executor是一个顶层接口，在它里面只声明了一个方法execute(Runnable)；<br>ExecutorService是一个接口，继承了Executor接口，并声明了一些方法：submit、invokeAll、invokeAny以及shutDown等；<br>AbstractExecutorService是一个抽象类，实现了ExecutorService接口，基本实现了ExecutorService中声明的所有方法；<br>ThreadPoolExecutor继承了类AbstractExecutorService。</p>
-<p>在ThreadPoolExecutor类中有几个非常重要的方法：<br>execute()<br>execute()方法实际上是Executor中声明的方法，在ThreadPoolExecutor进行了具体的实现，这个方法是ThreadPoolExecutor的核心方法，通过这个方法可以向线程池提交一个任务，交由线程池去执行。<br>submit()<br>submit()方法是在ExecutorService中声明的方法，在AbstractExecutorService就已经有了具体的实现，在ThreadPoolExecutor中并没有对其进行重写，这个方法也是用来向线程池提交任务的，但是它和execute(）方法不同，它能够返回任务执行的结果，去看submit()方法的实现，会发现它实际上还是调用的execute()方法，只不过它利用了Future来获取任务执行结果。<br>shutdown()<br>shutdownNow()<br>shutdown()和shutdownNow()是用来关闭线程池的。</p>
-<h1 id="Executors"><a href="#Executors" class="headerlink" title="Executors"></a>Executors</h1><p>Java通过Executors提供四种线程池，分别为：<br>newCachedThreadPool<br>创建一个可缓存线程池，如果线程池长度超过处理需要，可灵活回收空闲线程，若无可回收，则新建线程。<br>newFixedThreadPool<br>创建一个定长线程池，可控制线程最大并发数，超出的线程会在队列中等待。<br>newScheduledThreadPool<br>创建一个定长线程池，支持定时及周期性任务执行。<br>newSingleThreadExecutor<br>创建一个单线程化的线程池，它只会用唯一的工作线程来执行任务，保证所有任务按照指定顺序(FIFO, LIFO, 优先级)执行。</p>
+        <span itemprop="articleBody"><h1 id="ThreadPoolExecutor"><a href="#ThreadPoolExecutor" class="headerlink" title="ThreadPoolExecutor"></a>ThreadPoolExecutor</h1><p><strong>Executor</strong>是一个顶层接口，在它里面只声明了一个方法execute(Runnable)；<br><strong>ExecutorService</strong>是一个接口，继承了Executor接口，并声明了一些方法：submit、invokeAll、invokeAny以及shutDown等；<br><strong>AbstractExecutorService</strong>是一个抽象类，实现了ExecutorService接口，基本实现了ExecutorService中声明的所有方法；<br><strong>ThreadPoolExecutor</strong>继承了类AbstractExecutorService。</p>
+<p><strong>在ThreadPoolExecutor类中有几个非常重要的方法：</strong><br><strong>execute()</strong><br>execute()方法实际上是Executor中声明的方法，在ThreadPoolExecutor进行了具体的实现，这个方法是ThreadPoolExecutor的核心方法，通过这个方法可以向线程池提交一个任务，交由线程池去执行。<br><strong>submit()</strong><br>submit()方法是在ExecutorService中声明的方法，在AbstractExecutorService就已经有了具体的实现，在ThreadPoolExecutor中并没有对其进行重写，这个方法也是用来向线程池提交任务的，但是它和execute(）方法不同，它能够返回任务执行的结果，去看submit()方法的实现，会发现它实际上还是调用的execute()方法，只不过它利用了Future来获取任务执行结果。<br><strong>shutdown()</strong><br><strong>shutdownNow()</strong><br>shutdown()和shutdownNow()是用来关闭线程池的。</p>
+<h1 id="Executors"><a href="#Executors" class="headerlink" title="Executors"></a>Executors</h1><p>Java通过Executors提供四种线程池，分别为：<br><strong>newCachedThreadPool</strong><br>创建一个可缓存线程池，如果线程池长度超过处理需要，可灵活回收空闲线程，若无可回收，则新建线程。<br><strong>newFixedThreadPool</strong><br>创建一个定长线程池，可控制线程最大并发数，超出的线程会在队列中等待。<br><strong>newScheduledThreadPool</strong><br>创建一个定长线程池，支持定时及周期性任务执行。<br><strong>newSingleThreadExecutor</strong><br>创建一个单线程化的线程池，它只会用唯一的工作线程来执行任务，保证所有任务按照指定顺序(FIFO, LIFO, 优先级)执行。</p>
 </span>
       
     </div>
@@ -366,15 +356,15 @@
           </div>
 
           <div class="site-state-item site-state-categories">
-            <a href="/categories">
+            
               <span class="site-state-item-count">2</span>
               <span class="site-state-item-name">分类</span>
-              </a>
+              
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
