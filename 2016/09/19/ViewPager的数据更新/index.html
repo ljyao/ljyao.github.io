@@ -1,0 +1,687 @@
+<!doctype html>
+<html class="theme-next   use-motion ">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="view," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
+
+
+
+
+
+
+<meta name="description" content="ViewPager的更新通过的PagerAdapter中的notifyDataSetChanged方法，可以增加、删除或排序，但不可以像RecycleView更新view。官方文档：*PagerAdapter supports data set changes. Data set changes must occur on themain thread and must end with a ca">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ViewPager的数据更新">
+<meta property="og:url" content="http://yoursite.com/2016/09/19/ViewPager的数据更新/index.html">
+<meta property="og:site_name" content="Shine's blog">
+<meta property="og:description" content="ViewPager的更新通过的PagerAdapter中的notifyDataSetChanged方法，可以增加、删除或排序，但不可以像RecycleView更新view。官方文档：*PagerAdapter supports data set changes. Data set changes must occur on themain thread and must end with a ca">
+<meta property="og:updated_time" content="2016-09-19T03:41:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ViewPager的数据更新">
+<meta name="twitter:description" content="ViewPager的更新通过的PagerAdapter中的notifyDataSetChanged方法，可以增加、删除或排序，但不可以像RecycleView更新view。官方文档：*PagerAdapter supports data set changes. Data set changes must occur on themain thread and must end with a ca">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'hide',
+    motion: true
+  };
+</script>
+
+  <title> ViewPager的数据更新 | Shine's blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?6e3e65b6fa6d46bfec86b332d7db0bcb";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i class="" style="transform: translateX(100%);"></i></span>
+      <span class="site-title">Shine's blog</span>
+      <span class="logo-line-after"><i class="" style="transform: translateX(-100%);"></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">生命不息，折腾不止！！！</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                ViewPager的数据更新
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-09-19T11:11:52+08:00" content="2016-09-19">
+              2016-09-19
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/19/ViewPager的数据更新/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/19/ViewPager的数据更新/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>ViewPager的更新通过的PagerAdapter中的notifyDataSetChanged方法，可以增加、删除或排序，但不可以像RecycleView更新view。<br><strong>官方文档：*</strong><br>PagerAdapter supports data set changes. Data set changes must occur on the<br>main thread and must end with a call to {@link #notifyDataSetChanged()} similar<br>to AdapterView adapters derived from {@link android.widget.BaseAdapter}. A data<br>set change may involve pages being added, removed, or changing position. The<br>ViewPager will keep the current page active provided the adapter implements<br>the method {@link #getItemPosition(Object)}.</p>
+<p>更新后ViewPager是否保持当前页存活，通过adapter实现getItemPosition方法进行判断。<br><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">/<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line"> <span class="keyword">*</span> Called when the host view is attempting to determine if an item's position</span><br><span class="line"> <span class="keyword">*</span> has changed. Returns &#123;<span class="comment">@link #POSITION_UNCHANGED&#125; if the position of the given</span></span><br><span class="line"> <span class="keyword">*</span> item has not changed or &#123;<span class="comment">@link #POSITION_NONE&#125; if the item is no longer present</span></span><br><span class="line"> <span class="keyword">*</span> in the adapter.</span><br><span class="line"> <span class="keyword">*</span></span><br><span class="line"> <span class="keyword">*</span> <span class="variable">&lt;p&gt;</span>The default implementation assumes that items will never</span><br><span class="line"> <span class="keyword">*</span> change position and always returns &#123;<span class="comment">@link #POSITION_UNCHANGED&#125;.</span></span><br><span class="line"> <span class="keyword">*</span></span><br><span class="line"> <span class="keyword">*</span> <span class="comment">@param object Object representing an item, previously returned by a call to</span></span><br><span class="line"> <span class="keyword">*</span>               &#123;<span class="comment">@link #instantiateItem(View, int)&#125;.</span></span><br><span class="line"> <span class="keyword">*</span> <span class="comment">@return object's new position index from [0, &#123;@link #getCount()&#125;),</span></span><br><span class="line"> <span class="keyword">*</span>         &#123;<span class="comment">@link #POSITION_UNCHANGED&#125; if the object's position has not changed,</span></span><br><span class="line"> <span class="keyword">*</span>         or &#123;<span class="comment">@link #POSITION_NONE&#125; if the item is no longer present.</span></span><br><span class="line"> <span class="keyword">*</span>/</span><br><span class="line">public int getItemPosition(Object object) &#123;</span><br><span class="line">    return POSITION_UNCHANGED;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>POSITION_UNCHANGED不更新，POSITION_NONE更新。<br>所以重写getItemPosition方法，返回POSITION_NONE，可以先实现通过notifyDataSetChanged进行页面更新。<br><a id="more"></a></p>
+<h1 id="u6E90_u7801_u5206_u6790_uFF1A"><a href="#u6E90_u7801_u5206_u6790_uFF1A" class="headerlink" title="源码分析："></a>源码分析：</h1><p>PagerAdapter notifyDataSetChanged方法<br><figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * <span class="type">This</span> <span class="keyword">method</span> should be called by the application <span class="keyword">if</span> the data backing this adapter has changed</span><br><span class="line"> * <span class="keyword">and</span> associated views should update.</span><br><span class="line"> */</span><br><span class="line">public <span class="type">void</span> notifyDataSetChanged() &#123;</span><br><span class="line">    synchronized (this) &#123;</span><br><span class="line">        <span class="keyword">if</span> (mViewPagerObserver != null) &#123;</span><br><span class="line">            mViewPagerObserver.onChanged();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    mObservable.notifyChanged();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>mViewPagerObserver来自viewpage.<br><figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="literal">void</span> setAdapter(PagerAdapter adapter) &#123;</span><br><span class="line">   <span class="attribute">...</span><span class="built_in">..</span><br><span class="line">   </span><span class="keyword">if</span> (mAdapter != <span class="built_in">null</span>) &#123;</span><br><span class="line">           <span class="keyword">if</span> (mObserver == <span class="built_in">null</span>) &#123;</span><br><span class="line">               mObserver = <span class="literal">new</span> PagerObserver();</span><br><span class="line">           &#125;</span><br><span class="line">           mAdapter<span class="built_in">.</span>setViewPagerObserver(mObserver);</span><br><span class="line">   <span class="attribute">...</span><span class="attribute">...</span></span><br></pre></td></tr></table></figure></p>
+<p>PagerObserver为viewPage内部类，继承了DataSetObserver抽象类。<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">PagerObserver</span> <span class="keyword"><span class="keyword">extends</span></span> <span class="title">DataSetObserver</span> &#123;</span></span><br><span class="line">        <span class="annotation">@Override</span></span><br><span class="line">        public void onChanged() &#123;</span><br><span class="line">            dataSetChanged();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="annotation">@Override</span></span><br><span class="line">        public void onInvalidated() &#123;</span><br><span class="line">            dataSetChanged();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>ViewPager dataSetChanged方法<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> dataSetChanged() &#123;</span><br><span class="line">    <span class="comment">// This method only gets called if our observer is attached, so mAdapter is non-null.</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> <span class="built_in">int</span> adapterCount = mAdapter.getCount();</span><br><span class="line">    mExpectedAdapterCount = adapterCount;</span><br><span class="line">    <span class="built_in">boolean</span> needPopulate = mItems.<span class="built_in">size</span>() &lt; mOffscreenPageLimit * <span class="number">2</span> + <span class="number">1</span> &amp;&amp;</span><br><span class="line">            mItems.<span class="built_in">size</span>() &lt; adapterCount;</span><br><span class="line">    <span class="built_in">int</span> newCurrItem = mCurItem;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">boolean</span> isUpdating = <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; mItems.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">        <span class="keyword">final</span> ItemInfo ii = mItems.<span class="built_in">get</span>(i);</span><br><span class="line">        <span class="comment">//获取是否更新</span></span><br><span class="line">        <span class="keyword">final</span> <span class="built_in">int</span> newPos = mAdapter.getItemPosition(ii.object);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (newPos == PagerAdapter.POSITION_UNCHANGED) &#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (newPos == PagerAdapter.POSITION_NONE) &#123;</span><br><span class="line">            mItems.remove(i);</span><br><span class="line">            i--;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (!isUpdating) &#123;</span><br><span class="line">                mAdapter.startUpdate(<span class="keyword">this</span>);</span><br><span class="line">                isUpdating = <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            mAdapter.destroyItem(<span class="keyword">this</span>, ii.position, ii.object);</span><br><span class="line">            needPopulate = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (mCurItem == ii.position) &#123;</span><br><span class="line">                <span class="comment">// Keep the current item in the valid range</span></span><br><span class="line">                newCurrItem = Math.<span class="built_in">max</span>(<span class="number">0</span>, Math.<span class="built_in">min</span>(mCurItem, adapterCount - <span class="number">1</span>));</span><br><span class="line">                needPopulate = <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (ii.position != newPos) &#123;</span><br><span class="line">            <span class="keyword">if</span> (ii.position == mCurItem) &#123;</span><br><span class="line">                <span class="comment">// Our current item changed position. Follow it.</span></span><br><span class="line">                newCurrItem = newPos;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            ii.position = newPos;</span><br><span class="line">            needPopulate = <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (isUpdating) &#123;</span><br><span class="line">        mAdapter.finishUpdate(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Collections.<span class="built_in">sort</span>(mItems, COMPARATOR);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (needPopulate) &#123;</span><br><span class="line">        <span class="comment">// Reset our known page widths; populate will recompute them.</span></span><br><span class="line">        <span class="keyword">final</span> <span class="built_in">int</span> childCount = getChildCount();</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; childCount; i++) &#123;</span><br><span class="line">            <span class="keyword">final</span> View child = getChildAt(i);</span><br><span class="line">            <span class="keyword">final</span> LayoutParams lp = (LayoutParams) child.getLayoutParams();</span><br><span class="line">            <span class="keyword">if</span> (!lp.isDecor) &#123;</span><br><span class="line">                lp.widthFactor = <span class="number">0.</span>f;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        setCurrentItemInternal(newCurrItem, <span class="keyword">false</span>, <span class="keyword">true</span>);</span><br><span class="line">        requestLayout();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>从上面我们看到，它会判断adapter的getItemPosition方法的返回值，只有当返回值是POSITION_NONE时候，才会调用item的remove方法以及startUpdate和destroyItem方法，进而去更新数据。默认返回值是POSITION_UNCHANGED，不执行任何操作。</p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/view/" rel="tag">#view</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/18/java-线程池/" rel="next" title="Java 线程池">
+                <i class="fa fa-chevron-left"></i> Java 线程池
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+        </div>
+
+        
+
+
+        
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/09/19/ViewPager的数据更新/"
+           data-title="ViewPager的数据更新" data-url="http://yoursite.com/2016/09/19/ViewPager的数据更新/">
+      </div>
+    
+  </div>
+
+
+      </div>
+
+      
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/default_avatar.jpg" alt="Shine Lee" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">Shine Lee</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">生命不息，折腾不止！！！</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">24</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-name">分类</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/ljyao" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> github
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/3715142347" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> weibo
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#u6E90_u7801_u5206_u6790_uFF1A"><span class="nav-number">1.</span> <span class="nav-text">源码分析：</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+      
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shine Lee</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+    
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"shinelee"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+     
+
+
+    
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+<script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+<script type="text/javascript" src="/js/motion.js?v=0.4.5.2" id="motion.global"></script>
+
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    motionMiddleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  <script type="text/javascript" src="/js/bootstrap.js"></script>
+
+  
+  
+
+  
+  
+
+</body>
+</html>
