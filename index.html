@@ -220,6 +220,117 @@
             
               
                 
+                <a class="post-title-link" href="/2016/09/23/Android-camera/" itemprop="url">
+                  Android Camera
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-09-23T11:32:24+08:00" content="2016-09-23">
+              2016-09-23
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/23/Android-camera/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/23/Android-camera/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <h1 id="u4F7F_u7528camera_u62CD_u7167_u57FA_u672C_u6D41_u7A0B"><a href="#u4F7F_u7528camera_u62CD_u7167_u57FA_u672C_u6D41_u7A0B" class="headerlink" title="使用camera拍照基本流程"></a>使用camera拍照基本流程</h1><ol>
+<li>Obtain an instance of Camera from open(int).</li>
+<li>Get existing (default) settings with getParameters().</li>
+<li>If necessary, modify the returned Camera.Parameters object and call setParameters(Camera.Parameters). </li>
+<li>Call setDisplayOrientation(int) to ensure correct orientation of preview.</li>
+<li>Important: Pass a fully initialized SurfaceHolder to setPreviewDisplay(SurfaceHolder). Without a surface, the camera will be unable to start the preview.</li>
+<li>Important: Call startPreview() to start updating the preview surface. Preview must be started before you can take a picture.</li>
+<li>When you want, call takePicture(Camera.ShutterCallback, Camera.PictureCallback, Camera.PictureCallback, Camera.PictureCallback) to capture a photo. Wait for the callbacks to provide the actual image data.</li>
+<li>After taking a picture, preview display will have stopped. To take more photos, call startPreview() again first.</li>
+<li>Call stopPreview() to stop updating the preview surface.</li>
+<li>Important: Call release() to release the camera for use by other applications. Applications should release the camera immediately in onPause() (and re-open() it in onResume()).</li>
+</ol>
+<h1 id="u4F7F_u7528camera_u5F55_u89C6_u9891_u57FA_u672C_u6D41_u7A0B"><a href="#u4F7F_u7528camera_u5F55_u89C6_u9891_u57FA_u672C_u6D41_u7A0B" class="headerlink" title="使用camera录视频基本流程"></a>使用camera录视频基本流程</h1><ol>
+<li>Obtain and initialize a Camera and start preview as described above.</li>
+<li>Call unlock() to allow the media process to access the camera.</li>
+<li>Pass the camera to setCamera(Camera). See MediaRecorder information about video recording.</li>
+<li>When finished recording, call reconnect() to re-acquire and re-lock the camera.</li>
+<li>If desired, restart preview and take more photos or videos.</li>
+<li>Call stopPreview() and release() as described above.</li>
+</ol>
+<h1 id="u8E29_u5751_u8BB0"><a href="#u8E29_u5751_u8BB0" class="headerlink" title="踩坑记"></a>踩坑记</h1><h2 id="u56FE_u7247_u7684_u65CB_u8F6C"><a href="#u56FE_u7247_u7684_u65CB_u8F6C" class="headerlink" title="图片的旋转"></a>图片的旋转</h2><ol>
+<li>setDisplayOrientation(int)只对预览起作用（详见第5条），拍照的图片需要自己旋转。<br>首先获取相机的固定Rotation，代表需要旋转角度，后置摄像头是顺时针，前置摄像头是逆时针。<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">getPhotoRotation</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (mCamera != null) &#123;</span><br><span class="line">            <span class="keyword">int</span> rotation;</span><br><span class="line">            <span class="keyword">int</span> orientation = <span class="number">0</span>;</span><br><span class="line">            Camera.CameraInfo info = <span class="keyword">new</span> Camera.CameraInfo();</span><br><span class="line">            Camera.getCameraInfo(mCameraID, info);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) &#123;</span><br><span class="line">                rotation = (info.orientation - orientation + <span class="number">360</span>) % <span class="number">360</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                rotation = (info.orientation + orientation) % <span class="number">360</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> rotation;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">90</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="u62CD_u7167_u524D_uFF0C_u91CD_u62CD_u4E00_u5B9A_u9700_u8981_u8C03_u7528startPreview_28_29_uFF0C_u62CD_u7167_u7ED3_u675F_u540E_u4E00_u5B9A_u8981_u91CA_u653E_u8D44_u6E90_u3002"><a href="#u62CD_u7167_u524D_uFF0C_u91CD_u62CD_u4E00_u5B9A_u9700_u8981_u8C03_u7528startPreview_28_29_uFF0C_u62CD_u7167_u7ED3_u675F_u540E_u4E00_u5B9A_u8981_u91CA_u653E_u8D44_u6E90_u3002" class="headerlink" title="拍照前，重拍一定需要调用startPreview()，拍照结束后一定要释放资源。"></a>拍照前，重拍一定需要调用startPreview()，拍照结束后一定要释放资源。</h2>
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/09/20/RxJava/" itemprop="url">
                   RxJava
                 </a>
@@ -1037,109 +1148,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/01/Property-Animation-and-View-Animation/" itemprop="url">
-                  Property Animation and View Animation
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            发表于
-            <time itemprop="dateCreated" datetime="2016-08-01T14:42:51+08:00" content="2016-08-01">
-              2016-08-01
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp; 分类于
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/android/" itemprop="url" rel="index">
-                    <span itemprop="name">android</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/08/01/Property-Animation-and-View-Animation/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/01/Property-Animation-and-View-Animation/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>一、Property Animation<br>创建一个动画通过修改对象属性在一段时间。<br>二、View Animation<br>包含2种类型：<br>Tween animation（补间动画）:<br>创建一个动画通过执行一系列变化在一个图像上。<br>Frame animation（帧动画）:<br>创建一个动画通过顺序播放一系列图片。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/08/01/Property-Animation-and-View-Animation/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
@@ -1186,7 +1194,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">25</span>
+              <span class="site-state-item-count">26</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1200,7 +1208,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-count">9</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

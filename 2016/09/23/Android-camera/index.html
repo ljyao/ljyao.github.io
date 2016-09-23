@@ -35,7 +35,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="view," />
+  <meta name="keywords" content="camera," />
 
 
 
@@ -51,16 +51,25 @@
 
 
 
-<meta name="description" content="ViewPagerLayout manager that allows the user to flip left and right through pages of data. You supply an implementation of a PagerAdapter to generate the pages that the view shows.">
+<meta name="description" content="使用camera拍照基本流程
+Obtain an instance of Camera from open(int).
+Get existing (default) settings with getParameters().
+If necessary, modify the returned Camera.Parameters object and call setParameters(Came">
 <meta property="og:type" content="article">
-<meta property="og:title" content="viewpage">
-<meta property="og:url" content="http://yoursite.com/2016/07/28/viewpage/index.html">
+<meta property="og:title" content="Android Camera">
+<meta property="og:url" content="http://yoursite.com/2016/09/23/Android-camera/index.html">
 <meta property="og:site_name" content="Shine's blog">
-<meta property="og:description" content="ViewPagerLayout manager that allows the user to flip left and right through pages of data. You supply an implementation of a PagerAdapter to generate the pages that the view shows.">
-<meta property="og:updated_time" content="2016-09-18T10:50:23.000Z">
+<meta property="og:description" content="使用camera拍照基本流程
+Obtain an instance of Camera from open(int).
+Get existing (default) settings with getParameters().
+If necessary, modify the returned Camera.Parameters object and call setParameters(Came">
+<meta property="og:updated_time" content="2016-09-23T04:00:36.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="viewpage">
-<meta name="twitter:description" content="ViewPagerLayout manager that allows the user to flip left and right through pages of data. You supply an implementation of a PagerAdapter to generate the pages that the view shows.">
+<meta name="twitter:title" content="Android Camera">
+<meta name="twitter:description" content="使用camera拍照基本流程
+Obtain an instance of Camera from open(int).
+Get existing (default) settings with getParameters().
+If necessary, modify the returned Camera.Parameters object and call setParameters(Came">
 
 
 
@@ -72,7 +81,7 @@
   };
 </script>
 
-  <title> viewpage | Shine's blog </title>
+  <title> Android Camera | Shine's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -212,7 +221,7 @@
             
             
               
-                viewpage
+                Android Camera
               
             
           </h1>
@@ -221,34 +230,19 @@
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2016-07-28T12:07:53+08:00" content="2016-07-28">
-              2016-07-28
+            <time itemprop="dateCreated" datetime="2016-09-23T11:32:24+08:00" content="2016-09-23">
+              2016-09-23
             </time>
           </span>
 
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp; 分类于
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/android/" itemprop="url" rel="index">
-                    <span itemprop="name">android</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
           
 
           
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/28/viewpage/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/28/viewpage/" itemprop="commentsCount"></span>
+                <a href="/2016/09/23/Android-camera/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/23/Android-camera/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -267,17 +261,31 @@
       
 
       
-        <span itemprop="articleBody"><h1 id="ViewPager"><a href="#ViewPager" class="headerlink" title="ViewPager"></a>ViewPager</h1><p>Layout manager that allows the user to flip left and right through pages of data. You supply an implementation of a PagerAdapter to generate the pages that the view shows.<br><a id="more"></a><br>ViewPager is most often used in conjunction with Fragment, which is a convenient way to supply and manage the lifecycle of each page. There are standard adapters implemented for using fragments with the ViewPager, which cover the most common use cases. These are FragmentPagerAdapter and FragmentStatePagerAdapter; each of these classes have simple code showing how to build a full user interface with them.</p>
-<h1 id="PagerAdapter"><a href="#PagerAdapter" class="headerlink" title="PagerAdapter"></a>PagerAdapter</h1><p>Base class providing the adapter to populate pages inside of a ViewPager. You will most likely want to use a more specific implementation of this, such as FragmentPagerAdapter or FragmentStatePagerAdapter.</p>
-<p>When you implement a PagerAdapter, you must override the following methods at minimum:</p>
-<p>instantiateItem(ViewGroup, int)<br>destroyItem(ViewGroup, int, Object)<br>getCount()<br>isViewFromObject(View, Object)</p>
-<h1 id="FragmentPagerAdapter"><a href="#FragmentPagerAdapter" class="headerlink" title="FragmentPagerAdapter"></a>FragmentPagerAdapter</h1><p>Implementation of PagerAdapter that represents each page as a Fragment that is persistently kept in the fragment manager as long as the user can return to the page.</p>
-<p>This version of the pager is best for use when there are a handful of typically more static fragments to be paged through, such as a set of tabs. The fragment of each page the user visits will be kept in memory, though its view hierarchy may be destroyed when not visible. This can result in using a significant amount of memory since fragment instances can hold on to an arbitrary amount of state. For larger sets of pages, consider FragmentStatePagerAdapter.</p>
-<p>适合于 Fragment数量不多的情况。当某个页面不可见时，该页面对应的View可能会被销毁，但是所有的Fragment都会一直存在于内存中。如果Fragment需要保存的状态较多时，会导致占用内存较大，因此对于Fragment数量较多的情况，建议使用FragmentStatePagerAdapter。</p>
-<h1 id="FragmentStatePagerAdapter"><a href="#FragmentStatePagerAdapter" class="headerlink" title="FragmentStatePagerAdapter"></a>FragmentStatePagerAdapter</h1><p>Implementation of PagerAdapter that uses a Fragment to manage each page. This class also handles saving and restoring of fragment’s state.</p>
-<p>This version of the pager is more useful when there are a large number of pages, working more like a list view. When pages are not visible to the user, their entire fragment may be destroyed, only keeping the saved state of that fragment. This allows the pager to hold on to much less memory associated with each visited page as compared to FragmentPagerAdapter at the cost of potentially more overhead when switching between pages.</p>
-<p>适合于Fragment数量较多的情况。当页面不可见时， 对应的Fragment实例可能会被销毁，但是Fragment的状态会被保存。因此每个Fragment占用的内存会更少，但是页面切换会引起较大开销。</p>
-</span>
+        <span itemprop="articleBody"><h1 id="u4F7F_u7528camera_u62CD_u7167_u57FA_u672C_u6D41_u7A0B"><a href="#u4F7F_u7528camera_u62CD_u7167_u57FA_u672C_u6D41_u7A0B" class="headerlink" title="使用camera拍照基本流程"></a>使用camera拍照基本流程</h1><ol>
+<li>Obtain an instance of Camera from open(int).</li>
+<li>Get existing (default) settings with getParameters().</li>
+<li>If necessary, modify the returned Camera.Parameters object and call setParameters(Camera.Parameters). </li>
+<li>Call setDisplayOrientation(int) to ensure correct orientation of preview.</li>
+<li>Important: Pass a fully initialized SurfaceHolder to setPreviewDisplay(SurfaceHolder). Without a surface, the camera will be unable to start the preview.</li>
+<li>Important: Call startPreview() to start updating the preview surface. Preview must be started before you can take a picture.</li>
+<li>When you want, call takePicture(Camera.ShutterCallback, Camera.PictureCallback, Camera.PictureCallback, Camera.PictureCallback) to capture a photo. Wait for the callbacks to provide the actual image data.</li>
+<li>After taking a picture, preview display will have stopped. To take more photos, call startPreview() again first.</li>
+<li>Call stopPreview() to stop updating the preview surface.</li>
+<li>Important: Call release() to release the camera for use by other applications. Applications should release the camera immediately in onPause() (and re-open() it in onResume()).</li>
+</ol>
+<h1 id="u4F7F_u7528camera_u5F55_u89C6_u9891_u57FA_u672C_u6D41_u7A0B"><a href="#u4F7F_u7528camera_u5F55_u89C6_u9891_u57FA_u672C_u6D41_u7A0B" class="headerlink" title="使用camera录视频基本流程"></a>使用camera录视频基本流程</h1><ol>
+<li>Obtain and initialize a Camera and start preview as described above.</li>
+<li>Call unlock() to allow the media process to access the camera.</li>
+<li>Pass the camera to setCamera(Camera). See MediaRecorder information about video recording.</li>
+<li>When finished recording, call reconnect() to re-acquire and re-lock the camera.</li>
+<li>If desired, restart preview and take more photos or videos.</li>
+<li>Call stopPreview() and release() as described above.</li>
+</ol>
+<h1 id="u8E29_u5751_u8BB0"><a href="#u8E29_u5751_u8BB0" class="headerlink" title="踩坑记"></a>踩坑记</h1><h2 id="u56FE_u7247_u7684_u65CB_u8F6C"><a href="#u56FE_u7247_u7684_u65CB_u8F6C" class="headerlink" title="图片的旋转"></a>图片的旋转</h2><ol>
+<li>setDisplayOrientation(int)只对预览起作用（详见第5条），拍照的图片需要自己旋转。<br>首先获取相机的固定Rotation，代表需要旋转角度，后置摄像头是顺时针，前置摄像头是逆时针。<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">getPhotoRotation</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (mCamera != null) &#123;</span><br><span class="line">            <span class="keyword">int</span> rotation;</span><br><span class="line">            <span class="keyword">int</span> orientation = <span class="number">0</span>;</span><br><span class="line">            Camera.CameraInfo info = <span class="keyword">new</span> Camera.CameraInfo();</span><br><span class="line">            Camera.getCameraInfo(mCameraID, info);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) &#123;</span><br><span class="line">                rotation = (info.orientation - orientation + <span class="number">360</span>) % <span class="number">360</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                rotation = (info.orientation + orientation) % <span class="number">360</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> rotation;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">90</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="u62CD_u7167_u524D_uFF0C_u91CD_u62CD_u4E00_u5B9A_u9700_u8981_u8C03_u7528startPreview_28_29_uFF0C_u62CD_u7167_u7ED3_u675F_u540E_u4E00_u5B9A_u8981_u91CA_u653E_u8D44_u6E90_u3002"><a href="#u62CD_u7167_u524D_uFF0C_u91CD_u62CD_u4E00_u5B9A_u9700_u8981_u8C03_u7528startPreview_28_29_uFF0C_u62CD_u7167_u7ED3_u675F_u540E_u4E00_u5B9A_u8981_u91CA_u653E_u8D44_u6E90_u3002" class="headerlink" title="拍照前，重拍一定需要调用startPreview()，拍照结束后一定要释放资源。"></a>拍照前，重拍一定需要调用startPreview()，拍照结束后一定要释放资源。</h2></span>
       
     </div>
 
@@ -285,7 +293,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/view/" rel="tag">#view</a>
+            <a href="/tags/camera/" rel="tag">#camera</a>
           
         </div>
       
@@ -294,17 +302,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/26/Expand-collapse-animation/" rel="next" title="Expand/collapse animation">
-                <i class="fa fa-chevron-left"></i> Expand/collapse animation
+              <a href="/2016/09/20/RxJava/" rel="next" title="RxJava">
+                <i class="fa fa-chevron-left"></i> RxJava
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/08/01/Property-Animation-and-View-Animation/" rel="prev" title="Property Animation and View Animation">
-                Property Animation and View Animation <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -331,8 +335,8 @@
         
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/07/28/viewpage/"
-           data-title="viewpage" data-url="http://yoursite.com/2016/07/28/viewpage/">
+      <div class="ds-thread" data-thread-key="2016/09/23/Android-camera/"
+           data-title="Android Camera" data-url="http://yoursite.com/2016/09/23/Android-camera/">
       </div>
     
   </div>
@@ -440,7 +444,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ViewPager"><span class="nav-number">1.</span> <span class="nav-text">ViewPager</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PagerAdapter"><span class="nav-number">2.</span> <span class="nav-text">PagerAdapter</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#FragmentPagerAdapter"><span class="nav-number">3.</span> <span class="nav-text">FragmentPagerAdapter</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#FragmentStatePagerAdapter"><span class="nav-number">4.</span> <span class="nav-text">FragmentStatePagerAdapter</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#u4F7F_u7528camera_u62CD_u7167_u57FA_u672C_u6D41_u7A0B"><span class="nav-number">1.</span> <span class="nav-text">使用camera拍照基本流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#u4F7F_u7528camera_u5F55_u89C6_u9891_u57FA_u672C_u6D41_u7A0B"><span class="nav-number">2.</span> <span class="nav-text">使用camera录视频基本流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#u8E29_u5751_u8BB0"><span class="nav-number">3.</span> <span class="nav-text">踩坑记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#u56FE_u7247_u7684_u65CB_u8F6C"><span class="nav-number">3.1.</span> <span class="nav-text">图片的旋转</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u62CD_u7167_u524D_uFF0C_u91CD_u62CD_u4E00_u5B9A_u9700_u8981_u8C03_u7528startPreview_28_29_uFF0C_u62CD_u7167_u7ED3_u675F_u540E_u4E00_u5B9A_u8981_u91CA_u653E_u8D44_u6E90_u3002"><span class="nav-number">3.2.</span> <span class="nav-text">拍照前，重拍一定需要调用startPreview()，拍照结束后一定要释放资源。</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">

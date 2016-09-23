@@ -220,6 +220,109 @@
             
               
                 
+                <a class="post-title-link" href="/2016/08/01/Property-Animation-and-View-Animation/" itemprop="url">
+                  Property Animation and View Animation
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-08-01T14:42:51+08:00" content="2016-08-01">
+              2016-08-01
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/01/Property-Animation-and-View-Animation/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/01/Property-Animation-and-View-Animation/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>一、Property Animation<br>创建一个动画通过修改对象属性在一段时间。<br>二、View Animation<br>包含2种类型：<br>Tween animation（补间动画）:<br>创建一个动画通过执行一系列变化在一个图像上。<br>Frame animation（帧动画）:<br>创建一个动画通过顺序播放一系列图片。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/08/01/Property-Animation-and-View-Animation/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/07/28/viewpage/" itemprop="url">
                   viewpage
                 </a>
@@ -1077,111 +1180,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/01/26/RecycleView/" itemprop="url">
-                  RecycleView
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            发表于
-            <time itemprop="dateCreated" datetime="2016-01-26T10:36:58+08:00" content="2016-01-26">
-              2016-01-26
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp; 分类于
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/android/" itemprop="url" rel="index">
-                    <span itemprop="name">android</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/01/26/RecycleView/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/26/RecycleView/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody">
-            
-              <pre><code>个人觉得RecycleView很强大，很好的扩展性，稳定，将会逐渐代替gridview和listview。
-</code></pre><h1 id="GridLayoutManager"><a href="#GridLayoutManager" class="headerlink" title="GridLayoutManager"></a>GridLayoutManager</h1><p>   实现gridview功能。</p>
-<p>   使用GridLayoutManager给RecycleView加headview或footview，总共有3列，spansize表示表示该子view占几个位置。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> RecyclerView.<span class="function">LayoutManager <span class="title">getLayoutManager</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       GridLayoutManager gridLayoutManager = <span class="keyword">new</span> GridLayoutManager(getActivity(), <span class="number">3</span>);</span><br><span class="line">       gridLayoutManager.setSpanSizeLookup(<span class="keyword">new</span> GridLayoutManager.SpanSizeLookup() &#123;</span><br><span class="line">           @<span class="function">Override</span><br><span class="line">           <span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getSpanSize</span><span class="params">(<span class="keyword">int</span> position)</span> </span>&#123;</span><br><span class="line">               <span class="keyword">int</span> spanSize;</span><br><span class="line">               <span class="keyword">switch</span> (adapter.getItemViewType(position)) &#123;</span><br><span class="line">                   <span class="keyword">case</span> ShowThumbnailData.LIVE:</span><br><span class="line">                   <span class="keyword">case</span> ShowThumbnailData.PHOTO:</span><br><span class="line">                   <span class="keyword">case</span> ShowThumbnailData.PLAYBACK:</span><br><span class="line">                       spanSize = <span class="number">1</span>;</span><br><span class="line">                       <span class="keyword">break</span>;</span><br><span class="line">                   <span class="keyword">case</span> ShowThumbnailData.HEADER:</span><br><span class="line">                       spanSize = <span class="number">3</span>;</span><br><span class="line">                       <span class="keyword">break</span>;</span><br><span class="line">                   <span class="keyword">case</span> ShowThumbnailData.LIVEV2:</span><br><span class="line">                       spanSize = <span class="number">3</span>;</span><br><span class="line">                   <span class="keyword">default</span>:</span><br><span class="line">                       spanSize = <span class="number">1</span>;</span><br><span class="line">                       <span class="keyword">break</span>;</span><br><span class="line">               &#125;</span><br><span class="line">               <span class="keyword">return</span> spanSize;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;);</span><br><span class="line">       <span class="keyword">return</span> gridLayoutManager;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
-<h1 id="StaggeredGridLayoutManager"><a href="#StaggeredGridLayoutManager" class="headerlink" title="StaggeredGridLayoutManager"></a>StaggeredGridLayoutManager</h1>
-            
-          </span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
@@ -1228,7 +1226,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">25</span>
+              <span class="site-state-item-count">26</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1242,7 +1240,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-count">9</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
