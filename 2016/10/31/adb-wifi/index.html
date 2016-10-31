@@ -35,7 +35,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="view," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -51,16 +51,22 @@
 
 
 
-<meta name="description" content="最近发现，重写了viewGroup的onMeasure方法，造成子view match_parent不起作用，代码如下：1234567@Overrideprotected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) &amp;#123;    int width = MeasureSpec.getSize(widthMeasure">
+<meta name="description" content="有root手机安装adb wifi，root授权。
+无root先用数据线连接电脑，打开命令行输入1adb tcpip 5555
+确保手机连接的wifi和电脑是同一个局域网1adb connect *.*.*.*">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MeasureSpec">
-<meta property="og:url" content="http://yoursite.com/2016/07/26/MeasureSpec/index.html">
+<meta property="og:title" content="无线调试">
+<meta property="og:url" content="http://yoursite.com/2016/10/31/adb-wifi/index.html">
 <meta property="og:site_name" content="Shine's blog">
-<meta property="og:description" content="最近发现，重写了viewGroup的onMeasure方法，造成子view match_parent不起作用，代码如下：1234567@Overrideprotected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) &amp;#123;    int width = MeasureSpec.getSize(widthMeasure">
-<meta property="og:updated_time" content="2016-09-18T10:50:26.000Z">
+<meta property="og:description" content="有root手机安装adb wifi，root授权。
+无root先用数据线连接电脑，打开命令行输入1adb tcpip 5555
+确保手机连接的wifi和电脑是同一个局域网1adb connect *.*.*.*">
+<meta property="og:updated_time" content="2016-10-31T11:28:56.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MeasureSpec">
-<meta name="twitter:description" content="最近发现，重写了viewGroup的onMeasure方法，造成子view match_parent不起作用，代码如下：1234567@Overrideprotected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) &amp;#123;    int width = MeasureSpec.getSize(widthMeasure">
+<meta name="twitter:title" content="无线调试">
+<meta name="twitter:description" content="有root手机安装adb wifi，root授权。
+无root先用数据线连接电脑，打开命令行输入1adb tcpip 5555
+确保手机连接的wifi和电脑是同一个局域网1adb connect *.*.*.*">
 
 
 
@@ -72,7 +78,7 @@
   };
 </script>
 
-  <title> MeasureSpec | Shine's blog </title>
+  <title> 无线调试 | Shine's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -212,7 +218,7 @@
             
             
               
-                MeasureSpec
+                无线调试
               
             
           </h1>
@@ -221,34 +227,19 @@
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2016-07-26T10:43:15+08:00" content="2016-07-26">
-              2016-07-26
+            <time itemprop="dateCreated" datetime="2016-10-31T19:25:29+08:00" content="2016-10-31">
+              2016-10-31
             </time>
           </span>
 
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp; 分类于
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/android/" itemprop="url" rel="index">
-                    <span itemprop="name">android</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
           
 
           
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/26/MeasureSpec/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/26/MeasureSpec/" itemprop="commentsCount"></span>
+                <a href="/2016/10/31/adb-wifi/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/31/adb-wifi/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -267,47 +258,26 @@
       
 
       
-        <span itemprop="articleBody"><p>最近发现，重写了viewGroup的onMeasure方法，造成子view match_parent不起作用，代码如下：<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> onMeasure(<span class="built_in">int</span> widthMeasureSpec, <span class="built_in">int</span> heightMeasureSpec) &#123;</span><br><span class="line">    <span class="built_in">int</span> <span class="variable">width</span> = MeasureSpec.getSize(widthMeasureSpec);</span><br><span class="line">    <span class="built_in">int</span> <span class="variable">height</span> = (<span class="built_in">int</span>) (<span class="variable">width</span> / <span class="number">0.75</span>f);</span><br><span class="line">    <span class="keyword">super</span>.onMeasure(<span class="variable">width</span>, <span class="variable">height</span>);</span><br><span class="line">    setMeasuredDimension(<span class="variable">width</span>, <span class="variable">height</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<a id="more"></a>
-<p>功能为实现一个 宽：高为3/4的自定义view，发现view match_parent失效，变成自适应。</p>
-<p>虽然使用setLayoutParams,可以实现同样功能，但是会重绘一次，觉得性能差些，最后还是想通过onMeasure实现，通过查阅一些资料，找到问题所在。</p>
-<p> 先看MeasureSpec.getSize()源码：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">measureSpec &amp; ~MODE_MASK</span><br><span class="line"><span class="keyword">int</span> MODE_MASK  = <span class="number">0x3</span> &lt;&lt; MODE_SHIFT;</span><br></pre></td></tr></table></figure></p>
-<p>就是去掉前2位模式，得到实际值，当我计算后把这个值传给子View时，前2位为00，即UNSPECIFIED模式，造成子view自适应。</p>
-<p>解决办法就是加上模式值：<br>heightSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);</p>
-<h1 id="MeasureSpec_u5B98_u65B9_u6587_u6863"><a href="#MeasureSpec_u5B98_u65B9_u6587_u6863" class="headerlink" title="MeasureSpec官方文档"></a>MeasureSpec官方文档</h1><p>A MeasureSpec encapsulates the layout requirements passed from parent to child. Each MeasureSpec represents a requirement for either the width or the height. A MeasureSpec is comprised of a size and a mode. There are three possible modes:</p>
-<p>UNSPECIFIED：<br>The parent has not imposed any constraint on the child. It can be whatever size it wants.<br>mode UNSPECIFIED = 0 &lt;&lt; 30;</p>
-<p>EXACTLY：<br>The parent has determined an exact size for the child. The child is going to be given those bounds regardless of how big it wants to be.<br>mode EXACTLY = 1 &lt;&lt; 30;</p>
-<p>AT_MOST：<br>The child can be as large as it wants up to the specified size.<br>mode AT_MOST = 2 &lt;&lt; 30;</p>
-<p>MeasureSpecs are implemented as ints to reduce object allocation. This class is provided to pack and unpack the <size, mode=""> tuple into the int.</size,></p>
-<p>前2位表示模式，</p>
-</span>
+        <span itemprop="articleBody"><h1 id="u6709root"><a href="#u6709root" class="headerlink" title="有root"></a>有root</h1><p>手机安装adb wifi，root授权。</p>
+<h1 id="u65E0root"><a href="#u65E0root" class="headerlink" title="无root"></a>无root</h1><h2 id="u5148_u7528_u6570_u636E_u7EBF_u8FDE_u63A5_u7535_u8111_uFF0C_u6253_u5F00_u547D_u4EE4_u884C_u8F93_u5165"><a href="#u5148_u7528_u6570_u636E_u7EBF_u8FDE_u63A5_u7535_u8111_uFF0C_u6253_u5F00_u547D_u4EE4_u884C_u8F93_u5165" class="headerlink" title="先用数据线连接电脑，打开命令行输入"></a>先用数据线连接电脑，打开命令行输入</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb tcpip <span class="number">5555</span></span><br></pre></td></tr></table></figure>
+<h2 id="u786E_u4FDD_u624B_u673A_u8FDE_u63A5_u7684wifi_u548C_u7535_u8111_u662F_u540C_u4E00_u4E2A_u5C40_u57DF_u7F51"><a href="#u786E_u4FDD_u624B_u673A_u8FDE_u63A5_u7684wifi_u548C_u7535_u8111_u662F_u540C_u4E00_u4E2A_u5C40_u57DF_u7F51" class="headerlink" title="确保手机连接的wifi和电脑是同一个局域网"></a>确保手机连接的wifi和电脑是同一个局域网</h2><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb connect <span class="keyword">*</span>.<span class="keyword">*</span>.<span class="keyword">*</span>.<span class="keyword">*</span></span><br></pre></td></tr></table></figure></span>
       
     </div>
 
     <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/view/" rel="tag">#view</a>
-          
-        </div>
       
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/04/19/android-shape/" rel="next" title="android shape">
-                <i class="fa fa-chevron-left"></i> android shape
+              <a href="/2016/10/21/activity-fullscreen/" rel="next" title="Activity全屏切换">
+                <i class="fa fa-chevron-left"></i> Activity全屏切换
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/07/26/Expand-collapse-animation/" rel="prev" title="Expand/collapse animation">
-                Expand/collapse animation <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -334,8 +304,8 @@
         
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/07/26/MeasureSpec/"
-           data-title="MeasureSpec" data-url="http://yoursite.com/2016/07/26/MeasureSpec/">
+      <div class="ds-thread" data-thread-key="2016/10/31/adb-wifi/"
+           data-title="无线调试" data-url="http://yoursite.com/2016/10/31/adb-wifi/">
       </div>
     
   </div>
@@ -443,7 +413,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MeasureSpec_u5B98_u65B9_u6587_u6863"><span class="nav-number">1.</span> <span class="nav-text">MeasureSpec官方文档</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#u6709root"><span class="nav-number">1.</span> <span class="nav-text">有root</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#u65E0root"><span class="nav-number">2.</span> <span class="nav-text">无root</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#u5148_u7528_u6570_u636E_u7EBF_u8FDE_u63A5_u7535_u8111_uFF0C_u6253_u5F00_u547D_u4EE4_u884C_u8F93_u5165"><span class="nav-number">2.1.</span> <span class="nav-text">先用数据线连接电脑，打开命令行输入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u786E_u4FDD_u624B_u673A_u8FDE_u63A5_u7684wifi_u548C_u7535_u8111_u662F_u540C_u4E00_u4E2A_u5C40_u57DF_u7F51"><span class="nav-number">2.2.</span> <span class="nav-text">确保手机连接的wifi和电脑是同一个局域网</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">

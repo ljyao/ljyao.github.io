@@ -69,7 +69,7 @@ WindowManager flags123456// FullScreengetWindow().setFlags(WindowManager.LayoutP
 ui更加平滑，因为系统知道全屏信息
 
 WindowManager flags123456// FullScreengetWindow().setFlags(WindowManager.LayoutParams.FLAG">
-<meta property="og:updated_time" content="2016-10-21T09:53:26.000Z">
+<meta property="og:updated_time" content="2016-10-21T12:55:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Activity全屏切换">
 <meta name="twitter:description" content="Theme1android:theme=&quot;@android:style/Theme.Holo.NoActionBar.Fullscreen&quot; &amp;gt;
@@ -286,6 +286,12 @@ WindowManager flags123456// FullScreengetWindow().setFlags(WindowManager.LayoutP
 <p>虽然解决掉不是有FLAG_LAYOUT_NO_LIMITS 的bug，但是状态栏收缩回去会卡白一下。</p>
 <h1 id="setSystemUiVisibility_28_29"><a href="#setSystemUiVisibility_28_29" class="headerlink" title="setSystemUiVisibility()"></a>setSystemUiVisibility()</h1><p><strong>API 16以上</strong><br><figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">View decorView = getWindow().getDecorView();</span><br><span class="line"><span class="comment">// Hide the status bar.</span></span><br><span class="line"><span class="keyword">int</span> uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;</span><br><span class="line">decorView.setSystemUiVisibility(uiOptions);</span><br><span class="line"><span class="comment">// Remember that you should never show the action bar if the</span></span><br><span class="line"><span class="comment">// status bar is hidden, so hide that too if necessary.</span></span><br><span class="line">ActionBar actionBar = getActionBar();</span><br><span class="line">actionBar.<span class="keyword">hide</span>();</span><br></pre></td></tr></table></figure></p>
 <p>使用SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN使布局拉伸至全屏，使用SYSTEM_UI_FLAG_LAYOUT_STABLE 避免布局resize</p>
+<h2 id="Immersive_uFF08_u5F53_u7528_u6237_u64CD_u4F5C_u547C_u51FA_u901A_u77E5_u680F_u540E_u81EA_u52A8_u9690_u85CF_uFF09"><a href="#Immersive_uFF08_u5F53_u7528_u6237_u64CD_u4F5C_u547C_u51FA_u901A_u77E5_u680F_u540E_u81EA_u52A8_u9690_u85CF_uFF09" class="headerlink" title="Immersive（当用户操作呼出通知栏后自动隐藏）"></a>Immersive（当用户操作呼出通知栏后自动隐藏）</h2><ul>
+<li>SYSTEM_UI_FLAG_IMMERSIVE_STICKY <strong>API 19</strong></li>
+<li>监听window<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Override</span></span><br><span class="line">   <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onWindowFocusChanged</span><span class="params">(<span class="keyword">boolean</span> hasFocus)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">super</span>.onWindowFocusChanged(hasFocus);</span><br><span class="line">       <span class="comment">//Immersive</span></span><br><span class="line">       <span class="keyword">if</span> (hasFocus &amp;&amp; isFullScreen) &#123;</span><br><span class="line">           setFullScreen(isFullScreen);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>官方文档</strong><br><a href="https://developer.android.com/training/system-ui/index.html" target="_blank" rel="external">Managing the System UI</a><br><a href="https://developer.android.com/training/system-ui/status.html" target="_blank" rel="external">Hiding the Status Bar</a></p>
 </span>
       
     </div>
@@ -304,6 +310,10 @@ WindowManager flags123456// FullScreengetWindow().setFlags(WindowManager.LayoutP
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/31/adb-wifi/" rel="prev" title="无线调试">
+                无线调试 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -375,7 +385,7 @@ WindowManager flags123456// FullScreengetWindow().setFlags(WindowManager.LayoutP
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">27</span>
+              <span class="site-state-item-count">28</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -439,7 +449,7 @@ WindowManager flags123456// FullScreengetWindow().setFlags(WindowManager.LayoutP
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Theme"><span class="nav-number">1.</span> <span class="nav-text">Theme</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#WindowManager_flags"><span class="nav-number">2.</span> <span class="nav-text">WindowManager flags</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#u65B9_u6CD52_u7684_u4F18_u5316_uFF0C_u4F7F_u7528marginTop_u907F_u514DResize_u5361_u987F"><span class="nav-number">3.</span> <span class="nav-text">方法2的优化，使用marginTop避免Resize卡顿</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#setSystemUiVisibility_28_29"><span class="nav-number">4.</span> <span class="nav-text">setSystemUiVisibility()</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Theme"><span class="nav-number">1.</span> <span class="nav-text">Theme</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#WindowManager_flags"><span class="nav-number">2.</span> <span class="nav-text">WindowManager flags</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#u65B9_u6CD52_u7684_u4F18_u5316_uFF0C_u4F7F_u7528marginTop_u907F_u514DResize_u5361_u987F"><span class="nav-number">3.</span> <span class="nav-text">方法2的优化，使用marginTop避免Resize卡顿</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#setSystemUiVisibility_28_29"><span class="nav-number">4.</span> <span class="nav-text">setSystemUiVisibility()</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Immersive_uFF08_u5F53_u7528_u6237_u64CD_u4F5C_u547C_u51FA_u901A_u77E5_u680F_u540E_u81EA_u52A8_u9690_u85CF_uFF09"><span class="nav-number">4.1.</span> <span class="nav-text">Immersive（当用户操作呼出通知栏后自动隐藏）</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
