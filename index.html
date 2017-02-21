@@ -220,6 +220,317 @@
             
               
                 
+                <a class="post-title-link" href="/2017/02/06/Android-数据库/" itemprop="url">
+                  Android 数据库
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2017-02-06T18:20:28+08:00" content="2017-02-06">
+              2017-02-06
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/02/06/Android-数据库/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/06/Android-数据库/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <p> NiceApplication.getApplication().getContentResolver().applyBatch()<br>        ContentProviderOperation.newInsert().withValues().build()</p>
+
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/01/13/downlaod-unzip/" itemprop="url">
+                  断点下载与解压ZIP
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2017-01-13T16:05:24+08:00" content="2017-01-13">
+              2017-01-13
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/01/13/downlaod-unzip/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/13/downlaod-unzip/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <h1 id="u521D_u59CB_u5316"><a href="#u521D_u59CB_u5316" class="headerlink" title="初始化"></a>初始化</h1><p>获取文件大小，已下载文件大小<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> init() <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        URL url = <span class="keyword">new</span> URL(httpUrl);</span><br><span class="line">        HttpURLConnection connection = (HttpURLConnection) url.openConnection();</span><br><span class="line">        connection.setConnectTimeout(<span class="number">5000</span>);</span><br><span class="line">        connection.setRequestMethod(<span class="string">"GET"</span>);</span><br><span class="line">        fileSize = connection.getContentLength();</span><br><span class="line">        connection.disconnect();</span><br><span class="line"></span><br><span class="line">        Context context = NiceApplication.getApplication().getApplicationContext();</span><br><span class="line">        <span class="keyword">File</span> fileDir = StorageUtils.getIndividualFileDirectory(context, <span class="string">"nice-lens-resource"</span>);</span><br><span class="line">        rootDir = fileDir.getAbsolutePath();</span><br><span class="line">        <span class="keyword">File</span> <span class="keyword">file</span> = <span class="keyword">new</span> <span class="keyword">File</span>(fileDir, fileName + <span class="string">".zip"</span>);</span><br><span class="line">        <span class="keyword">if</span> (!<span class="keyword">file</span>.exists()) &#123;</span><br><span class="line">            <span class="keyword">file</span>.createNewFile();</span><br><span class="line">            completeSize = <span class="number">0</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            completeSize = <span class="keyword">file</span>.length();</span><br><span class="line">        &#125;</span><br><span class="line">        zipFilePath = <span class="keyword">file</span>.getAbsolutePath();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="u65AD_u70B9_u4E0B_u8F7D"><a href="#u65AD_u70B9_u4E0B_u8F7D" class="headerlink" title="断点下载"></a>断点下载</h1><p>设置http头，指定下载开始和结束点，”Range”-&gt;”bytes=startPosi-endPosi”<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> String <span class="title">download</span>(<span class="params"></span>) throws Exception </span>&#123;</span><br><span class="line">       <span class="keyword">if</span> (completeSize == fileSize) &#123;</span><br><span class="line">           <span class="keyword">return</span> zipFilePath;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       HttpURLConnection connection;</span><br><span class="line">       RandomAccessFile randomAccessFile;</span><br><span class="line">       InputStream <span class="keyword">is</span>;</span><br><span class="line">       URL url = <span class="keyword">new</span> URL(httpUrl);</span><br><span class="line">       connection = (HttpURLConnection) url.openConnection();</span><br><span class="line">       connection.setConnectTimeout(<span class="number">5000</span>);</span><br><span class="line">       connection.setRequestMethod(<span class="string">"GET"</span>);</span><br><span class="line">       <span class="comment">// 设置范围，格式为Range：bytes x-y;</span></span><br><span class="line">       connection.setRequestProperty(<span class="string">"Range"</span>, String.format(<span class="string">"bytes=%s-%s"</span>, completeSize, fileSize));</span><br><span class="line"></span><br><span class="line">       randomAccessFile = <span class="keyword">new</span> RandomAccessFile(zipFilePath, <span class="string">"rwd"</span>);</span><br><span class="line">       randomAccessFile.seek(completeSize);</span><br><span class="line">       <span class="keyword">is</span> = connection.getInputStream();</span><br><span class="line">       <span class="keyword">byte</span>[] buffer = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">       <span class="keyword">int</span> length;</span><br><span class="line">       <span class="keyword">while</span> ((length = <span class="keyword">is</span>.read(buffer)) != -<span class="number">1</span>) &#123;</span><br><span class="line">           randomAccessFile.write(buffer, <span class="number">0</span>, length);</span><br><span class="line">           completeSize += length;</span><br><span class="line">           update();</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> zipFilePath;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="u89E3_u538Bzip"><a href="#u89E3_u538Bzip" class="headerlink" title="解压zip"></a>解压zip</h1><p>主要使用ZipInputStream<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> unZipFolder(String zipFilePath, String outputDir) <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        FileUtils.deleteFile(outputDir);</span><br><span class="line"></span><br><span class="line">        ZipInputStream inZip = <span class="keyword">new</span> ZipInputStream(<span class="keyword">new</span> FileInputStream(zipFilePath));</span><br><span class="line">        ZipEntry zipEntry;</span><br><span class="line">        String szName = <span class="string">""</span>;</span><br><span class="line">        <span class="keyword">while</span> ((zipEntry = inZip.getNextEntry()) != <span class="keyword">null</span>) &#123;</span><br><span class="line">            szName = zipEntry.getName();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (szName.contains(<span class="string">"__MACOSX"</span>)) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (zipEntry.isDirectory()) &#123;</span><br><span class="line">                <span class="comment">// get the folder name of the widget</span></span><br><span class="line">                szName = szName.substring(<span class="number">0</span>, szName.length() - <span class="number">1</span>);</span><br><span class="line">                <span class="keyword">File</span> folder = <span class="keyword">new</span> <span class="keyword">File</span>(outputDir + <span class="keyword">File</span>.separator + szName);</span><br><span class="line">                folder.mkdirs();</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">File</span> <span class="keyword">file</span> = <span class="keyword">new</span> <span class="keyword">File</span>(outputDir + <span class="keyword">File</span>.separator + szName);</span><br><span class="line">                <span class="keyword">file</span>.createNewFile();</span><br><span class="line">                <span class="comment">// get the output stream of the file</span></span><br><span class="line">                FileOutputStream out = <span class="keyword">new</span> FileOutputStream(<span class="keyword">file</span>);</span><br><span class="line">                <span class="keyword">int</span> len;</span><br><span class="line">                <span class="keyword">byte</span>[] buffer = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">                <span class="comment">// read (len) bytes into buffer</span></span><br><span class="line">                <span class="keyword">while</span> ((len = inZip.<span class="keyword">read</span>(buffer)) != -<span class="number">1</span>) &#123;</span><br><span class="line">                    <span class="comment">// write (len) byte from buffer at the position 0</span></span><br><span class="line">                    out.<span class="keyword">write</span>(buffer, <span class="number">0</span>, len);</span><br><span class="line">                    out.flush();</span><br><span class="line">                &#125;</span><br><span class="line">                out.close();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        inZip.close();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/11/29/adb-command/" itemprop="url">
+                  adb command
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-11-29T11:15:25+08:00" content="2016-11-29">
+              2016-11-29
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/11/29/adb-command/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/29/adb-command/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <p>常用adb命令：<br>ps: 其中adb shell <em>*</em> 的命令实际上都是 linux命令，只是前面加了adb shell就是执行一次，而不会进入到adb shell下面。</p>
+<ol>
+<li>获取序列号：<br>adb get-serialno</li>
+<li>查看连接计算机的设备：<br>adb devices</li>
+<li>重启机器：<br>adb reboot</li>
+<li>重启到bootloader，即刷机模式：<br>adb reboot bootloader</li>
+<li>重启到recovery，即恢复模式：<br>adb reboot recovery</li>
+<li>查看log：<br>adb logcat //查看所有logadb logcat -s demo1 //输出tag 为demo1的logadb logcat &gt; log //将日志输出到log文件里面去</li>
+<li>终止adb服务进程：<br>adb kill-server</li>
+<li>重启adb服务进程：<br>adb start-server</li>
+<li>获取机器MAC地址：<br>adb shell cat /sys/class/net/wlan0/address</li>
+<li>获取CPU序列号：<br>adb shell cat /proc/cpuinfo</li>
+<li>安装APK：<br>adb install <apkfile> //比如：adb install baidu.apk</apkfile></li>
+<li>保留数据和缓存文件，重新安装apk：<br>adb install -r <apkfile> //比如：adb install -r baidu.apk</apkfile></li>
+<li>安装apk到sd卡：<br>adb install -s <apkfile> // 比如：adb install -s baidu.apk</apkfile></li>
+<li>卸载APK：<br>adb uninstall <package> //比如：adb uninstall com.baidu.search</package></li>
+<li>卸载app但保留数据和缓存文件：<br>adb uninstall -k <package> //比如：adb uninstall -k com.baidu.search</package></li>
+<li>启动应用：<br>adb shell am start -n <package_name>/.<activity_class_name></activity_class_name></package_name></li>
+<li>查看设备cpu和内存占用情况：<br>adb shell top</li>
+<li>查看占用内存前6的app：<br>adb shell top -m 6</li>
+<li>刷新一次内存信息，然后返回：<br>adb shell top -n 1</li>
+<li>查询各进程内存使用情况：<br>adb shell procrank</li>
+<li>杀死一个进程：<br>adb shell kill [pid]</li>
+<li>查看进程列表：<br>adb shell ps</li>
+<li>查看指定进程状态：<br>adb shell ps -x [PID]</li>
+<li>查看后台services信息：<br>adb shell service list</li>
+<li>查看当前内存占用：<br>adb shell cat /proc/meminfo</li>
+<li>查看IO内存分区：<br>adb shell cat /proc/iomem</li>
+<li>将system分区重新挂载为可读写分区：<br>adb remount</li>
+<li>从本地复制文件到设备：<br>adb push <local> <remote></remote></local></li>
+<li>从设备复制文件到本地：<br>adb pull <remote> <local></local></remote></li>
+<li>列出目录下的文件和文件夹，等同于dos中的dir命令：<br>adb shell ls</li>
+<li>进入文件夹，等同于dos中的cd 命令：<br>adb shell cd <folder></folder></li>
+<li>重命名文件：<br>adb shell rename path/oldfilename path/newfilename</li>
+<li>删除system/avi.apk：<br>adb shell rm /system/avi.apk</li>
+<li>删除文件夹及其下面所有文件：<br>adb shell rm -r <folder></folder></li>
+<li>移动文件：<br>adb shell mv path/file newpath/file</li>
+<li>设置文件权限：<br>adb shell chmod 777 /system/fonts/DroidSansFallback.ttf</li>
+<li>新建文件夹：<br>adb shell mkdir path/foldelname</li>
+<li>查看文件内容：<br>adb shell cat <file></file></li>
+<li>查看wifi密码：<br>adb shell cat /data/misc/wifi/*.conf</li>
+<li>清除log缓存：<br>adb logcat -c</li>
+<li>查看bug报告：<br>adb bugreport</li>
+<li>获取设备名称：<br>adb shell cat /system/build.prop</li>
+<li>查看ADB帮助：<br>adb help</li>
+</ol>
+
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/10/31/adb-wifi/" itemprop="url">
                   无线调试
                 </a>
@@ -487,24 +798,56 @@
 <li>Call stopPreview() to stop updating the preview surface.<br>调用stopPreview停止预览</li>
 <li>Important: Call release() to release the camera for use by other applications. Applications should release the camera immediately in onPause() (and re-open() it in onResume()).<br>调用release释放相机。</li>
 </ol>
-<h1 id="u4F7F_u7528camera_u5F55_u89C6_u9891_u57FA_u672C_u6D41_u7A0B"><a href="#u4F7F_u7528camera_u5F55_u89C6_u9891_u57FA_u672C_u6D41_u7A0B" class="headerlink" title="使用camera录视频基本流程"></a>使用camera录视频基本流程</h1><ol>
-<li>Obtain and initialize a Camera and start preview as described above.</li>
-<li>Call unlock() to allow the media process to access the camera.</li>
-<li>Pass the camera to setCamera(Camera). See MediaRecorder information about video recording.</li>
-<li>When finished recording, call reconnect() to re-acquire and re-lock the camera.</li>
-<li>If desired, restart preview and take more photos or videos.</li>
-<li>Call stopPreview() and release() as described above.</li>
-</ol>
-<h1 id="u8E29_u5751_u8BB0"><a href="#u8E29_u5751_u8BB0" class="headerlink" title="踩坑记"></a>踩坑记</h1><h2 id="camera_orientation"><a href="#camera_orientation" class="headerlink" title="camera orientation"></a>camera orientation</h2><p>CameraInfo.orientation 是设备和相机之间的角度</p>
+<h1 id="u4F7F_u7528camera_u5F55_u89C6_u9891_u57FA_u672C_u6D41_u7A0B"><a href="#u4F7F_u7528camera_u5F55_u89C6_u9891_u57FA_u672C_u6D41_u7A0B" class="headerlink" title="使用camera录视频基本流程"></a>使用camera录视频基本流程</h1><p>Open Camera - Use the Camera.open() to get an instance of the camera object.<br>Connect Preview - Prepare a live camera image preview by connecting a SurfaceView to the camera using Camera.setPreviewDisplay().<br>Start Preview - Call Camera.startPreview() to begin displaying the live camera images.<br>Start Recording Video - The following steps must be completed in order to successfully record video:<br>Unlock the Camera - Unlock the camera for use by MediaRecorder by calling Camera.unlock().<br>Configure MediaRecorder - Call in the following MediaRecorder methods in this order. For more information, see the MediaRecorder reference documentation.<br>setCamera() - Set the camera to be used for video capture, use your application’s current instance of Camera.<br>setAudioSource() - Set the audio source, use MediaRecorder.AudioSource.CAMCORDER.<br>setVideoSource() - Set the video source, use MediaRecorder.VideoSource.CAMERA.<br>Set the video output format and encoding. For Android 2.2 (API Level 8) and higher, use the MediaRecorder.setProfile method, and get a profile instance using CamcorderProfile.get(). For versions of Android prior to 2.2, you must set the video output format and encoding parameters:<br>setOutputFormat() - Set the output format, specify the default setting or MediaRecorder.OutputFormat.MPEG_4.<br>setAudioEncoder() - Set the sound encoding type, specify the default setting or MediaRecorder.AudioEncoder.AMR_NB.<br>setVideoEncoder() - Set the video encoding type, specify the default setting or MediaRecorder.VideoEncoder.MPEG_4_SP.<br>setOutputFile() - Set the output file, use getOutputMediaFile(MEDIA_TYPE_VIDEO).toString() from the example method in the Saving Media Files section.<br>setPreviewDisplay() - Specify the SurfaceView preview layout element for your application. Use the same object you specified for Connect Preview.<br>Caution: You must call these MediaRecorder configuration methods in this order, otherwise your application will encounter errors and the recording will fail.</p>
+<p>Prepare MediaRecorder - Prepare the MediaRecorder with provided configuration settings by calling MediaRecorder.prepare().<br>Start MediaRecorder - Start recording video by calling MediaRecorder.start().<br>Stop Recording Video - Call the following methods in order, to successfully complete a video recording:<br>Stop MediaRecorder - Stop recording video by calling MediaRecorder.stop().<br>Reset MediaRecorder - Optionally, remove the configuration settings from the recorder by calling MediaRecorder.reset().<br>Release MediaRecorder - Release the MediaRecorder by calling MediaRecorder.release().<br>Lock the Camera - Lock the camera so that future MediaRecorder sessions can use it by calling Camera.lock(). Starting with Android 4.0 (API level 14), this call is not required unless the MediaRecorder.prepare() call fails.<br>Stop the Preview - When your activity has finished using the camera, stop the preview using Camera.stopPreview().<br>Release Camera - Release the camera so that other applications can use it by calling Camera.release().<br>Note: It is possible to use MediaRecorder without creating a camera preview first and skip the first few steps of this process. However, since users typically prefer to see a preview before starting a recording, that process is not discussed here.</p>
+<p>Tip: If your application is typically used for recording video, set setRecordingHint(boolean) to true prior to starting your preview. This setting can help reduce the time it takes to start recording.<br>/**<br>private boolean prepareVideoRecorder(){</p>
+<pre><code>mCamera = getCameraInstance();
+mMediaRecorder = new MediaRecorder();
+
+// Step 1: Unlock and set camera to MediaRecorder
+mCamera.unlock();
+mMediaRecorder.setCamera(mCamera);
+
+// Step 2: Set sources
+mMediaRecorder.setAudioSource(MediaRecorder.AudioSource.CAMCORDER);
+mMediaRecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);
+
+// Step 3: Set a CamcorderProfile (requires API Level 8 or higher)
+mMediaRecorder.setProfile(CamcorderProfile.get(CamcorderProfile.QUALITY_HIGH));
+
+// Step 4: Set output file
+mMediaRecorder.setOutputFile(getOutputMediaFile(MEDIA_TYPE_VIDEO).toString());
+
+// Step 5: Set the preview output
+mMediaRecorder.setPreviewDisplay(mPreview.getHolder().getSurface());
+
+// Step 6: Prepare configured MediaRecorder
+try {
+    mMediaRecorder.prepare();
+} catch (IllegalStateException e) {
+    Log.d(TAG, &quot;IllegalStateException preparing MediaRecorder: &quot; + e.getMessage());
+    releaseMediaRecorder();
+    return false;
+} catch (IOException e) {
+    Log.d(TAG, &quot;IOException preparing MediaRecorder: &quot; + e.getMessage());
+    releaseMediaRecorder();
+    return false;
+}
+return true;
+</code></pre><p>}<br>**/</p>
+<h1 id="u5F00_u53D1_u7B14_u8BB0"><a href="#u5F00_u53D1_u7B14_u8BB0" class="headerlink" title="开发笔记"></a>开发笔记</h1><h2 id="camera_orientation"><a href="#camera_orientation" class="headerlink" title="camera orientation"></a>camera orientation</h2><p>CameraInfo.orientation 是设备和相机之间的角度</p>
 <ol>
-<li><p>setDisplayOrientation(int) 设置预览图像旋转角度<br>只对预览起作用（详见第5条），拍照的图片需要自己旋转。<br>首先获取相机的固定Rotation，代表需要旋转角度，后置摄像头是顺时针，前置摄像头是逆时针。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">getPhotoRotation</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (mCamera != null) &#123;</span><br><span class="line">            <span class="keyword">int</span> rotation;</span><br><span class="line">            <span class="keyword">int</span> orientation = <span class="number">0</span>;</span><br><span class="line">            Camera.CameraInfo info = <span class="keyword">new</span> Camera.CameraInfo();</span><br><span class="line">            Camera.getCameraInfo(mCameraID, info);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) &#123;</span><br><span class="line">                rotation = (info.orientation - orientation + <span class="number">360</span>) % <span class="number">360</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                rotation = (info.orientation + orientation) % <span class="number">360</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> rotation;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">90</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<li><p>setDisplayOrientation(int) 设置预览图像旋转角度<br>只对预览起作用（详见第5条）</p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">public <span class="keyword">static</span> <span class="type">void</span> setCameraDisplayOrientation(<span class="type">Activity</span> activity,</span><br><span class="line">                                               <span class="type">int</span> cameraId, android.hardware.<span class="type">Camera</span> camera) &#123;</span><br><span class="line">    android.hardware.<span class="type">Camera</span>.<span class="type">CameraInfo</span> info =</span><br><span class="line">            new android.hardware.<span class="type">Camera</span>.<span class="type">CameraInfo</span>();</span><br><span class="line">    android.hardware.<span class="type">Camera</span>.getCameraInfo(cameraId, info);</span><br><span class="line">    <span class="type">int</span> rotation = activity.getWindowManager().getDefaultDisplay()</span><br><span class="line">            .getRotation();</span><br><span class="line">    <span class="type">int</span> degrees = <span class="number">0</span>;</span><br><span class="line">    switch (rotation) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="type">Surface</span>.<span class="type">ROTATION_0</span>:</span><br><span class="line">            degrees = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="type">Surface</span>.<span class="type">ROTATION_90</span>:</span><br><span class="line">            degrees = <span class="number">90</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="type">Surface</span>.<span class="type">ROTATION_180</span>:</span><br><span class="line">            degrees = <span class="number">180</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="type">Surface</span>.<span class="type">ROTATION_270</span>:</span><br><span class="line">            degrees = <span class="number">270</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="literal">result</span>;</span><br><span class="line">    <span class="keyword">if</span> (info.facing == <span class="type">Camera</span>.<span class="type">CameraInfo</span>.<span class="type">CAMERA_FACING_FRONT</span>) &#123;</span><br><span class="line">        <span class="literal">result</span> = (info.orientation + degrees) % <span class="number">360</span>;</span><br><span class="line">        <span class="literal">result</span> = (<span class="number">360</span> - <span class="literal">result</span>) % <span class="number">360</span>;  // compensate the mirror</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;  // back-facing</span><br><span class="line">        <span class="literal">result</span> = (info.orientation - degrees + <span class="number">360</span>) % <span class="number">360</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    camera.setDisplayOrientation(<span class="literal">result</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>setRotation 设置拍照图片旋转角度<br>存在兼容性问题，建议对bitmap进行旋转。</p>
-<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Matrix</span> <span class="keyword">matrix</span>=new <span class="literal">Matrix</span>();</span><br><span class="line"><span class="keyword">matrix</span>.reset();</span><br><span class="line"><span class="keyword">matrix</span>.postRotate(degrees);</span><br><span class="line">dstBmp=Bitmap.createBitmap(srcBmp, 0, 0, srcBmp.getWidth(), srcBmp.getHeight(), <span class="keyword">matrix</span>, true);</span><br></pre></td></tr></table></figure>
+<li><p>setRotation 设置拍照图片旋转角度</p>
 </li>
-<li><p>setPreviewSize设置预览图像分辨率，setPictureSize拍照分辨率<br>设置的分辨率不支持会抛异常</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取预览支持的分辨率</span></span><br><span class="line">cameraParameters.<span class="function"><span class="title">getSupportedPreviewSizes</span><span class="params">()</span></span></span><br><span class="line"><span class="comment">//获取拍照支持的分辨率 </span></span><br><span class="line">cameraParameters.<span class="function"><span class="title">getSupportedPictureSizes</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
+</ol>
+<p>通过设置相机setRotation旋转照片<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line">    * Called when the orientation of the device has changed.</span><br><span class="line">    * orientation parameter is in degrees, ranging from 0 to 359.</span><br><span class="line">    * orientation is 0 degrees when the device is oriented in its natural position,</span><br><span class="line">    * 90 degrees when its left side is at the top, 180 degrees when it is upside down, </span><br><span class="line">    * and 270 degrees when its right side is to the top.</span><br><span class="line">    * &#123;@link #ORIENTATION_UNKNOWN&#125; is returned when the device is close to flat</span><br><span class="line">    * and the orientation cannot be determined.</span><br><span class="line">    *</span><br><span class="line">    * @param orientation The new orientation of the device.</span><br><span class="line">    *</span><br><span class="line">    *  @see #ORIENTATION_UNKNOWN</span><br><span class="line">    */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onOrientationChanged</span><span class="params">(<span class="keyword">int</span> orientation)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">if</span> (orientation == ORIENTATION_UNKNOWN) <span class="keyword">return</span>;</span><br><span class="line">       android.hardware.Camera.CameraInfo info =</span><br><span class="line">               <span class="keyword">new</span> android.hardware.Camera.CameraInfo();</span><br><span class="line">       android.hardware.Camera.getCameraInfo(cameraId, info);</span><br><span class="line">       orientation = (orientation + <span class="number">45</span>) / <span class="number">90</span> * <span class="number">90</span>;</span><br><span class="line">       <span class="keyword">int</span> rotation = <span class="number">0</span>;</span><br><span class="line">       <span class="keyword">if</span> (info.facing == CameraInfo.CAMERA_FACING_FRONT) &#123;</span><br><span class="line">           rotation = (info.orientation - orientation + <span class="number">360</span>) % <span class="number">360</span>;</span><br><span class="line">       &#125; <span class="keyword">else</span> &#123;  <span class="comment">// back-facing camera</span></span><br><span class="line">           rotation = (info.orientation + orientation) % <span class="number">360</span>;</span><br><span class="line">       &#125;</span><br><span class="line">       mParameters.setRotation(rotation);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<p>拍照成功后获得bytes，从exif中获取照片旋转角度<br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line">ORIENTATION_NORMAL</span><br><span class="line">Constant Value: 1 (0x00000001)</span><br><span class="line"></span><br><span class="line">ORIENTATION_ROTATE_180</span><br><span class="line">Constant Value: 3 (0x00000003)</span><br><span class="line"></span><br><span class="line">ORIENTATION_ROTATE_270</span><br><span class="line">Constant Value: 8 (0x00000008)</span><br><span class="line"></span><br><span class="line">ORIENTATION_ROTATE_90</span><br><span class="line">Constant Value: 6 (0x00000006)</span><br><span class="line">**/</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function">ExifInterface <span class="title">getExifInterface</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (exif == <span class="keyword">null</span>) &#123;</span><br><span class="line">            exif = <span class="keyword">new</span> ExifInterface();</span><br><span class="line"></span><br><span class="line">            exif.readExif(jpegOriginal);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> (exif);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">int</span> <span class="title">getOrientation</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        ExifTag tag = getExifInterface().getTag(ExifInterface.TAG_ORIENTATION);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> (tag == <span class="keyword">null</span> ? -<span class="number">1</span> : tag.getValueAsInt(-1));</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>旋转照片<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Matrix</span> <span class="keyword">matrix</span>=new <span class="literal">Matrix</span>();</span><br><span class="line"><span class="keyword">matrix</span>.reset();</span><br><span class="line"><span class="keyword">matrix</span>.postRotate(degrees);</span><br><span class="line">dstBmp=Bitmap.createBitmap(srcBmp, 0, 0, srcBmp.getWidth(), srcBmp.getHeight(), <span class="keyword">matrix</span>, true);</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>setPreviewSize设置预览图像分辨率，setPictureSize拍照分辨率<br>设置的分辨率不支持会抛异常<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取预览支持的分辨率</span></span><br><span class="line">cameraParameters.<span class="function"><span class="title">getSupportedPreviewSizes</span><span class="params">()</span></span></span><br><span class="line"><span class="comment">//获取拍照支持的分辨率 </span></span><br><span class="line">cameraParameters.<span class="function"><span class="title">getSupportedPictureSizes</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <h2 id="u66DD_u5149_u8FC7_u9AD8"><a href="#u66DD_u5149_u8FC7_u9AD8" class="headerlink" title="曝光过高"></a>曝光过高</h2><p>预览帧数过低会导致部分机型曝光过高，解决方案是录视频时降低帧率。</p>
@@ -896,382 +1239,12 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/12/Android不透明度16进制值/" itemprop="url">
-                  Android 透明度百分比对应的 十六进制
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            发表于
-            <time itemprop="dateCreated" datetime="2016-09-12T10:25:28+08:00" content="2016-09-12">
-              2016-09-12
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/12/Android不透明度16进制值/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/12/Android不透明度16进制值/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody">
-            
-              <pre><code>百分比:0%  HEX: 00
-百分比:1%  HEX: 30
-百分比:2%  HEX: 50
-百分比:3%  HEX: 80
-百分比:4%  HEX: A0
-百分比:5%  HEX: D0
-百分比:6%  HEX: F0
-百分比:7%  HEX: 12
-百分比:8%  HEX: 14
-百分比:9%  HEX: 17
-百分比:10%  HEX: 1A
-百分比:11%  HEX: 1C
-百分比:12%  HEX: 1F
-百分比:13%  HEX: 21
-百分比:14%  HEX: 24
-百分比:15%  HEX: 26
-百分比:16%  HEX: 29
-百分比:17%  HEX: 2B
-百分比:18%  HEX: 2E
-百分比:19%  HEX: 30
-百分比:20%  HEX: 33
-百分比:21%  HEX: 36
-百分比:22%  HEX: 38
-百分比:23%  HEX: 3B
-百分比:24%  HEX: 3D
-百分比:25%  HEX: 40
-百分比:26%  HEX: 42
-百分比:27%  HEX: 45
-百分比:28%  HEX: 47
-百分比:29%  HEX: 4A
-百分比:30%  HEX: 4D
-百分比:31%  HEX: 4F
-百分比:32%  HEX: 52
-百分比:33%  HEX: 54
-百分比:34%  HEX: 57
-百分比:35%  HEX: 59
-百分比:36%  HEX: 5C
-百分比:37%  HEX: 5E
-百分比:38%  HEX: 61
-百分比:39%  HEX: 63
-百分比:40%  HEX: 66
-百分比:41%  HEX: 69
-百分比:42%  HEX: 6B
-百分比:43%  HEX: 6E
-百分比:44%  HEX: 70
-百分比:45%  HEX: 73
-百分比:46%  HEX: 75
-百分比:47%  HEX: 78
-百分比:48%  HEX: 7A
-百分比:49%  HEX: 7D
-百分比:50%  HEX: 80
-百分比:51%  HEX: 82
-百分比:52%  HEX: 85
-百分比:53%  HEX: 87
-百分比:54%  HEX: 8A
-百分比:55%  HEX: 8C
-百分比:56%  HEX: 8F
-百分比:57%  HEX: 91
-百分比:58%  HEX: 94
-百分比:59%  HEX: 96
-百分比:60%  HEX: 99
-百分比:61%  HEX: 9C
-百分比:62%  HEX: 9E
-百分比:63%  HEX: A1
-百分比:64%  HEX: A3
-百分比:65%  HEX: A6
-百分比:66%  HEX: A8
-百分比:67%  HEX: AB
-百分比:68%  HEX: AD
-百分比:69%  HEX: B0
-百分比:70%  HEX: B3
-百分比:71%  HEX: B5
-百分比:72%  HEX: B8
-百分比:73%  HEX: BA
-百分比:74%  HEX: BD
-百分比:75%  HEX: BF
-百分比:76%  HEX: C2
-百分比:77%  HEX: C4
-百分比:78%  HEX: C7
-百分比:79%  HEX: C9
-百分比:80%  HEX: CC
-百分比:81%  HEX: CF
-百分比:82%  HEX: D1
-百分比:83%  HEX: D4
-百分比:84%  HEX: D6
-百分比:85%  HEX: D9
-百分比:86%  HEX: DB
-百分比:87%  HEX: DE
-百分比:88%  HEX: E0
-百分比:89%  HEX: E3
-百分比:90%  HEX: E6
-百分比:91%  HEX: E8
-百分比:92%  HEX: EB
-百分比:93%  HEX: ED
-百分比:94%  HEX: F0
-百分比:95%  HEX: F2
-百分比:96%  HEX: F5
-百分比:97%  HEX: F7
-百分比:98%  HEX: FA
-百分比:99%  HEX: FC
-百分比:100%  HEX: FF
-</code></pre><p>格式如#00FFFFFF，前两位代表不透明度的十六进制。00表示完全透明，FF就是全不透明。依次递增。</p>
-
-            
-          </span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/08/release和debug共存/" itemprop="url">
-                  release和debug包共存
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            发表于
-            <time itemprop="dateCreated" datetime="2016-09-08T20:44:28+08:00" content="2016-09-08">
-              2016-09-08
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/08/release和debug共存/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/08/release和debug共存/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>PackageName，所有的Android应用程序都有一个包名。包名是设备上的这个应用程序的唯一标识，所以应用共存从包名下手。</p>
-<h1 id="1-_u4FEE_u6539AndroidManifest_u4E2Dpackage"><a href="#1-_u4FEE_u6539AndroidManifest_u4E2Dpackage" class="headerlink" title="1.修改AndroidManifest中package"></a>1.修改AndroidManifest中package</h1><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;manifest <span class="string">xmlns:</span>android=<span class="string">"http://schemas.android.com/apk/res/android"</span></span><br><span class="line">    <span class="keyword">package</span>=<span class="string">"com.example.my.app"</span></span><br><span class="line"><span class="label">    android:</span>versionCode=<span class="string">"1"</span></span><br><span class="line"><span class="label">    android:</span>versionName=<span class="string">"1.0"</span> &gt;</span><br></pre></td></tr></table></figure>
-<p>大量的包、R.java的重命名，不推荐。</p>
-<h1 id="2-__u914D_u7F6E_u5E94_u7528_u7684build-gradle_u6587_u4EF6"><a href="#2-__u914D_u7F6E_u5E94_u7528_u7684build-gradle_u6587_u4EF6" class="headerlink" title="2. 配置应用的build.gradle文件"></a>2. 配置应用的build.gradle文件</h1><figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">android&#123;</span><br><span class="line">        ...</span><br><span class="line">        buildTypes&#123;</span><br><span class="line">            debug&#123;</span><br><span class="line">                //在编译打包时会给包名加上后缀</span><br><span class="line">                applicationIdSuffix<span class="string">'.debug'</span></span><br><span class="line">            &#125;</span><br><span class="line">            release&#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/08/release和debug共存/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/08/parcelable-to-bytes/" itemprop="url">
-                  parcelable to bytes
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            发表于
-            <time itemprop="dateCreated" datetime="2016-09-08T10:07:52+08:00" content="2016-09-08">
-              2016-09-08
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/08/parcelable-to-bytes/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/08/parcelable-to-bytes/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody">
-            
-              <p>实现parcelable接口的可序列化对象与byte[]相互转换，从而实现保存对象到文件或数据库。</p>
-<p>parcelable to bytes<br><figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Parcel parcel = Parcel.obtain()<span class="comment">;</span></span><br><span class="line">recorderConfiguration.writeToParcel(parcel, 0)<span class="comment">;</span></span><br><span class="line">byte[] bundleBytes = parcel.marshall()<span class="comment">;</span></span><br><span class="line">parcel.recycle()<span class="comment">;</span></span><br></pre></td></tr></table></figure></p>
-<p>bytes to parcelable<br><figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">byte[] configBytes <span class="comment">;</span></span><br><span class="line">Parcel parcel = Parcel.obtain()<span class="comment">;</span></span><br><span class="line">parcel.unmarshall(configBytes, 0, configBytes.length)<span class="comment">;</span></span><br><span class="line">parcel.setDataPosition(0)<span class="comment">;</span></span><br><span class="line">request.recorderConfiguration = new RecorderConfiguration(parcel)<span class="comment">;</span></span><br><span class="line">parcel.recycle()<span class="comment">;</span></span><br></pre></td></tr></table></figure></p>
-
-            
-          </span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1312,7 +1285,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">28</span>
+              <span class="site-state-item-count">31</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1380,7 +1353,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2016</span>
+  <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="icon-next-heart fa fa-heart"></i>
   </span>
