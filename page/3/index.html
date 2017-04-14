@@ -197,6 +197,216 @@
 
     
     
+      
+      
+
+      
+    
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/26/MeasureSpec/" itemprop="url">
+                  MeasureSpec
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-07-26T10:43:15+08:00" content="2016-07-26">
+              2016-07-26
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/26/MeasureSpec/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/26/MeasureSpec/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>最近发现，重写了viewGroup的onMeasure方法，造成子view match_parent不起作用，代码如下：<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> onMeasure(<span class="built_in">int</span> widthMeasureSpec, <span class="built_in">int</span> heightMeasureSpec) &#123;</span><br><span class="line">    <span class="built_in">int</span> <span class="variable">width</span> = MeasureSpec.getSize(widthMeasureSpec);</span><br><span class="line">    <span class="built_in">int</span> <span class="variable">height</span> = (<span class="built_in">int</span>) (<span class="variable">width</span> / <span class="number">0.75</span>f);</span><br><span class="line">    <span class="keyword">super</span>.onMeasure(<span class="variable">width</span>, <span class="variable">height</span>);</span><br><span class="line">    setMeasuredDimension(<span class="variable">width</span>, <span class="variable">height</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/07/26/MeasureSpec/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/04/19/android-shape/" itemprop="url">
+                  android shape
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-04-19T22:31:59+08:00" content="2016-04-19">
+              2016-04-19
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/19/android-shape/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/19/android-shape/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">shape</span> <span class="attribute">xmlns:android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span> &gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">&lt;!-- 圆角 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">corners</span></span><br><span class="line">        <span class="attribute">android:radius</span>=<span class="value">"9dp"</span></span><br><span class="line">        <span class="attribute">android:topLeftRadius</span>=<span class="value">"2dp"</span></span><br><span class="line">        <span class="attribute">android:topRightRadius</span>=<span class="value">"2dp"</span></span><br><span class="line">        <span class="attribute">android:bottomLeftRadius</span>=<span class="value">"2dp"</span></span><br><span class="line">        <span class="attribute">android:bottomRightRadius</span>=<span class="value">"2dp"</span>/&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">&lt;!-- 渐变 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">gradient</span></span><br><span class="line">        <span class="attribute">android:startColor</span>=<span class="value">"@android:color/white"</span></span><br><span class="line">        <span class="attribute">android:centerColor</span>=<span class="value">"@android:color/black"</span></span><br><span class="line">        <span class="attribute">android:endColor</span>=<span class="value">"@android:color/black"</span></span><br><span class="line">        <span class="attribute">android:useLevel</span>=<span class="value">"true"</span></span><br><span class="line">        <span class="attribute">android:angle</span>=<span class="value">"45"</span></span><br><span class="line">        <span class="attribute">android:type</span>=<span class="value">"radial"</span></span><br><span class="line">        <span class="attribute">android:centerX</span>=<span class="value">"0"</span></span><br><span class="line">        <span class="attribute">android:centerY</span>=<span class="value">"0"</span></span><br><span class="line">        <span class="attribute">android:gradientRadius</span>=<span class="value">"90"</span>/&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">&lt;!-- 间隔 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">padding</span></span><br><span class="line">        <span class="attribute">android:left</span>=<span class="value">"2dp"</span></span><br><span class="line">        <span class="attribute">android:top</span>=<span class="value">"2dp"</span></span><br><span class="line">        <span class="attribute">android:right</span>=<span class="value">"2dp"</span></span><br><span class="line">        <span class="attribute">android:bottom</span>=<span class="value">"2dp"</span>/&gt;</span><span class="comment">&lt;!-- 各方向的间隔 --&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">&lt;!-- 大小 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">size</span></span><br><span class="line">        <span class="attribute">android:width</span>=<span class="value">"50dp"</span></span><br><span class="line">        <span class="attribute">android:height</span>=<span class="value">"50dp"</span>/&gt;</span><span class="comment">&lt;!-- 宽度和高度 --&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">&lt;!-- 填充 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">solid</span></span><br><span class="line">        <span class="attribute">android:color</span>=<span class="value">"@android:color/white"</span>/&gt;</span><span class="comment">&lt;!-- 填充的颜色 --&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">&lt;!-- 描边 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">stroke</span></span><br><span class="line">        <span class="attribute">android:width</span>=<span class="value">"2dp"</span></span><br><span class="line">        <span class="attribute">android:color</span>=<span class="value">"@android:color/black"</span></span><br><span class="line">        <span class="attribute">android:dashWidth</span>=<span class="value">"1dp"</span></span><br><span class="line">        <span class="attribute">android:dashGap</span>=<span class="value">"2dp"</span>/&gt;</span></span><br><span class="line">    </span><br><span class="line"><span class="tag">&lt;/<span class="title">shape</span>&gt;</span></span><br></pre></td></tr></table></figure>
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
 
     
       
@@ -991,221 +1201,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/01/11/Formatting and Styling/" itemprop="url">
-                  Formatting and Styling
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            发表于
-            <time itemprop="dateCreated" datetime="2016-01-11T19:07:12+08:00" content="2016-01-11">
-              2016-01-11
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp; 分类于
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/android/" itemprop="url" rel="index">
-                    <span itemprop="name">android</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/01/11/Formatting and Styling/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/11/Formatting and Styling/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <h1 id="string-xml__u4E2D_u7684_u8F6C_u4E49"><a href="#string-xml__u4E2D_u7684_u8F6C_u4E49" class="headerlink" title="string.xml 中的转义"></a>string.xml 中的转义</h1><ul>
-<li><p>‘ “需要用\转义或对整个字符串加上 “”</p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="type">string</span> <span class="property">name</span>=<span class="string">"good_example"</span>&gt;This\'ll work&lt;/<span class="type">string</span>&gt;</span><br><span class="line">&lt;<span class="type">string</span> <span class="property">name</span>=<span class="string">"good_example_2"</span>&gt;<span class="string">"This'll also work"</span>&lt;/<span class="type">string</span>&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/01/11/Formatting and Styling/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/01/10/githubpages/" itemprop="url">
-                  github搭建blog
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            发表于
-            <time itemprop="dateCreated" datetime="2016-01-10T13:30:16+08:00" content="2016-01-10">
-              2016-01-10
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp; 分类于
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/hexo/" itemprop="url" rel="index">
-                    <span itemprop="name">hexo</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/01/10/githubpages/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/10/githubpages/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <h1 id="u521B_u5EFAgithub_u4ED3_u5E93"><a href="#u521B_u5EFAgithub_u4ED3_u5E93" class="headerlink" title="创建github仓库"></a>创建github仓库</h1><p>在github中创建一个名字为 xxx.github.io 的仓库,xxx为github为账号。</p>
-<h1 id="u4F7F_u7528hexo__u4E3B_u9898"><a href="#u4F7F_u7528hexo__u4E3B_u9898" class="headerlink" title="使用hexo 主题"></a>使用hexo 主题</h1><h2 id="u5B89_u88C5_u8F6F_u4EF6"><a href="#u5B89_u88C5_u8F6F_u4EF6" class="headerlink" title="安装软件"></a>安装软件</h2><ul>
-<li>安装Node.js<br><a href="https://nodejs.org/en/">node.js官网</a></li>
-<li>安装Hexo<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm <span class="operator"><span class="keyword">install</span> -<span class="keyword">g</span> hexo-cli</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/01/10/githubpages/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
@@ -1252,7 +1247,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">31</span>
+              <span class="site-state-item-count">33</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

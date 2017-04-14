@@ -197,6 +197,189 @@
 
     
     
+      
+      
+
+      
+    
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/18/java-线程池/" itemprop="url">
+                  Java 线程池
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-09-18T14:29:35+08:00" content="2016-09-18">
+              2016-09-18
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/18/java-线程池/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/18/java-线程池/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <h1 id="ThreadPoolExecutor"><a href="#ThreadPoolExecutor" class="headerlink" title="ThreadPoolExecutor"></a>ThreadPoolExecutor</h1><p><strong>Executor</strong>是一个顶层接口，在它里面只声明了一个方法execute(Runnable)；<br><strong>ExecutorService</strong>是一个接口，继承了Executor接口，并声明了一些方法：submit、invokeAll、invokeAny以及shutDown等；<br><strong>AbstractExecutorService</strong>是一个抽象类，实现了ExecutorService接口，基本实现了ExecutorService中声明的所有方法；<br><strong>ThreadPoolExecutor</strong>继承了类AbstractExecutorService。</p>
+<p><strong>在ThreadPoolExecutor类中有几个非常重要的方法：</strong><br><strong>execute()</strong><br>execute()方法实际上是Executor中声明的方法，在ThreadPoolExecutor进行了具体的实现，这个方法是ThreadPoolExecutor的核心方法，通过这个方法可以向线程池提交一个任务，交由线程池去执行。<br><strong>submit()</strong><br>submit()方法是在ExecutorService中声明的方法，在AbstractExecutorService就已经有了具体的实现，在ThreadPoolExecutor中并没有对其进行重写，这个方法也是用来向线程池提交任务的，但是它和execute(）方法不同，它能够返回任务执行的结果，去看submit()方法的实现，会发现它实际上还是调用的execute()方法，只不过它利用了Future来获取任务执行结果。<br><strong>shutdown()</strong><br><strong>shutdownNow()</strong><br>shutdown()和shutdownNow()是用来关闭线程池的。</p>
+<h1 id="Executors"><a href="#Executors" class="headerlink" title="Executors"></a>Executors</h1><p>Java通过Executors提供四种线程池，分别为：<br><strong>newCachedThreadPool</strong><br>创建一个可缓存线程池，如果线程池长度超过处理需要，可灵活回收空闲线程，若无可回收，则新建线程。<br><strong>newFixedThreadPool</strong><br>创建一个定长线程池，可控制线程最大并发数，超出的线程会在队列中等待。<br><strong>newScheduledThreadPool</strong><br>创建一个定长线程池，支持定时及周期性任务执行。<br><strong>newSingleThreadExecutor</strong><br>创建一个单线程化的线程池，它只会用唯一的工作线程来执行任务，保证所有任务按照指定顺序(FIFO, LIFO, 优先级)执行。</p>
+
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/12/DialogFragment/" itemprop="url">
+                  DialogFragment
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-09-12T18:35:43+08:00" content="2016-09-12">
+              2016-09-12
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/12/DialogFragment/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/12/DialogFragment/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">void</span> showDialog() &#123;</span><br><span class="line">    mStackLevel++;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// DialogFragment.show() will take care of adding the fragment</span></span><br><span class="line">    <span class="comment">// in a transaction.  We also want to remove any currently showing</span></span><br><span class="line">    <span class="comment">// dialog, so make our own transaction and take care of that here.</span></span><br><span class="line">    FragmentTransaction <span class="literal">ft</span> = getFragmentManager()<span class="built_in">.</span>beginTransaction();</span><br><span class="line">    Fragment prev = getFragmentManager()<span class="built_in">.</span>findFragmentByTag(<span class="string">"dialog"</span>);</span><br><span class="line">    <span class="keyword">if</span> (prev != <span class="built_in">null</span>) &#123;</span><br><span class="line">        <span class="literal">ft</span><span class="built_in">.</span>remove(prev);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="literal">ft</span><span class="built_in">.</span>addToBackStack(<span class="built_in">null</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Create and show the dialog.</span></span><br><span class="line">    DialogFragment newFragment = MyDialogFragment<span class="built_in">.</span>newInstance(mStackLevel);</span><br><span class="line">    newFragment<span class="built_in">.</span>show(<span class="literal">ft</span>, <span class="string">"dialog"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">MyAlertDialogFragment</span> <span class="keyword">extends</span> <span class="title">DialogFragment</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> MyAlertDialogFragment <span class="title">newInstance</span><span class="params">(<span class="keyword">int</span> title)</span> </span>&#123;</span><br><span class="line">        MyAlertDialogFragment frag = <span class="keyword">new</span> MyAlertDialogFragment();</span><br><span class="line">        Bundle args = <span class="keyword">new</span> Bundle();</span><br><span class="line">        args.putInt(<span class="string">"title"</span>, title);</span><br><span class="line">        frag.setArguments(args);</span><br><span class="line">        <span class="keyword">return</span> frag;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Dialog <span class="title">onCreateDialog</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> title = getArguments().getInt(<span class="string">"title"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> AlertDialog.Builder(getActivity())</span><br><span class="line">                .setIcon(R.drawable.alert_dialog_icon)</span><br><span class="line">                .setTitle(title)</span><br><span class="line">                .setPositiveButton(R.string.alert_dialog_ok,</span><br><span class="line">                    <span class="keyword">new</span> DialogInterface.OnClickListener() &#123;</span><br><span class="line">                        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(DialogInterface dialog, <span class="keyword">int</span> whichButton)</span> </span>&#123;</span><br><span class="line">                            ((FragmentAlertDialog)getActivity()).doPositiveClick();</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                )</span><br><span class="line">                .setNegativeButton(R.string.alert_dialog_cancel,</span><br><span class="line">                    <span class="keyword">new</span> DialogInterface.OnClickListener() &#123;</span><br><span class="line">                        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(DialogInterface dialog, <span class="keyword">int</span> whichButton)</span> </span>&#123;</span><br><span class="line">                            ((FragmentAlertDialog)getActivity()).doNegativeClick();</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                )</span><br><span class="line">                .create();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
 
     
       
@@ -1079,211 +1262,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/26/MeasureSpec/" itemprop="url">
-                  MeasureSpec
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            发表于
-            <time itemprop="dateCreated" datetime="2016-07-26T10:43:15+08:00" content="2016-07-26">
-              2016-07-26
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp; 分类于
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/android/" itemprop="url" rel="index">
-                    <span itemprop="name">android</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/26/MeasureSpec/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/26/MeasureSpec/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>最近发现，重写了viewGroup的onMeasure方法，造成子view match_parent不起作用，代码如下：<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> onMeasure(<span class="built_in">int</span> widthMeasureSpec, <span class="built_in">int</span> heightMeasureSpec) &#123;</span><br><span class="line">    <span class="built_in">int</span> <span class="variable">width</span> = MeasureSpec.getSize(widthMeasureSpec);</span><br><span class="line">    <span class="built_in">int</span> <span class="variable">height</span> = (<span class="built_in">int</span>) (<span class="variable">width</span> / <span class="number">0.75</span>f);</span><br><span class="line">    <span class="keyword">super</span>.onMeasure(<span class="variable">width</span>, <span class="variable">height</span>);</span><br><span class="line">    setMeasuredDimension(<span class="variable">width</span>, <span class="variable">height</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/26/MeasureSpec/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/04/19/android-shape/" itemprop="url">
-                  android shape
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            发表于
-            <time itemprop="dateCreated" datetime="2016-04-19T22:31:59+08:00" content="2016-04-19">
-              2016-04-19
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp; 分类于
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/android/" itemprop="url" rel="index">
-                    <span itemprop="name">android</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/04/19/android-shape/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/19/android-shape/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody">
-            
-              <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">shape</span> <span class="attribute">xmlns:android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span> &gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">&lt;!-- 圆角 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">corners</span></span><br><span class="line">        <span class="attribute">android:radius</span>=<span class="value">"9dp"</span></span><br><span class="line">        <span class="attribute">android:topLeftRadius</span>=<span class="value">"2dp"</span></span><br><span class="line">        <span class="attribute">android:topRightRadius</span>=<span class="value">"2dp"</span></span><br><span class="line">        <span class="attribute">android:bottomLeftRadius</span>=<span class="value">"2dp"</span></span><br><span class="line">        <span class="attribute">android:bottomRightRadius</span>=<span class="value">"2dp"</span>/&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">&lt;!-- 渐变 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">gradient</span></span><br><span class="line">        <span class="attribute">android:startColor</span>=<span class="value">"@android:color/white"</span></span><br><span class="line">        <span class="attribute">android:centerColor</span>=<span class="value">"@android:color/black"</span></span><br><span class="line">        <span class="attribute">android:endColor</span>=<span class="value">"@android:color/black"</span></span><br><span class="line">        <span class="attribute">android:useLevel</span>=<span class="value">"true"</span></span><br><span class="line">        <span class="attribute">android:angle</span>=<span class="value">"45"</span></span><br><span class="line">        <span class="attribute">android:type</span>=<span class="value">"radial"</span></span><br><span class="line">        <span class="attribute">android:centerX</span>=<span class="value">"0"</span></span><br><span class="line">        <span class="attribute">android:centerY</span>=<span class="value">"0"</span></span><br><span class="line">        <span class="attribute">android:gradientRadius</span>=<span class="value">"90"</span>/&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">&lt;!-- 间隔 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">padding</span></span><br><span class="line">        <span class="attribute">android:left</span>=<span class="value">"2dp"</span></span><br><span class="line">        <span class="attribute">android:top</span>=<span class="value">"2dp"</span></span><br><span class="line">        <span class="attribute">android:right</span>=<span class="value">"2dp"</span></span><br><span class="line">        <span class="attribute">android:bottom</span>=<span class="value">"2dp"</span>/&gt;</span><span class="comment">&lt;!-- 各方向的间隔 --&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">&lt;!-- 大小 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">size</span></span><br><span class="line">        <span class="attribute">android:width</span>=<span class="value">"50dp"</span></span><br><span class="line">        <span class="attribute">android:height</span>=<span class="value">"50dp"</span>/&gt;</span><span class="comment">&lt;!-- 宽度和高度 --&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">&lt;!-- 填充 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">solid</span></span><br><span class="line">        <span class="attribute">android:color</span>=<span class="value">"@android:color/white"</span>/&gt;</span><span class="comment">&lt;!-- 填充的颜色 --&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">&lt;!-- 描边 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">stroke</span></span><br><span class="line">        <span class="attribute">android:width</span>=<span class="value">"2dp"</span></span><br><span class="line">        <span class="attribute">android:color</span>=<span class="value">"@android:color/black"</span></span><br><span class="line">        <span class="attribute">android:dashWidth</span>=<span class="value">"1dp"</span></span><br><span class="line">        <span class="attribute">android:dashGap</span>=<span class="value">"2dp"</span>/&gt;</span></span><br><span class="line">    </span><br><span class="line"><span class="tag">&lt;/<span class="title">shape</span>&gt;</span></span><br></pre></td></tr></table></figure>
-            
-          </span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
@@ -1330,7 +1308,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">31</span>
+              <span class="site-state-item-count">33</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

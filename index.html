@@ -197,6 +197,190 @@
 
     
     
+      
+      
+        
+        
+        
+      
+
+      
+    
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/04/14/gif-vs-webP/" itemprop="url">
+                  Gif vs webP
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2017-04-14T12:21:09+08:00" content="2017-04-14">
+              2017-04-14
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/04/14/gif-vs-webP/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/04/14/gif-vs-webP/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <p><img src="/../album/WechatIMG2726.jpeg" alt="pic"></p>
+
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/03/07/line-intersect-rect/" itemprop="url">
+                  判断直线与矩形相交
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2017-03-07T10:15:18+08:00" content="2017-03-07">
+              2017-03-07
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/03/07/line-intersect-rect/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/07/line-intersect-rect/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> Rectangle &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> final <span class="keyword">int</span> OUT_LEFT = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> final <span class="keyword">int</span> OUT_TOP = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> final <span class="keyword">int</span> OUT_RIGHT = <span class="number">4</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> final <span class="keyword">int</span> OUT_BOTTOM = <span class="number">8</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">float</span> width;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">float</span> height;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">float</span> left;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">float</span> top;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Rectangle</span><span class="params">(<span class="keyword">float</span> x1, <span class="keyword">float</span> y1, <span class="keyword">float</span> w, <span class="keyword">float</span> h)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.left = x1;</span><br><span class="line">        <span class="keyword">this</span>.top = y1;</span><br><span class="line">        width = w;</span><br><span class="line">        height = h;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> boolean <span class="title">intersectsLine</span><span class="params">(<span class="keyword">float</span> x1, <span class="keyword">float</span> y1, <span class="keyword">float</span> x2, <span class="keyword">float</span> y2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> out1, out2;</span><br><span class="line">        <span class="keyword">if</span> ((out2 = outcode(x2, y2)) == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> ((out1 = outcode(x1, y1)) != <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> ((out1 &amp; out2) != <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> ((out1 &amp; (OUT_LEFT | OUT_RIGHT)) != <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">float</span> x = left;</span><br><span class="line">                <span class="keyword">if</span> ((out1 &amp; OUT_RIGHT) != <span class="number">0</span>) &#123;</span><br><span class="line">                    x += width;</span><br><span class="line">                &#125;</span><br><span class="line">                y1 = y1 + (x - x1) * (y2 - y1) / (x2 - x1);</span><br><span class="line">                x1 = x;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">float</span> y = top;</span><br><span class="line">                <span class="keyword">if</span> ((out1 &amp; OUT_BOTTOM) != <span class="number">0</span>) &#123;</span><br><span class="line">                    y += height;</span><br><span class="line">                &#125;</span><br><span class="line">                x1 = x1 + (y - y1) * (x2 - x1) / (y2 - y1);</span><br><span class="line">                y1 = y;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">outcode</span><span class="params">(<span class="keyword">double</span> x, <span class="keyword">double</span> y)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> out = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.width &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">            out |= OUT_LEFT | OUT_RIGHT;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (x &lt; <span class="keyword">this</span>.left) &#123;</span><br><span class="line">            out |= OUT_LEFT;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (x &gt; <span class="keyword">this</span>.left + <span class="keyword">this</span>.width) &#123;</span><br><span class="line">            out |= OUT_RIGHT;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.height &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">            out |= OUT_TOP | OUT_BOTTOM;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (y &lt; <span class="keyword">this</span>.top) &#123;</span><br><span class="line">            out |= OUT_TOP;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (y &gt; <span class="keyword">this</span>.top + <span class="keyword">this</span>.height) &#123;</span><br><span class="line">            out |= OUT_BOTTOM;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> out;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
 
     
       
@@ -796,7 +980,8 @@
 <li>When you want, call takePicture(Camera.ShutterCallback, Camera.PictureCallback, Camera.PictureCallback, Camera.PictureCallback) to capture a photo. Wait for the callbacks to provide the actual image data.<br>takePicture拍照</li>
 <li>After taking a picture, preview display will have stopped. To take more photos, call startPreview() again first.<br>拍照后预览将会停止，重拍一定要调用startPreview。</li>
 <li>Call stopPreview() to stop updating the preview surface.<br>调用stopPreview停止预览</li>
-<li>Important: Call release() to release the camera for use by other applications. Applications should release the camera immediately in onPause() (and re-open() it in onResume()).<br>调用release释放相机。</li>
+<li>Important: Call release() to release the camera for use by other applications. Applications should release the camera immediately in onPause() (and re-open() it in onResume()).<br>调用release释放相机。<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> startCamera(SurfaceTexture surface) &#123;</span><br><span class="line">      surface.setDefaultBufferSize(<span class="number">1080</span>, <span class="number">1920</span>);</span><br><span class="line"></span><br><span class="line">      Log.d(<span class="string">"lll"</span>, <span class="string">"open camera begin"</span>);</span><br><span class="line">       <span class="built_in">camera</span> = Camera.<span class="built_in">open</span>(Camera.CameraInfo.CAMERA_FACING_BACK);</span><br><span class="line">      Camera.Parameters params = <span class="built_in">camera</span>.getParameters();</span><br><span class="line">      params.setPreviewSize(<span class="number">1920</span>, <span class="number">1080</span>);</span><br><span class="line">      params.setPreviewFormat(ImageFormat.YV12);</span><br><span class="line">      <span class="built_in">camera</span>.setParameters(params);</span><br><span class="line"></span><br><span class="line">      <span class="built_in">camera</span>.setDisplayOrientation(<span class="number">90</span>);</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">          <span class="built_in">camera</span>.setPreviewTexture(surface);</span><br><span class="line">          <span class="built_in">camera</span>.startPreview();</span><br><span class="line">      &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">          e.printStackTrace();</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">final</span> <span class="built_in">boolean</span>[] flag = &#123;<span class="keyword">true</span>&#125;;</span><br><span class="line">      <span class="built_in">byte</span>[] buffer = <span class="keyword">new</span> <span class="built_in">byte</span>[getYuvBuffer(<span class="number">1920</span>, <span class="number">1080</span>)];</span><br><span class="line">      <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; <span class="number">2</span>; i++) &#123;</span><br><span class="line">          <span class="built_in">camera</span>.addCallbackBuffer(buffer);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="built_in">camera</span>.setPreviewCallbackWithBuffer(<span class="keyword">new</span> Camera.PreviewCallback() &#123;</span><br><span class="line">          @Override</span><br><span class="line">          <span class="keyword">public</span> <span class="keyword">void</span> onPreviewFrame(<span class="built_in">byte</span>[] data, Camera <span class="built_in">camera</span>) &#123;</span><br><span class="line">              <span class="keyword">if</span> (flag[<span class="number">0</span>]) &#123;</span><br><span class="line">                  flag[<span class="number">0</span>] = <span class="keyword">false</span>;</span><br><span class="line">                  Log.d(<span class="string">"lll"</span>, <span class="string">"open camera end"</span>);</span><br><span class="line">              &#125;</span><br><span class="line">              <span class="built_in">camera</span>.addCallbackBuffer(data);</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">int</span> getYuvBuffer(<span class="built_in">int</span> <span class="variable">width</span>, <span class="built_in">int</span> <span class="variable">height</span>) &#123;</span><br><span class="line">      <span class="comment">// stride = ALIGN(width, 16)</span></span><br><span class="line">      <span class="built_in">int</span> stride = (<span class="built_in">int</span>) Math.<span class="built_in">ceil</span>(<span class="variable">width</span> / <span class="number">16.0</span>) * <span class="number">16</span>;</span><br><span class="line">      <span class="comment">// y_size = stride * height</span></span><br><span class="line">      <span class="built_in">int</span> y_size = stride * <span class="variable">height</span>;</span><br><span class="line">      <span class="comment">// c_stride = ALIGN(stride/2, 16)</span></span><br><span class="line">      <span class="built_in">int</span> c_stride = (<span class="built_in">int</span>) Math.<span class="built_in">ceil</span>(<span class="variable">width</span> / <span class="number">32.0</span>) * <span class="number">16</span>;</span><br><span class="line">      <span class="comment">// c_size = c_stride * height/2</span></span><br><span class="line">      <span class="built_in">int</span> c_size = c_stride * <span class="variable">height</span> / <span class="number">2</span>;</span><br><span class="line">      <span class="comment">// size = y_size + c_size * 2</span></span><br><span class="line">      <span class="keyword">return</span> y_size + c_size * <span class="number">2</span>;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
 <h1 id="u4F7F_u7528camera_u5F55_u89C6_u9891_u57FA_u672C_u6D41_u7A0B"><a href="#u4F7F_u7528camera_u5F55_u89C6_u9891_u57FA_u672C_u6D41_u7A0B" class="headerlink" title="使用camera录视频基本流程"></a>使用camera录视频基本流程</h1><p>Open Camera - Use the Camera.open() to get an instance of the camera object.<br>Connect Preview - Prepare a live camera image preview by connecting a SurfaceView to the camera using Camera.setPreviewDisplay().<br>Start Preview - Call Camera.startPreview() to begin displaying the live camera images.<br>Start Recording Video - The following steps must be completed in order to successfully record video:<br>Unlock the Camera - Unlock the camera for use by MediaRecorder by calling Camera.unlock().<br>Configure MediaRecorder - Call in the following MediaRecorder methods in this order. For more information, see the MediaRecorder reference documentation.<br>setCamera() - Set the camera to be used for video capture, use your application’s current instance of Camera.<br>setAudioSource() - Set the audio source, use MediaRecorder.AudioSource.CAMCORDER.<br>setVideoSource() - Set the video source, use MediaRecorder.VideoSource.CAMERA.<br>Set the video output format and encoding. For Android 2.2 (API Level 8) and higher, use the MediaRecorder.setProfile method, and get a profile instance using CamcorderProfile.get(). For versions of Android prior to 2.2, you must set the video output format and encoding parameters:<br>setOutputFormat() - Set the output format, specify the default setting or MediaRecorder.OutputFormat.MPEG_4.<br>setAudioEncoder() - Set the sound encoding type, specify the default setting or MediaRecorder.AudioEncoder.AMR_NB.<br>setVideoEncoder() - Set the video encoding type, specify the default setting or MediaRecorder.VideoEncoder.MPEG_4_SP.<br>setOutputFile() - Set the output file, use getOutputMediaFile(MEDIA_TYPE_VIDEO).toString() from the example method in the Saving Media Files section.<br>setPreviewDisplay() - Specify the SurfaceView preview layout element for your application. Use the same object you specified for Connect Preview.<br>Caution: You must call these MediaRecorder configuration methods in this order, otherwise your application will encounter errors and the recording will fail.</p>
 <p>Prepare MediaRecorder - Prepare the MediaRecorder with provided configuration settings by calling MediaRecorder.prepare().<br>Start MediaRecorder - Start recording video by calling MediaRecorder.start().<br>Stop Recording Video - Call the following methods in order, to successfully complete a video recording:<br>Stop MediaRecorder - Stop recording video by calling MediaRecorder.stop().<br>Reset MediaRecorder - Optionally, remove the configuration settings from the recorder by calling MediaRecorder.reset().<br>Release MediaRecorder - Release the MediaRecorder by calling MediaRecorder.release().<br>Lock the Camera - Lock the camera so that future MediaRecorder sessions can use it by calling Camera.lock(). Starting with Android 4.0 (API level 14), this call is not required unless the MediaRecorder.prepare() call fails.<br>Stop the Preview - When your activity has finished using the camera, stop the preview using Camera.stopPreview().<br>Release Camera - Release the camera so that other applications can use it by calling Camera.release().<br>Note: It is possible to use MediaRecorder without creating a camera preview first and skip the first few steps of this process. However, since users typically prefer to see a preview before starting a recording, that process is not discussed here.</p>
@@ -1061,184 +1246,6 @@ return true;
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/18/java-线程池/" itemprop="url">
-                  Java 线程池
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            发表于
-            <time itemprop="dateCreated" datetime="2016-09-18T14:29:35+08:00" content="2016-09-18">
-              2016-09-18
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/18/java-线程池/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/18/java-线程池/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody">
-            
-              <h1 id="ThreadPoolExecutor"><a href="#ThreadPoolExecutor" class="headerlink" title="ThreadPoolExecutor"></a>ThreadPoolExecutor</h1><p><strong>Executor</strong>是一个顶层接口，在它里面只声明了一个方法execute(Runnable)；<br><strong>ExecutorService</strong>是一个接口，继承了Executor接口，并声明了一些方法：submit、invokeAll、invokeAny以及shutDown等；<br><strong>AbstractExecutorService</strong>是一个抽象类，实现了ExecutorService接口，基本实现了ExecutorService中声明的所有方法；<br><strong>ThreadPoolExecutor</strong>继承了类AbstractExecutorService。</p>
-<p><strong>在ThreadPoolExecutor类中有几个非常重要的方法：</strong><br><strong>execute()</strong><br>execute()方法实际上是Executor中声明的方法，在ThreadPoolExecutor进行了具体的实现，这个方法是ThreadPoolExecutor的核心方法，通过这个方法可以向线程池提交一个任务，交由线程池去执行。<br><strong>submit()</strong><br>submit()方法是在ExecutorService中声明的方法，在AbstractExecutorService就已经有了具体的实现，在ThreadPoolExecutor中并没有对其进行重写，这个方法也是用来向线程池提交任务的，但是它和execute(）方法不同，它能够返回任务执行的结果，去看submit()方法的实现，会发现它实际上还是调用的execute()方法，只不过它利用了Future来获取任务执行结果。<br><strong>shutdown()</strong><br><strong>shutdownNow()</strong><br>shutdown()和shutdownNow()是用来关闭线程池的。</p>
-<h1 id="Executors"><a href="#Executors" class="headerlink" title="Executors"></a>Executors</h1><p>Java通过Executors提供四种线程池，分别为：<br><strong>newCachedThreadPool</strong><br>创建一个可缓存线程池，如果线程池长度超过处理需要，可灵活回收空闲线程，若无可回收，则新建线程。<br><strong>newFixedThreadPool</strong><br>创建一个定长线程池，可控制线程最大并发数，超出的线程会在队列中等待。<br><strong>newScheduledThreadPool</strong><br>创建一个定长线程池，支持定时及周期性任务执行。<br><strong>newSingleThreadExecutor</strong><br>创建一个单线程化的线程池，它只会用唯一的工作线程来执行任务，保证所有任务按照指定顺序(FIFO, LIFO, 优先级)执行。</p>
-
-            
-          </span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/12/DialogFragment/" itemprop="url">
-                  DialogFragment
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            发表于
-            <time itemprop="dateCreated" datetime="2016-09-12T18:35:43+08:00" content="2016-09-12">
-              2016-09-12
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/12/DialogFragment/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/12/DialogFragment/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody">
-            
-              <figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">void</span> showDialog() &#123;</span><br><span class="line">    mStackLevel++;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// DialogFragment.show() will take care of adding the fragment</span></span><br><span class="line">    <span class="comment">// in a transaction.  We also want to remove any currently showing</span></span><br><span class="line">    <span class="comment">// dialog, so make our own transaction and take care of that here.</span></span><br><span class="line">    FragmentTransaction <span class="literal">ft</span> = getFragmentManager()<span class="built_in">.</span>beginTransaction();</span><br><span class="line">    Fragment prev = getFragmentManager()<span class="built_in">.</span>findFragmentByTag(<span class="string">"dialog"</span>);</span><br><span class="line">    <span class="keyword">if</span> (prev != <span class="built_in">null</span>) &#123;</span><br><span class="line">        <span class="literal">ft</span><span class="built_in">.</span>remove(prev);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="literal">ft</span><span class="built_in">.</span>addToBackStack(<span class="built_in">null</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Create and show the dialog.</span></span><br><span class="line">    DialogFragment newFragment = MyDialogFragment<span class="built_in">.</span>newInstance(mStackLevel);</span><br><span class="line">    newFragment<span class="built_in">.</span>show(<span class="literal">ft</span>, <span class="string">"dialog"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">MyAlertDialogFragment</span> <span class="keyword">extends</span> <span class="title">DialogFragment</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> MyAlertDialogFragment <span class="title">newInstance</span><span class="params">(<span class="keyword">int</span> title)</span> </span>&#123;</span><br><span class="line">        MyAlertDialogFragment frag = <span class="keyword">new</span> MyAlertDialogFragment();</span><br><span class="line">        Bundle args = <span class="keyword">new</span> Bundle();</span><br><span class="line">        args.putInt(<span class="string">"title"</span>, title);</span><br><span class="line">        frag.setArguments(args);</span><br><span class="line">        <span class="keyword">return</span> frag;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Dialog <span class="title">onCreateDialog</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> title = getArguments().getInt(<span class="string">"title"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> AlertDialog.Builder(getActivity())</span><br><span class="line">                .setIcon(R.drawable.alert_dialog_icon)</span><br><span class="line">                .setTitle(title)</span><br><span class="line">                .setPositiveButton(R.string.alert_dialog_ok,</span><br><span class="line">                    <span class="keyword">new</span> DialogInterface.OnClickListener() &#123;</span><br><span class="line">                        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(DialogInterface dialog, <span class="keyword">int</span> whichButton)</span> </span>&#123;</span><br><span class="line">                            ((FragmentAlertDialog)getActivity()).doPositiveClick();</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                )</span><br><span class="line">                .setNegativeButton(R.string.alert_dialog_cancel,</span><br><span class="line">                    <span class="keyword">new</span> DialogInterface.OnClickListener() &#123;</span><br><span class="line">                        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(DialogInterface dialog, <span class="keyword">int</span> whichButton)</span> </span>&#123;</span><br><span class="line">                            ((FragmentAlertDialog)getActivity()).doNegativeClick();</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                )</span><br><span class="line">                .create();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-            
-          </span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
@@ -1285,7 +1292,7 @@ return true;
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">31</span>
+              <span class="site-state-item-count">33</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
