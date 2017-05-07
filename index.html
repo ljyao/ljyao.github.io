@@ -197,6 +197,15 @@
 
     
     
+      
+      
+        
+        
+        
+      
+
+      
+    
 
     
       
@@ -220,8 +229,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/04/14/gif-vs-webp/" itemprop="url">
-                  Gif vs WebP
+                <a class="post-title-link" href="/2017/04/14/礼物动画/" itemprop="url">
+                  直播礼物动画
                 </a>
               
             
@@ -242,8 +251,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2017/04/14/gif-vs-webp/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/04/14/gif-vs-webp/" itemprop="commentsCount"></span>
+                <a href="/2017/04/14/礼物动画/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/04/14/礼物动画/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -265,21 +274,53 @@
         
           <span itemprop="articleBody">
             
-              <h1 id="WebP"><a href="#WebP" class="headerlink" title="WebP"></a>WebP</h1><p><a href="https://developers.google.cn/speed/webp/" target="_blank" rel="external">WebP</a>，是一种支持有损压缩和无损压缩的图片文件格式，派生自图像编码格式 VP8。根据 Google 的测试，无损压缩后的 WebP 比 PNG 文件少了 45％ 的文件大小，即使这些 PNG 文件经过其他压缩工具压缩之后，WebP 还是可以减少 28％ 的文件大小。</p>
-<h1 id="u6027_u80FD_u6D4B_u8BD5"><a href="#u6027_u80FD_u6D4B_u8BD5" class="headerlink" title="性能测试"></a>性能测试</h1><p>同时播放三张相同的动图.</p>
-<h3 id="Gif_u6837_u56FE"><a href="#Gif_u6837_u56FE" class="headerlink" title="Gif样图"></a>Gif样图</h3><p>由video转gif,文件大小10.7MB<br><img src="/album/pic_gif.gif" width="45%"></p>
-<h3 id="WebP_u6837_u56FE"><a href="#WebP_u6837_u56FE" class="headerlink" title="WebP样图"></a>WebP样图</h3><p>使用<a href="https://developers.google.cn/speed/webp/docs/gif2webp" target="_blank" rel="external">gif2webp</a>无损转换,文件大小6.8MB<br><img src="/album/pic_gif.gif" width="45%"></p>
-<h3 id="GIF_u6027_u80FD"><a href="#GIF_u6027_u80FD" class="headerlink" title="GIF性能"></a>GIF性能</h3><ol>
-<li>单张解码时间:210ms</li>
-<li>同时播放3张动画流畅性：卡顿</li>
-<li>cpu与内存<br><img src="/album/gif_test.png" alt=""></li>
+              <p>最近在做直播礼物，需要展示礼物动画，调研的方案有 帧动画，gif，apng，视频，webp</p>
+<h1 id="png_u5E27_u52A8_u753B"><a href="#png_u5E27_u52A8_u753B" class="headerlink" title="png帧动画"></a>png帧动画</h1><h2 id="png"><a href="#png" class="headerlink" title="png"></a>png</h2><p>诞生在 1995 年，比 JPEG 晚几年。它本身的设计目的是替代 GIF 格式，所以它与 GIF 有更多相似的地方。PNG 只支持无损压缩，所以它的压缩比是有上限的。相对于 JPEG 和 GIF 来说，它最大的优势在于支持完整的透明通道。</p>
+<h2 id="AnimationDrawable"><a href="#AnimationDrawable" class="headerlink" title="AnimationDrawable"></a>AnimationDrawable</h2><p>通过AnimationDrawable播放帧动画，主动recycle，释放bitmap</p>
+<p>主要代码<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> initAnim(<span class="keyword">final</span> Context context) &#123;</span><br><span class="line">        <span class="keyword">if</span> (TextUtils.isEmpty(dirPath)) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            AssetManager assetManager = context.getAssets();</span><br><span class="line">            <span class="keyword">String</span>[] framePaths = assetManager.list(dirPath);</span><br><span class="line">            <span class="built_in">int</span> frameDuration = duration != <span class="number">0</span> ? duration / framePaths.length : FRAME_DURATION;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">String</span> frame : framePaths) &#123;</span><br><span class="line">                <span class="keyword">String</span> framePath = dirPath + <span class="string">"/"</span> + frame;</span><br><span class="line">                Bitmap frameBmp = BitmapFactory.decodeStream(assetManager.<span class="built_in">open</span>(framePath));</span><br><span class="line">                addFrame(<span class="keyword">new</span> BitmapDrawable(context.getResources(), frameBmp), frameDuration);</span><br><span class="line">            &#125;</span><br><span class="line">            addFrame(getFrame(<span class="number">0</span>), <span class="number">0</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> recycle() &#123;</span><br><span class="line">        <span class="keyword">if</span> (TextUtils.isEmpty(dirPath)) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        dirPath = <span class="keyword">null</span>;</span><br><span class="line">        setCallback(<span class="keyword">null</span>);</span><br><span class="line">        <span class="keyword">if</span> (isRunning()) &#123;</span><br><span class="line">            stop();</span><br><span class="line">        &#125;</span><br><span class="line"><span class="comment">//            setCallback(new Drawable.Callback() &#123;</span></span><br><span class="line"><span class="comment">//                @Override</span></span><br><span class="line"><span class="comment">//                public void invalidateDrawable(@NonNull Drawable who) &#123;</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//                &#125;</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//                @Override</span></span><br><span class="line"><span class="comment">//                public void scheduleDrawable(@NonNull Drawable who, @NonNull Runnable what, long when) &#123;</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//                &#125;</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//                @Override</span></span><br><span class="line"><span class="comment">//                public void unscheduleDrawable(@NonNull Drawable who, @NonNull Runnable what) &#123;</span></span><br><span class="line"><span class="comment">//                    setCallback(null);</span></span><br><span class="line"><span class="comment">//                    destroyBitmap();</span></span><br><span class="line"><span class="comment">//                &#125;</span></span><br><span class="line"><span class="comment">//            &#125;);</span></span><br><span class="line"><span class="comment">//        &#125; else &#123;</span></span><br><span class="line"><span class="comment">//            setCallback(null);</span></span><br><span class="line"><span class="comment">//            destroyBitmap();</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> destroyBitmap() &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; getNumberOfFrames(); i++) &#123;</span><br><span class="line">                Drawable frame = getFrame(i);</span><br><span class="line">                <span class="keyword">if</span> (frame <span class="keyword">instanceof</span> BitmapDrawable) &#123;</span><br><span class="line">                    Bitmap bmp = ((BitmapDrawable) frame).getBitmap();</span><br><span class="line">                    <span class="keyword">if</span> (bmp != <span class="keyword">null</span> &amp;&amp; !bmp.isRecycled()) &#123;</span><br><span class="line">                        bmp.recycle();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                frame.setCallback(<span class="keyword">null</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            setCallback(<span class="keyword">null</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>遇到的问题</li>
+</ul>
+<ol>
+<li>性能问题：内存开销大，播放一个全屏动画（10帧，750p），内存涨了40MB,gc频繁</li>
+<li>释放问题：为了避免OOM，动画执行完后，主动释放bitmap，调用stop后动画仍在绘制，导致抛异常，加回调后，部分机型仍会抛异常。</li>
+<li>稳定性：由于自己封装，边界问题考虑不是很好，容易卡死。</li>
+<li>文件太大</li>
 </ol>
-<h3 id="WebP_u6027_u80FD"><a href="#WebP_u6027_u80FD" class="headerlink" title="WebP性能"></a>WebP性能</h3><ol>
-<li>单张解码时间:140ms</li>
-<li>同时播放3张动画流畅性：流畅</li>
-<li>cpu与内存<br><img src="/album/webp_test.png" alt=""></li>
+<h1 id="gif"><a href="#gif" class="headerlink" title="gif"></a>gif</h1><p>诞生于 1987 年，随着初代互联网流行开来。它有很多缺点，比如通常情况下只支持 256 种颜色、透明通道只有 1 bit、文件压缩比不高。它唯一的优势就是支持多帧动画，凭借这个特性，它得以从 Windows 1.0 时代流行至今，而且仍然大受欢迎。</p>
+<ul>
+<li>优点 ：</li>
+</ul>
+<ol>
+<li>制作简单</li>
+<li>文件小</li>
 </ol>
-<h3 id="u7ED3_u8BBA"><a href="#u7ED3_u8BBA" class="headerlink" title="结论"></a>结论</h3><p>相同画质动画，webp在文件大小、内存、cpu要优于GIF</p>
+<ul>
+<li>缺点</li>
+</ul>
+<ol>
+<li>锯齿，边界模糊</li>
+</ol>
+<h1 id="u89C6_u9891"><a href="#u89C6_u9891" class="headerlink" title="视频"></a>视频</h1><p>主要问题是，背景不可以透明，播放器开销大，稳定性</p>
+<h1 id="apng"><a href="#apng" class="headerlink" title="apng"></a>apng</h1><p>是 Mozilla 在 2008 年发布的一种图片格式，旨在替换掉画质低劣的 GIF 动画。它实际上只是相当于 PNG 格式的一个扩展，所以 Mozilla 一直想把它合并到 PNG 标准里面去。然而 PNG 开发组并没有接受 APNG 这个扩展，而是一直在推进它自己的 MNG 动图格式。MNG 格式过于复杂以至于并没有什么系统或浏览器支持，而 APNG 格式由于简单容易实现，目前已经渐渐流行开来。Mozilla 自己的 Firefox 首先支持了 APNG，随后苹果的 Safari 也开始有了支持， Chrome 目前也已经尝试开始支持 ，可以说未来前景很好。</p>
+<p>没有找到很好的播放库</p>
+<h1 id="WebP"><a href="#WebP" class="headerlink" title="WebP"></a>WebP</h1><p><a href="https://developers.google.cn/speed/webp/" target="_blank" rel="external">WebP</a>是 Google 在 2010 年发布的图片格式，希望以更高的压缩比替代 JPEG。它用 VP8 视频帧内编码作为其算法基础，取得了不错的压缩效果。它支持有损和无损压缩、支持完整的透明通道、也支持多帧动画，并且没有版权问题，是一种非常理想的图片格式。借由 Google 在网络世界的影响力，WebP 在几年的时间内已经得到了广泛的应用。看看你手机里的 App：微博、微信、QQ、淘宝、网易新闻等等，每个 App 里都有 WebP 的身影。Facebook 则更进一步，用 WebP 来显示聊天界面的贴纸动画。</p>
+<ul>
+<li>制作webp动画</li>
+</ul>
+<ol>
+<li>在官网下载转换工作</li>
+<li><p>把png转为webp<br>转换命令，q为质量</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cwebp -<span class="tag">q</span> <span class="number">50</span> -lossless picture<span class="class">.png</span> -o picture_lossless.webp</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>把webp系列图转为webp动画<br>转换命令，+b会把所有帧重叠，-b不重叠</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">webpmux -frame <span class="number">1.</span>webp +<span class="number">100</span> -frame <span class="number">2.</span>webp +<span class="number">100</span>+<span class="number">50</span>+<span class="number">50</span> -frame <span class="number">3.</span>webp +<span class="number">100</span>+<span class="number">50</span>+<span class="number">50</span>+<span class="number">1</span>+b -loop <span class="number">10</span> -bgcolor <span class="number">255</span>,<span class="number">255</span>,<span class="number">255</span>,<span class="number">255</span> -o anim_container.webp</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>目前只发现了通过命令转换，很不方便，改一个参数就需要重新输命令，于是请同学写了一个Python脚本，在此感谢@黎潇大神。<br>Python代码<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line">rootdir = sys.argv[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> subdir, dirs, files <span class="keyword">in</span> os.walk(rootdir):</span><br><span class="line">    <span class="keyword">if</span> subdir.startswith(<span class="string">'.'</span>):</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">    webps = []</span><br><span class="line">    <span class="keyword">for</span> fname <span class="keyword">in</span> files:</span><br><span class="line">        fpath = os.path.join(subdir, fname)</span><br><span class="line">        l = fname.split(<span class="string">'.'</span>)</span><br><span class="line">        l[-<span class="number">1</span>] = <span class="string">'webp'</span></span><br><span class="line">        pattern = re.compile(<span class="string">r'\d+'</span>)</span><br><span class="line">        result =  re.search(pattern, fpath)</span><br><span class="line">        opath = os.path.join(subdir, <span class="string">'.'</span>.join(l))</span><br><span class="line">        <span class="keyword">if</span> fname.startswith(<span class="string">'.'</span>):</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        os.system(<span class="string">'cwebp %s -q 85 -o %s'</span> % (fpath, opath) )</span><br><span class="line">        webps.append(opath)</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'webps: '</span>, len(webps)</span><br><span class="line">    <span class="keyword">if</span> len(webps) == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">    opts = <span class="string">''</span></span><br><span class="line">    opath = os.path.join(rootdir, subdir+<span class="string">'.webp'</span>)</span><br><span class="line">    <span class="keyword">for</span> fname <span class="keyword">in</span> webps:</span><br><span class="line">        opts += <span class="string">' -frame '</span> + fname +  <span class="string">' +140+0+0+0-b'</span></span><br><span class="line">    </span><br><span class="line">    opts += <span class="string">' -frame '</span> + webps[<span class="number">0</span>] + <span class="string">' +0+0+0+0-b'</span></span><br><span class="line">    os.system(<span class="string">'webpmux %s -loop 1 -o %s'</span> % (opts, opath))</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>来源<a href="http://blog.ibireme.com/2015/11/02/mobile_image_benchmark/" target="_blank" rel="external">移动端图片格式调研</a></li>
+</ul>
 <h1 id="u4F7F_u7528fresco_u52A0_u8F7DGIF_u548Cwebp"><a href="#u4F7F_u7528fresco_u52A0_u8F7DGIF_u548Cwebp" class="headerlink" title="使用fresco加载GIF和webp"></a>使用fresco加载GIF和webp</h1><h2 id="gradle_u6DFB_u52A0_u4F9D_u8D56"><a href="#gradle_u6DFB_u52A0_u4F9D_u8D56" class="headerlink" title="gradle添加依赖"></a>gradle添加依赖</h2><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">compile</span> <span class="string">'com.facebook.fresco:fresco:1.2.0'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//gif 支持</span></span><br><span class="line"><span class="keyword">compile</span> <span class="string">'com.facebook.fresco:animated-gif:1.2.0'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//webp动画支持</span></span><br><span class="line"><span class="keyword">compile</span> <span class="string">'com.facebook.fresco:animated-webp:1.2.0'</span></span><br></pre></td></tr></table></figure>
 <h2 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h2><ol>
 <li><p>自动播放</p>
@@ -1305,7 +1346,7 @@ return true;
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">33</span>
+              <span class="site-state-item-count">32</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
