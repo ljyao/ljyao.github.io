@@ -197,15 +197,350 @@
 
     
     
+
+    
       
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/06/07/dribble-animtor/" itemprop="url">
+                  dribble animtor
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2017-06-07T15:35:22+08:00" content="2017-06-07">
+              2017-06-07
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/06/07/dribble-animtor/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/06/07/dribble-animtor/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
       
-        
-        
-        
       
 
       
+        
+          <span itemprop="articleBody">
+            
+              <p>礼物连击动画，分为三步：</p>
+<ol>
+<li>大小从1.93-&gt;0.5倍缩小，透明度从0-&gt;1，耗时50%</li>
+<li>大小从0.3-&gt;1.25倍缩小，耗时30%</li>
+<li>大小从1.25-&gt;1倍缩小，耗时20%</li>
+</ol>
+<ul>
+<li><p>version 1.0</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (dribbleAnimSet == null) &#123;</span><br><span class="line">            AnimatorSet dribbleFirstAnimSet = <span class="keyword">new</span> AnimatorSet();</span><br><span class="line">            Animator scaleAnim1X = ObjectAnimator.ofFloat(dribbleNumberView, <span class="string">"scaleX"</span>, <span class="number">1.93f</span>, <span class="number">0.5f</span>);</span><br><span class="line">            Animator scaleAnim1Y = ObjectAnimator.ofFloat(dribbleNumberView, <span class="string">"scaleY"</span>, <span class="number">1.93f</span>, <span class="number">0.5f</span>);</span><br><span class="line">            Animator alphaAnim1 = ObjectAnimator.ofFloat(dribbleNumberView, <span class="string">"alpha"</span>, <span class="number">0.05f</span>, <span class="number">1f</span>);</span><br><span class="line">            dribbleFirstAnimSet.playTogether(scaleAnim1X, scaleAnim1Y, alphaAnim1);</span><br><span class="line">            dribbleFirstAnimSet.setDuration(<span class="number">175</span>);</span><br><span class="line"></span><br><span class="line">            AnimatorSet dribbleSecondAnimSet = <span class="keyword">new</span> AnimatorSet();</span><br><span class="line">            Animator scaleAnim2X = ObjectAnimator.ofFloat(dribbleNumberView, <span class="string">"scaleX"</span>, <span class="number">0.5f</span>, <span class="number">1.25f</span>);</span><br><span class="line">            Animator scaleAnim2Y = ObjectAnimator.ofFloat(dribbleNumberView, <span class="string">"scaleY"</span>, <span class="number">0.5f</span>, <span class="number">1.25f</span>);</span><br><span class="line">            dribbleSecondAnimSet.playTogether(scaleAnim2X, scaleAnim2Y);</span><br><span class="line">            dribbleSecondAnimSet.setDuration(<span class="number">105</span>);</span><br><span class="line"></span><br><span class="line">            AnimatorSet dribbleThirdAnimSet = <span class="keyword">new</span> AnimatorSet();</span><br><span class="line">            Animator scaleAnim3X = ObjectAnimator.ofFloat(dribbleNumberView, <span class="string">"scaleX"</span>, <span class="number">1.25f</span>, <span class="number">1f</span>);</span><br><span class="line">            Animator scaleAnim3Y = ObjectAnimator.ofFloat(dribbleNumberView, <span class="string">"scaleY"</span>, <span class="number">1.25f</span>, <span class="number">1f</span>);</span><br><span class="line">            dribbleThirdAnimSet.playTogether(scaleAnim3X, scaleAnim3Y);</span><br><span class="line">            dribbleThirdAnimSet.setDuration(<span class="number">70</span>);</span><br><span class="line"></span><br><span class="line">            dribbleAnimSet = <span class="keyword">new</span> AnimatorSet();</span><br><span class="line">            dribbleAnimSet.playSequentially(dribbleFirstAnimSet, dribbleSecondAnimSet, dribbleThirdAnimSet);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>version 2.0</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (dribbleAnimSet == null) &#123;</span><br><span class="line">            PropertyValuesHolder pvh1X = PropertyValuesHolder.ofFloat(<span class="string">"scaleX"</span>, <span class="number">1.93f</span>, <span class="number">0.5f</span>);</span><br><span class="line">            PropertyValuesHolder pvh1Y = PropertyValuesHolder.ofFloat(<span class="string">"scaleY"</span>, <span class="number">1.93f</span>, <span class="number">0.5f</span>);</span><br><span class="line">            PropertyValuesHolder pvhA = PropertyValuesHolder.ofFloat(<span class="string">"alpha"</span>, <span class="number">0.05f</span>, <span class="number">1f</span>);</span><br><span class="line">            Animator dribbleFirstAnim = ObjectAnimator.ofPropertyValuesHolder(dribbleNumberView, pvh1X, pvh1Y, pvhA);</span><br><span class="line">            dribbleFirstAnim.setDuration(<span class="number">175</span>);</span><br><span class="line"></span><br><span class="line">            PropertyValuesHolder pvh2X = PropertyValuesHolder.ofFloat(<span class="string">"scaleX"</span>, <span class="number">0.5f</span>, <span class="number">1.25f</span>);</span><br><span class="line">            PropertyValuesHolder pvh2Y = PropertyValuesHolder.ofFloat(<span class="string">"scaleY"</span>, <span class="number">0.5f</span>, <span class="number">1.25f</span>);</span><br><span class="line">            Animator dribbleSecondAnim = ObjectAnimator.ofPropertyValuesHolder(dribbleNumberView, pvh2X, pvh2Y);</span><br><span class="line">            dribbleSecondAnim.setDuration(<span class="number">105</span>);</span><br><span class="line"></span><br><span class="line">            PropertyValuesHolder pvh3X = PropertyValuesHolder.ofFloat(<span class="string">"scaleX"</span>, <span class="number">1.25f</span>, <span class="number">1f</span>);</span><br><span class="line">            PropertyValuesHolder pvh3Y = PropertyValuesHolder.ofFloat(<span class="string">"scaleY"</span>, <span class="number">1.25f</span>, <span class="number">1f</span>);</span><br><span class="line">            Animator dribbleThirdAnim = ObjectAnimator.ofPropertyValuesHolder(dribbleNumberView, pvh3X, pvh3Y);</span><br><span class="line">            dribbleSecondAnim.setDuration(<span class="number">70</span>);</span><br><span class="line"></span><br><span class="line">            dribbleAnimSet = <span class="keyword">new</span> AnimatorSet();</span><br><span class="line">            dribbleAnimSet.playSequentially(dribbleFirstAnim, dribbleSecondAnim, dribbleThirdAnim);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>version 3.0</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (dribbleAnim == null) &#123;</span><br><span class="line">            Keyframe keyframeS1 = Keyframe.ofFloat(<span class="number">0</span>, <span class="number">1.93f</span>);</span><br><span class="line">            Keyframe keyframeS2 = Keyframe.ofFloat(<span class="number">0.5f</span>, <span class="number">0.5f</span>);</span><br><span class="line">            Keyframe keyframeS3 = Keyframe.ofFloat(<span class="number">0.8f</span>, <span class="number">1.25f</span>);</span><br><span class="line">            Keyframe keyframeS4 = Keyframe.ofFloat(<span class="number">1</span>, <span class="number">1f</span>);</span><br><span class="line">            PropertyValuesHolder pvhX = PropertyValuesHolder.ofKeyframe(<span class="string">"scaleX"</span>, keyframeS1, keyframeS2, keyframeS3, keyframeS4);</span><br><span class="line">            PropertyValuesHolder pvhY = PropertyValuesHolder.ofKeyframe(<span class="string">"scaleY"</span>, keyframeS1, keyframeS2, keyframeS3, keyframeS4);</span><br><span class="line"></span><br><span class="line">            Keyframe keyframeA1 = Keyframe.ofFloat(<span class="number">0</span>, <span class="number">0f</span>);</span><br><span class="line">            Keyframe keyframeA2 = Keyframe.ofFloat(<span class="number">0.5f</span>, <span class="number">1f</span>);</span><br><span class="line">            PropertyValuesHolder pvhA = PropertyValuesHolder.ofKeyframe(<span class="string">"alpha"</span>, keyframeA1, keyframeA2);</span><br><span class="line"></span><br><span class="line">            dribbleAnim = ObjectAnimator.ofPropertyValuesHolder(dribbleNumberView, pvhX, pvhY, pvhA);</span><br><span class="line">            dribbleAnim.setDuration(<span class="number">350</span>);</span><br><span class="line">            dribbleAnim.addListener(<span class="keyword">new</span> AnimatorListener() &#123;</span><br><span class="line">                @<span class="function">Override</span><br><span class="line">                <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationEnd</span><span class="params">(Animator animation)</span> </span>&#123;</span><br><span class="line">                    Worker.postMain(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">                        @<span class="function">Override</span><br><span class="line">                        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                            clearGiftStatusFlags(Status.DRIBBLE);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/06/07/annotation-gift-status/" itemprop="url">
+                  礼物状态
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2017-06-07T14:44:04+08:00" content="2017-06-07">
+              2017-06-07
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/06/07/annotation-gift-status/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/06/07/annotation-gift-status/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>状态通常有三种实现方式：常量、枚举、注解</p>
+<ul>
+<li>常量：简单，便于位运算，占用内存少，但是携带信息少，可读性差。</li>
+<li>枚举：便于封装，保证了类型安全，可读性高，占用内存大，dex变大<br>ps.Enums often require more than twice as much memory as static constants. You should strictly avoid using enums on Android.</li>
+<li>注解：相对常量比较安全，编译期就可以排除错误类型<br>礼物控件用来播放礼物，从出现到消失共有8种状态（空闲、加载资源、进入中、播放礼物效果、连击动画、离开中、活跃的），多种状态是可以并行的，所以通过flag标记，一位表示一种状态，然后使用注解确保值的安全。
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/06/07/annotation-gift-status/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/05/27/progress-bar/" itemprop="url">
+                  属性动画实现进度条
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2017-05-27T19:10:45+08:00" content="2017-05-27">
+              2017-05-27
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/05/27/progress-bar/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/05/27/progress-bar/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <p>实现一个圆形自定义进度条，进度条的颜色随着进度变化而变化，按进度下去后反向回去重置；为了解耦，主要有2个模块：1、自定义View，2、Controler</p>
+<h1 id="u81EA_u5B9A_u4E49view"><a href="#u81EA_u5B9A_u4E49view" class="headerlink" title="自定义view"></a>自定义view</h1><p>提供进度、进度条颜色、背景颜色等设置接口，负责UI绘制。<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">  <span class="keyword">protected</span> <span class="keyword">void</span> onDraw(Canvas canvas) &#123;</span><br><span class="line">      <span class="keyword">super</span>.onDraw(canvas);</span><br><span class="line"></span><br><span class="line">      <span class="keyword">final</span> <span class="built_in">int</span> <span class="variable">width</span> = getWidth();</span><br><span class="line">      <span class="keyword">final</span> <span class="built_in">int</span> <span class="variable">height</span> = getHeight();</span><br><span class="line"></span><br><span class="line">      <span class="built_in">float</span> delta = Math.<span class="built_in">max</span>(finishedStrokeWidth, unfinishedStrokeWidth) / <span class="number">2</span>;</span><br><span class="line">      finishedOuterRect.<span class="built_in">set</span>(delta,</span><br><span class="line">              delta,</span><br><span class="line">              <span class="variable">width</span> - delta,</span><br><span class="line">              <span class="variable">height</span> - delta);</span><br><span class="line">      unfinishedOuterRect.<span class="built_in">set</span>(delta,</span><br><span class="line">              delta,</span><br><span class="line">              <span class="variable">width</span> - delta,</span><br><span class="line">              <span class="variable">height</span> - delta);</span><br><span class="line"></span><br><span class="line">      <span class="built_in">float</span> innerCircleRadius = (<span class="variable">width</span> - <span class="number">2</span> * Math.<span class="built_in">min</span>(finishedStrokeWidth, unfinishedStrokeWidth) + Math.<span class="built_in">abs</span>(finishedStrokeWidth - unfinishedStrokeWidth)) / <span class="number">2</span>f;</span><br><span class="line">      canvas.drawCircle(<span class="variable">width</span> / <span class="number">2.0</span>f, <span class="variable">height</span> / <span class="number">2.0</span>f, innerCircleRadius, innerCirclePaint);</span><br><span class="line"></span><br><span class="line">      <span class="built_in">int</span> startingDegree = getStartingDegree();</span><br><span class="line">      <span class="built_in">float</span> progressAngle = getProgressAngle();</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (clockwise) &#123;</span><br><span class="line">          canvas.drawArc(unfinishedOuterRect, startingDegree + progressAngle, <span class="number">360</span> - progressAngle, <span class="keyword">false</span>, unfinishedPaint);</span><br><span class="line">          canvas.drawArc(finishedOuterRect, startingDegree, progressAngle, <span class="keyword">false</span>, finishedPaint);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          canvas.drawArc(unfinishedOuterRect, startingDegree, <span class="number">360</span> - progressAngle, <span class="keyword">false</span>, unfinishedPaint);</span><br><span class="line">          canvas.drawArc(finishedOuterRect, startingDegree + progressAngle, progressAngle, <span class="keyword">false</span>, finishedPaint);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (!TextUtils.isEmpty(<span class="built_in">text</span>)) &#123;</span><br><span class="line">          <span class="built_in">float</span> textHeight = textPaint.descent() + textPaint.ascent();</span><br><span class="line">          canvas.drawText(<span class="built_in">text</span>, (getWidth() - textPaint.measureText(<span class="built_in">text</span>)) / <span class="number">2.0</span>f, (getWidth() - textHeight) / <span class="number">2.0</span>f, textPaint);</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="Controler"><a href="#Controler" class="headerlink" title="Controler"></a>Controler</h1><p>负责进度条、颜色等刷新</p>
+<p>UI定时刷新方式有以下几种</p>
+<ol>
+<li><p>Thread.sleep<br>在短视频拍摄中，视频的处理占用大量cpu资源，发现sleep时间相当不准，尤其在低端机。<br>查看Thread.sleep源码发现，在一个while循环中调用native sleep方法，然后比较睡眠时间，判断是否继续睡眠。</p>
+<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">// Wait may <span class="keyword">return</span> early, so loop <span class="keyword">until</span> <span class="built_in">sleep</span> duration passes.</span><br><span class="line">        synchronized (lock) &#123;</span><br><span class="line">            <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">                <span class="built_in">sleep</span>(lock, millis, nanos)<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">                long <span class="built_in">now</span> = System.nanoTime()<span class="comment">;</span></span><br><span class="line">                long elapsed = <span class="built_in">now</span> - start<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (elapsed &gt;= duration) &#123;</span><br><span class="line">                    <span class="built_in">break</span><span class="comment">;</span></span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                duration -= elapsed<span class="comment">;</span></span><br><span class="line">                start = <span class="built_in">now</span><span class="comment">;</span></span><br><span class="line">                millis = duration / NANOS_PER_MILLI<span class="comment">;</span></span><br><span class="line">                nanos = (<span class="built_in">int</span>) (duration % NANOS_PER_MILLI)<span class="comment">;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Timer<br>用定时任务去属性进度，但是子线程与主线程的切换也是一种开销。</p>
+</li>
+<li>Handler<br>通过不停发延时handler去刷新UI，但是当主线有大量绘制任务，handler周期时间变得不可控。</li>
+<li>HandlerThread<br>通过子线程发送延时handler，与Timer相比，handler带来了很多便利，但是子线程与主线程的切换也是一种开销。</li>
+<li>属性动画<br>通过自定义TypeEvaluator，使用ValueAnimator去控制自定义的属性，也是完美的方案。<br>TypeEvaluator去计算最新的值<br>、、、<br>package com.nice.main.live.gift.view;</li>
+</ol>
+<p>import android.animation.TypeEvaluator;</p>
+<p>/**</p>
+<ul>
+<li><p>Created by shine<br>*/<br>public class ProgressBarEvaluator implements TypeEvaluator<progressbarevaluator.progressvalues> {</progressbarevaluator.progressvalues></p>
+<p> @Override<br> public ProgressValues evaluate(float fraction, ProgressValues startValue, ProgressValues endValue) {</p>
+<pre><code>ProgressValues values = new ProgressValues();
+
+//color
+int startInt = startValue.color;
+int startA = (startInt &gt;&gt; 24) &amp; 0xff;
+int startR = (startInt &gt;&gt; 16) &amp; 0xff;
+int startG = (startInt &gt;&gt; 8) &amp; 0xff;
+int startB = startInt &amp; 0xff;
+
+int endInt = endValue.color;
+int endA = (endInt &gt;&gt; 24) &amp; 0xff;
+int endR = (endInt &gt;&gt; 16) &amp; 0xff;
+int endG = (endInt &gt;&gt; 8) &amp; 0xff;
+int endB = endInt &amp; 0xff;
+
+values.color = ((startA + (int) (fraction * (endA - startA))) &lt;&lt; 24)
+        | ((startR + (int) (fraction * (endR - startR))) &lt;&lt; 16)
+        | ((startG + (int) (fraction * (endG - startG))) &lt;&lt; 8)
+        | ((startB + (int) (fraction * (endB - startB))));
+</code></pre></li>
+</ul>
+<pre><code>    values.progress = startValue.progress + fraction * (endValue.progress - startValue.progress);
+
+    values.scale = startValue.scale + fraction * (endValue.scale - startValue.scale);
+    return values;
+}
+
+public static class ProgressValues {
+    public float progress;
+    public int color;
+    public float scale;
+
+    public ProgressValues() {
+    }
+
+    public ProgressValues(float progress, int color, float scale) {
+        this.progress = progress;
+        this.color = color;
+        this.scale = scale;
+    }
+}
+</code></pre><p>}<br>、、、<br>在AnimatorUpdateListener回调去刷新UI<br><strong><em> 注意setEvaluator要放在setObjectValues后 </em></strong><br><figure class="highlight roboconf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="component">progressAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() &#123;</span><br><span class="line">           @Override</span><br><span class="line">           public void onAnimationUpdate(ValueAnimator animation) &#123;</span><br><span class="line">               ProgressBarEvaluator<span class="string">.ProgressValues</span> values = (ProgressBarEvaluator<span class="string">.ProgressValues)</span> animation<span class="string">.getAnimatedValue()</span>;</span><br><span class="line">               progressbar<span class="string">.setScaleX(values.scale)</span>;</span><br><span class="line">               progressbar<span class="string">.setScaleY(values.scale)</span>;</span><br><span class="line"></span><br><span class="line">               progressbar<span class="string">.setProgress(values.progress)</span>;</span><br><span class="line"></span><br><span class="line">               progressbar<span class="string">.setUnfinishedStrokeColor(values.color)</span>;</span><br><span class="line">           &#125;</span></span><br><span class="line">       &#125;);</span><br></pre></td></tr></table></figure></p>
+<p>0    1   2 3<br>1 2  2 3</p>
+
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
 
     
       
@@ -272,14 +607,631 @@
 
       
         
-          <p>最近在做直播礼物，需要展示礼物动画，调研的方案有 帧动画，gif，apng，视频，webp.<br><a href="http://blog.ibireme.com/2015/11/02/mobile_image_benchmark/">移动端图片格式调研</a></p>
+          <p>最近在做直播礼物，需要展示礼物动画，调研的方案有 帧动画，gif，apng，视频，webp，多次试验权衡后，确定最佳方案使用webp动画。<br><a href="/!--[移动端图片格式调研](http://blog.ibireme.com/2015/11/02/mobile_image_benchmark/)--">!--[移动端图片格式调研](http://blog.ibireme.com/2015/11/02/mobile_image_benchmark/)--</a></p>
 <h1 id="PNG_u5E27_u52A8_u753B"><a href="#PNG_u5E27_u52A8_u753B" class="headerlink" title="PNG帧动画"></a>PNG帧动画</h1><h2 id="png_u7B80_u4ECB"><a href="#png_u7B80_u4ECB" class="headerlink" title="png简介"></a>png简介</h2><p>诞生在 1995 年，比 JPEG 晚几年。它本身的设计目的是替代 GIF 格式，所以它与 GIF 有更多相似的地方。PNG 只支持无损压缩，所以它的压缩比是有上限的。相对于 JPEG 和 GIF 来说，它最大的优势在于支持完整的透明通道。</p>
-<h2 id="u4F7F_u7528AnimationDrawable_u5B9E_u73B0_u5E27_u52A8_u753B"><a href="#u4F7F_u7528AnimationDrawable_u5B9E_u73B0_u5E27_u52A8_u753B" class="headerlink" title="使用AnimationDrawable实现帧动画"></a>使用AnimationDrawable实现帧动画</h2><p>通过AnimationDrawable播放帧动画，主动recycle，释放bitmap<br>
+<h2 id="u5E27_u52A8_u753B_u5B9E_u73B0"><a href="#u5E27_u52A8_u753B_u5B9E_u73B0" class="headerlink" title="帧动画实现"></a>帧动画实现</h2><p>通过系统的AnimationDrawable类播放帧动画，用BitmapDrawable加载bitmap作为一帧，播放结束后主动recycle，释放bitmap。</p>
+<p>主要代码<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> initAnim(<span class="keyword">final</span> Context context) &#123;</span><br><span class="line">    <span class="keyword">if</span> (TextUtils.isEmpty(dirPath)) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        AssetManager assetManager = context.getAssets();</span><br><span class="line">        <span class="keyword">String</span>[] framePaths = assetManager.list(dirPath);</span><br><span class="line">        <span class="built_in">int</span> frameDuration = duration != <span class="number">0</span> ? duration / framePaths.length : FRAME_DURATION;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">String</span> frame : framePaths) &#123;</span><br><span class="line">            <span class="keyword">String</span> framePath = dirPath + <span class="string">"/"</span> + frame;</span><br><span class="line">            Bitmap frameBmp = BitmapFactory.decodeStream(assetManager.<span class="built_in">open</span>(framePath));</span><br><span class="line">            addFrame(<span class="keyword">new</span> BitmapDrawable(context.getResources(), frameBmp), frameDuration);</span><br><span class="line">        &#125;</span><br><span class="line">        addFrame(getFrame(<span class="number">0</span>), <span class="number">0</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> destroyBitmap() &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; getNumberOfFrames(); i++) &#123;</span><br><span class="line">            Drawable frame = getFrame(i);</span><br><span class="line">            <span class="keyword">if</span> (frame <span class="keyword">instanceof</span> BitmapDrawable) &#123;</span><br><span class="line">                Bitmap bmp = ((BitmapDrawable) frame).getBitmap();</span><br><span class="line">                <span class="keyword">if</span> (bmp != <span class="keyword">null</span> &amp;&amp; !bmp.isRecycled()) &#123;</span><br><span class="line">                    bmp.recycle();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            frame.setCallback(<span class="keyword">null</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        setCallback(<span class="keyword">null</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>遇到的问题</li>
+</ul>
+<ol>
+<li>性能问题：内存开销大，播放一个全屏动画（10帧，750p），内存涨了40MB,gc频繁</li>
+<li>释放问题：为了避免OOM，动画执行完后，主动释放bitmap，调用stop后动画仍在绘制，导致抛异常，加回调后，部分机型仍会抛异常。</li>
+<li>稳定性：由于自己封装，边界问题考虑不是很好，容易卡死。</li>
+<li>文件太大
           <div class="post-more-link text-center">
             <a class="btn" href="/2017/04/14/礼物动画/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/03/07/line-intersect-rect/" itemprop="url">
+                  判断直线与矩形相交
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2017-03-07T10:15:18+08:00" content="2017-03-07">
+              2017-03-07
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/03/07/line-intersect-rect/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/07/line-intersect-rect/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> Rectangle &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> final <span class="keyword">int</span> OUT_LEFT = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> final <span class="keyword">int</span> OUT_TOP = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> final <span class="keyword">int</span> OUT_RIGHT = <span class="number">4</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> final <span class="keyword">int</span> OUT_BOTTOM = <span class="number">8</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">float</span> width;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">float</span> height;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">float</span> left;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">float</span> top;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Rectangle</span><span class="params">(<span class="keyword">float</span> x1, <span class="keyword">float</span> y1, <span class="keyword">float</span> w, <span class="keyword">float</span> h)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.left = x1;</span><br><span class="line">        <span class="keyword">this</span>.top = y1;</span><br><span class="line">        width = w;</span><br><span class="line">        height = h;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> boolean <span class="title">intersectsLine</span><span class="params">(<span class="keyword">float</span> x1, <span class="keyword">float</span> y1, <span class="keyword">float</span> x2, <span class="keyword">float</span> y2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> out1, out2;</span><br><span class="line">        <span class="keyword">if</span> ((out2 = outcode(x2, y2)) == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> ((out1 = outcode(x1, y1)) != <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> ((out1 &amp; out2) != <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> ((out1 &amp; (OUT_LEFT | OUT_RIGHT)) != <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">float</span> x = left;</span><br><span class="line">                <span class="keyword">if</span> ((out1 &amp; OUT_RIGHT) != <span class="number">0</span>) &#123;</span><br><span class="line">                    x += width;</span><br><span class="line">                &#125;</span><br><span class="line">                y1 = y1 + (x - x1) * (y2 - y1) / (x2 - x1);</span><br><span class="line">                x1 = x;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">float</span> y = top;</span><br><span class="line">                <span class="keyword">if</span> ((out1 &amp; OUT_BOTTOM) != <span class="number">0</span>) &#123;</span><br><span class="line">                    y += height;</span><br><span class="line">                &#125;</span><br><span class="line">                x1 = x1 + (y - y1) * (x2 - x1) / (y2 - y1);</span><br><span class="line">                y1 = y;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">outcode</span><span class="params">(<span class="keyword">double</span> x, <span class="keyword">double</span> y)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> out = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.width &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">            out |= OUT_LEFT | OUT_RIGHT;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (x &lt; <span class="keyword">this</span>.left) &#123;</span><br><span class="line">            out |= OUT_LEFT;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (x &gt; <span class="keyword">this</span>.left + <span class="keyword">this</span>.width) &#123;</span><br><span class="line">            out |= OUT_RIGHT;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.height &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">            out |= OUT_TOP | OUT_BOTTOM;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (y &lt; <span class="keyword">this</span>.top) &#123;</span><br><span class="line">            out |= OUT_TOP;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (y &gt; <span class="keyword">this</span>.top + <span class="keyword">this</span>.height) &#123;</span><br><span class="line">            out |= OUT_BOTTOM;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> out;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/02/06/Android-数据库/" itemprop="url">
+                  Android 数据库
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2017-02-06T18:20:28+08:00" content="2017-02-06">
+              2017-02-06
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/02/06/Android-数据库/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/06/Android-数据库/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <p> NiceApplication.getApplication().getContentResolver().applyBatch()<br>        ContentProviderOperation.newInsert().withValues().build()</p>
+
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/01/13/downlaod-unzip/" itemprop="url">
+                  断点下载与解压ZIP
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2017-01-13T16:05:24+08:00" content="2017-01-13">
+              2017-01-13
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/01/13/downlaod-unzip/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/13/downlaod-unzip/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <h1 id="u521D_u59CB_u5316"><a href="#u521D_u59CB_u5316" class="headerlink" title="初始化"></a>初始化</h1><p>获取文件大小，已下载文件大小<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> init() <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        URL url = <span class="keyword">new</span> URL(httpUrl);</span><br><span class="line">        HttpURLConnection connection = (HttpURLConnection) url.openConnection();</span><br><span class="line">        connection.setConnectTimeout(<span class="number">5000</span>);</span><br><span class="line">        connection.setRequestMethod(<span class="string">"GET"</span>);</span><br><span class="line">        fileSize = connection.getContentLength();</span><br><span class="line">        connection.disconnect();</span><br><span class="line"></span><br><span class="line">        Context context = NiceApplication.getApplication().getApplicationContext();</span><br><span class="line">        <span class="keyword">File</span> fileDir = StorageUtils.getIndividualFileDirectory(context, <span class="string">"nice-lens-resource"</span>);</span><br><span class="line">        rootDir = fileDir.getAbsolutePath();</span><br><span class="line">        <span class="keyword">File</span> <span class="keyword">file</span> = <span class="keyword">new</span> <span class="keyword">File</span>(fileDir, fileName + <span class="string">".zip"</span>);</span><br><span class="line">        <span class="keyword">if</span> (!<span class="keyword">file</span>.exists()) &#123;</span><br><span class="line">            <span class="keyword">file</span>.createNewFile();</span><br><span class="line">            completeSize = <span class="number">0</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            completeSize = <span class="keyword">file</span>.length();</span><br><span class="line">        &#125;</span><br><span class="line">        zipFilePath = <span class="keyword">file</span>.getAbsolutePath();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="u65AD_u70B9_u4E0B_u8F7D"><a href="#u65AD_u70B9_u4E0B_u8F7D" class="headerlink" title="断点下载"></a>断点下载</h1><p>设置http头，指定下载开始和结束点，”Range”-&gt;”bytes=startPosi-endPosi”<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> String <span class="title">download</span>(<span class="params"></span>) throws Exception </span>&#123;</span><br><span class="line">       <span class="keyword">if</span> (completeSize == fileSize) &#123;</span><br><span class="line">           <span class="keyword">return</span> zipFilePath;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       HttpURLConnection connection;</span><br><span class="line">       RandomAccessFile randomAccessFile;</span><br><span class="line">       InputStream <span class="keyword">is</span>;</span><br><span class="line">       URL url = <span class="keyword">new</span> URL(httpUrl);</span><br><span class="line">       connection = (HttpURLConnection) url.openConnection();</span><br><span class="line">       connection.setConnectTimeout(<span class="number">5000</span>);</span><br><span class="line">       connection.setRequestMethod(<span class="string">"GET"</span>);</span><br><span class="line">       <span class="comment">// 设置范围，格式为Range：bytes x-y;</span></span><br><span class="line">       connection.setRequestProperty(<span class="string">"Range"</span>, String.format(<span class="string">"bytes=%s-%s"</span>, completeSize, fileSize));</span><br><span class="line"></span><br><span class="line">       randomAccessFile = <span class="keyword">new</span> RandomAccessFile(zipFilePath, <span class="string">"rwd"</span>);</span><br><span class="line">       randomAccessFile.seek(completeSize);</span><br><span class="line">       <span class="keyword">is</span> = connection.getInputStream();</span><br><span class="line">       <span class="keyword">byte</span>[] buffer = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">       <span class="keyword">int</span> length;</span><br><span class="line">       <span class="keyword">while</span> ((length = <span class="keyword">is</span>.read(buffer)) != -<span class="number">1</span>) &#123;</span><br><span class="line">           randomAccessFile.write(buffer, <span class="number">0</span>, length);</span><br><span class="line">           completeSize += length;</span><br><span class="line">           update();</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> zipFilePath;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="u89E3_u538Bzip"><a href="#u89E3_u538Bzip" class="headerlink" title="解压zip"></a>解压zip</h1><p>主要使用ZipInputStream<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> unZipFolder(String zipFilePath, String outputDir) <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        FileUtils.deleteFile(outputDir);</span><br><span class="line"></span><br><span class="line">        ZipInputStream inZip = <span class="keyword">new</span> ZipInputStream(<span class="keyword">new</span> FileInputStream(zipFilePath));</span><br><span class="line">        ZipEntry zipEntry;</span><br><span class="line">        String szName = <span class="string">""</span>;</span><br><span class="line">        <span class="keyword">while</span> ((zipEntry = inZip.getNextEntry()) != <span class="keyword">null</span>) &#123;</span><br><span class="line">            szName = zipEntry.getName();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (szName.contains(<span class="string">"__MACOSX"</span>)) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (zipEntry.isDirectory()) &#123;</span><br><span class="line">                <span class="comment">// get the folder name of the widget</span></span><br><span class="line">                szName = szName.substring(<span class="number">0</span>, szName.length() - <span class="number">1</span>);</span><br><span class="line">                <span class="keyword">File</span> folder = <span class="keyword">new</span> <span class="keyword">File</span>(outputDir + <span class="keyword">File</span>.separator + szName);</span><br><span class="line">                folder.mkdirs();</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">File</span> <span class="keyword">file</span> = <span class="keyword">new</span> <span class="keyword">File</span>(outputDir + <span class="keyword">File</span>.separator + szName);</span><br><span class="line">                <span class="keyword">file</span>.createNewFile();</span><br><span class="line">                <span class="comment">// get the output stream of the file</span></span><br><span class="line">                FileOutputStream out = <span class="keyword">new</span> FileOutputStream(<span class="keyword">file</span>);</span><br><span class="line">                <span class="keyword">int</span> len;</span><br><span class="line">                <span class="keyword">byte</span>[] buffer = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">                <span class="comment">// read (len) bytes into buffer</span></span><br><span class="line">                <span class="keyword">while</span> ((len = inZip.<span class="keyword">read</span>(buffer)) != -<span class="number">1</span>) &#123;</span><br><span class="line">                    <span class="comment">// write (len) byte from buffer at the position 0</span></span><br><span class="line">                    out.<span class="keyword">write</span>(buffer, <span class="number">0</span>, len);</span><br><span class="line">                    out.flush();</span><br><span class="line">                &#125;</span><br><span class="line">                out.close();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        inZip.close();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/11/29/adb-command/" itemprop="url">
+                  adb command
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-11-29T11:15:25+08:00" content="2016-11-29">
+              2016-11-29
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/11/29/adb-command/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/29/adb-command/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <p>常用adb命令：<br>ps: 其中adb shell <em>*</em> 的命令实际上都是 linux命令，只是前面加了adb shell就是执行一次，而不会进入到adb shell下面。</p>
+<ol>
+<li>获取序列号：<br>adb get-serialno</li>
+<li>查看连接计算机的设备：<br>adb devices</li>
+<li>重启机器：<br>adb reboot</li>
+<li>重启到bootloader，即刷机模式：<br>adb reboot bootloader</li>
+<li>重启到recovery，即恢复模式：<br>adb reboot recovery</li>
+<li>查看log：<br>adb logcat //查看所有logadb logcat -s demo1 //输出tag 为demo1的logadb logcat &gt; log //将日志输出到log文件里面去</li>
+<li>终止adb服务进程：<br>adb kill-server</li>
+<li>重启adb服务进程：<br>adb start-server</li>
+<li>获取机器MAC地址：<br>adb shell cat /sys/class/net/wlan0/address</li>
+<li>获取CPU序列号：<br>adb shell cat /proc/cpuinfo</li>
+<li>安装APK：<br>adb install <apkfile> //比如：adb install baidu.apk</apkfile></li>
+<li>保留数据和缓存文件，重新安装apk：<br>adb install -r <apkfile> //比如：adb install -r baidu.apk</apkfile></li>
+<li>安装apk到sd卡：<br>adb install -s <apkfile> // 比如：adb install -s baidu.apk</apkfile></li>
+<li>卸载APK：<br>adb uninstall <package> //比如：adb uninstall com.baidu.search</package></li>
+<li>卸载app但保留数据和缓存文件：<br>adb uninstall -k <package> //比如：adb uninstall -k com.baidu.search</package></li>
+<li>启动应用：<br>adb shell am start -n <package_name>/.<activity_class_name></activity_class_name></package_name></li>
+<li>查看设备cpu和内存占用情况：<br>adb shell top</li>
+<li>查看占用内存前6的app：<br>adb shell top -m 6</li>
+<li>刷新一次内存信息，然后返回：<br>adb shell top -n 1</li>
+<li>查询各进程内存使用情况：<br>adb shell procrank</li>
+<li>杀死一个进程：<br>adb shell kill [pid]</li>
+<li>查看进程列表：<br>adb shell ps</li>
+<li>查看指定进程状态：<br>adb shell ps -x [PID]</li>
+<li>查看后台services信息：<br>adb shell service list</li>
+<li>查看当前内存占用：<br>adb shell cat /proc/meminfo</li>
+<li>查看IO内存分区：<br>adb shell cat /proc/iomem</li>
+<li>将system分区重新挂载为可读写分区：<br>adb remount</li>
+<li>从本地复制文件到设备：<br>adb push <local> <remote></remote></local></li>
+<li>从设备复制文件到本地：<br>adb pull <remote> <local></local></remote></li>
+<li>列出目录下的文件和文件夹，等同于dos中的dir命令：<br>adb shell ls</li>
+<li>进入文件夹，等同于dos中的cd 命令：<br>adb shell cd <folder></folder></li>
+<li>重命名文件：<br>adb shell rename path/oldfilename path/newfilename</li>
+<li>删除system/avi.apk：<br>adb shell rm /system/avi.apk</li>
+<li>删除文件夹及其下面所有文件：<br>adb shell rm -r <folder></folder></li>
+<li>移动文件：<br>adb shell mv path/file newpath/file</li>
+<li>设置文件权限：<br>adb shell chmod 777 /system/fonts/DroidSansFallback.ttf</li>
+<li>新建文件夹：<br>adb shell mkdir path/foldelname</li>
+<li>查看文件内容：<br>adb shell cat <file></file></li>
+<li>查看wifi密码：<br>adb shell cat /data/misc/wifi/*.conf</li>
+<li>清除log缓存：<br>adb logcat -c</li>
+<li>查看bug报告：<br>adb bugreport</li>
+<li>获取设备名称：<br>adb shell cat /system/build.prop</li>
+<li>查看ADB帮助：<br>adb help</li>
+</ol>
+
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/10/31/adb-wifi/" itemprop="url">
+                  无线调试
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-10-31T19:25:29+08:00" content="2016-10-31">
+              2016-10-31
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/10/31/adb-wifi/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/31/adb-wifi/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <h1 id="u6709root"><a href="#u6709root" class="headerlink" title="有root"></a>有root</h1><p>手机安装adb wifi，root授权。</p>
+<h1 id="u65E0root"><a href="#u65E0root" class="headerlink" title="无root"></a>无root</h1><h2 id="u5148_u7528_u6570_u636E_u7EBF_u8FDE_u63A5_u7535_u8111_uFF0C_u6253_u5F00_u547D_u4EE4_u884C_u8F93_u5165"><a href="#u5148_u7528_u6570_u636E_u7EBF_u8FDE_u63A5_u7535_u8111_uFF0C_u6253_u5F00_u547D_u4EE4_u884C_u8F93_u5165" class="headerlink" title="先用数据线连接电脑，打开命令行输入"></a>先用数据线连接电脑，打开命令行输入</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb tcpip <span class="number">5555</span></span><br></pre></td></tr></table></figure>
+<h2 id="u786E_u4FDD_u624B_u673A_u8FDE_u63A5_u7684wifi_u548C_u7535_u8111_u662F_u540C_u4E00_u4E2A_u5C40_u57DF_u7F51"><a href="#u786E_u4FDD_u624B_u673A_u8FDE_u63A5_u7684wifi_u548C_u7535_u8111_u662F_u540C_u4E00_u4E2A_u5C40_u57DF_u7F51" class="headerlink" title="确保手机连接的wifi和电脑是同一个局域网"></a>确保手机连接的wifi和电脑是同一个局域网</h2><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb connect <span class="keyword">*</span>.<span class="keyword">*</span>.<span class="keyword">*</span>.<span class="keyword">*</span></span><br></pre></td></tr></table></figure>
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/10/21/activity-fullscreen/" itemprop="url">
+                  Activity全屏切换
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-10-21T17:13:06+08:00" content="2016-10-21">
+              2016-10-21
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/10/21/activity-fullscreen/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/21/activity-fullscreen/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <h1 id="1-_Theme"><a href="#1-_Theme" class="headerlink" title="1. Theme"></a>1. Theme</h1><figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="label">android:</span>theme=<span class="string">"@android:style/Theme.Holo.NoActionBar.Fullscreen"</span> &gt;</span><br></pre></td></tr></table></figure>
+<p>优点</p>
+<ul>
+<li>容易记住,不容易犯错</li>
+<li>ui更加平滑，因为系统知道全屏信息</li>
+</ul>
+<h1 id="2-_WindowManager_flags"><a href="#2-_WindowManager_flags" class="headerlink" title="2. WindowManager flags"></a>2. WindowManager flags</h1><figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// FullScreen</span></span><br><span class="line"><span class="function">getWindow</span>()<span class="class">.setFlags</span>(WindowManager<span class="class">.LayoutParams</span><span class="class">.FLAG_FULLSCREEN</span>,</span><br><span class="line">                        WindowManager<span class="class">.LayoutParams</span><span class="class">.FLAG_FULLSCREEN</span>);</span><br><span class="line"><span class="comment">// Cancel</span></span><br><span class="line"><span class="function">getWindow</span>()<span class="class">.setFlags</span>(~WindowManager<span class="class">.LayoutParams</span><span class="class">.FLAG_FULLSCREEN</span>,</span><br><span class="line">                     WindowManager<span class="class">.LayoutParams</span><span class="class">.FLAG_FULLSCREEN</span>);</span><br></pre></td></tr></table></figure>
+<p><strong>全屏切换时，布局会重新拉伸，造成卡顿，避免方法：</strong></p>
+<ul>
+<li>通过FLAG_LAYOUT_IN_SCREEN flag使全屏时布局在状态栏以下。</li>
+<li>FLAG_LAYOUT_NO_LIMITS flag使全屏时布局全屏<br><strong>FLAG_LAYOUT_NO_LIMITS flag会导致系统函数getWindowVisibleDisplayFrame（主要用来计算键盘高度）失效，致命bug。</strong></li>
+</ul>
+<p><strong>Flag bug避免与优化</strong><br>使用marginTop避免Resize卡顿:<br>不使用有FLAG_LAYOUT_NO_LIMITS flag，给全屏展示的rootview设置一个marginTop，为负的状态栏高，切换过程看起来就像拉伸至全屏，当全屏后去掉marginTop。</p>
+<p>虽然解决掉不是有FLAG_LAYOUT_NO_LIMITS 的bug，但是状态栏收缩回去会卡白一下。</p>
+<h1 id="3-_SetSystemUiVisibility_28_29"><a href="#3-_SetSystemUiVisibility_28_29" class="headerlink" title="3. SetSystemUiVisibility()"></a>3. SetSystemUiVisibility()</h1><p><strong>API 16以上</strong><br><figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">View decorView = getWindow().getDecorView();</span><br><span class="line"><span class="comment">// Hide the status bar.</span></span><br><span class="line"><span class="keyword">int</span> uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;</span><br><span class="line">decorView.setSystemUiVisibility(uiOptions);</span><br><span class="line"><span class="comment">// Remember that you should never show the action bar if the</span></span><br><span class="line"><span class="comment">// status bar is hidden, so hide that too if necessary.</span></span><br><span class="line">ActionBar actionBar = getActionBar();</span><br><span class="line">actionBar.<span class="keyword">hide</span>();</span><br></pre></td></tr></table></figure></p>
+<p>使用SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN使布局拉伸至全屏，使用SYSTEM_UI_FLAG_LAYOUT_STABLE 避免布局resize</p>
+<h3 id="Immersive_uFF08_u9000_u51FA_u5168_u5C4F_u540E_uFF0C_u72B6_u6001_u680F_u81EA_u52A8_u9690_u85CF_uFF09"><a href="#Immersive_uFF08_u9000_u51FA_u5168_u5C4F_u540E_uFF0C_u72B6_u6001_u680F_u81EA_u52A8_u9690_u85CF_uFF09" class="headerlink" title="Immersive（退出全屏后，状态栏自动隐藏）"></a><strong>Immersive</strong>（退出全屏后，状态栏自动隐藏）</h3><ul>
+<li><p>SYSTEM_UI_FLAG_IMMERSIVE_STICKY <strong>API 19</strong></p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (Build.<span class="keyword">VERSION</span>.SDK_INT &gt;= Build.VERSION_CODES.KITKAT) &#123;</span><br><span class="line">    getWindow().getDecorView().setSystemUiVisibility(</span><br><span class="line">            <span class="keyword">View</span>.SYSTEM_UI_FLAG_LAYOUT_STABLE</span><br><span class="line">                    | <span class="keyword">View</span>.SYSTEM_UI_FLAG_IMMERSIVE_STICKY</span><br><span class="line">                    | <span class="keyword">View</span>.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN</span><br><span class="line">                    | <span class="keyword">View</span>.SYSTEM_UI_FLAG_FULLSCREEN);</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (Build.<span class="keyword">VERSION</span>.SDK_INT &gt;= Build.VERSION_CODES.JELLY_BEAN) &#123;</span><br><span class="line">    getWindow().getDecorView().setSystemUiVisibility(</span><br><span class="line">            <span class="keyword">View</span>.SYSTEM_UI_FLAG_LAYOUT_STABLE</span><br><span class="line">                    | <span class="keyword">View</span>.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN</span><br><span class="line">                    | <span class="keyword">View</span>.SYSTEM_UI_FLAG_FULLSCREEN);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,</span><br><span class="line">            WindowManager.LayoutParams.FLAG_FULLSCREEN);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>监听window,实现API19以下的Immersive。</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Override</span></span><br><span class="line">   <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onWindowFocusChanged</span><span class="params">(<span class="keyword">boolean</span> hasFocus)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">super</span>.onWindowFocusChanged(hasFocus);</span><br><span class="line">       <span class="comment">//Immersive</span></span><br><span class="line">       <span class="keyword">if</span> (hasFocus &amp;&amp; isFullScreen) &#123;</span><br><span class="line">           setFullScreen(isFullScreen);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>缺点：弹出键盘返回桌面都自动退出全屏。</p>
+<h1 id="4-_WindowManager_u548CSetSystemUiVisibility_u6DF7_u5408_u4F7F_u7528_uFF08_u5B8C_u7F8E_u65B9_u6848_uFF09"><a href="#4-_WindowManager_u548CSetSystemUiVisibility_u6DF7_u5408_u4F7F_u7528_uFF08_u5B8C_u7F8E_u65B9_u6848_uFF09" class="headerlink" title="4. WindowManager和SetSystemUiVisibility混合使用（完美方案）"></a>4. WindowManager和SetSystemUiVisibility混合使用（完美方案）</h1><ul>
+<li><p>布局全屏，避免全屏切换闪烁。</p>
+<figure class="highlight roboconf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="component">if(Build.VERSION.SDK_INT&gt;=Build.VERSION_CODES.JELLY_BEAN)&#123;</span><br><span class="line">    getWindow()<span class="string">.getDecorView().setSystemUiVisibility(</span></span><br><span class="line">            View<span class="string">.SYSTEM_UI_FLAG_LAYOUT_STABLE</span></span><br><span class="line">                    | View<span class="string">.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)</span>;</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>全屏切换设置</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//全屏</span></span><br><span class="line"> <span class="function">getWindow</span>()<span class="class">.setFlags</span>(WindowManager<span class="class">.LayoutParams</span><span class="class">.FLAG_FULLSCREEN</span>,</span><br><span class="line">              WindowManager<span class="class">.LayoutParams</span><span class="class">.FLAG_FULLSCREEN</span>);</span><br><span class="line"> <span class="comment">//退出全屏</span></span><br><span class="line"> <span class="function">getWindow</span>()<span class="class">.clearFlags</span>(WindowManager<span class="class">.LayoutParams</span><span class="class">.FLAG_FULLSCREEN</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>官方文档</strong><br><a href="https://developer.android.com/training/system-ui/index.html" target="_blank" rel="external">Managing the System UI</a><br><a href="https://developer.android.com/training/system-ui/status.html" target="_blank" rel="external">Hiding the Status Bar</a></p>
+
+            
+          </span>
         
       
     </div>
@@ -344,7 +1296,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">32</span>
+              <span class="site-state-item-count">35</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
