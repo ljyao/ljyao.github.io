@@ -197,526 +197,11 @@
 
     
     
+      
+      
 
+      
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/23/Android-camera/" itemprop="url">
-                  Android Camera
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            发表于
-            <time itemprop="dateCreated" datetime="2016-09-23T11:32:24+08:00" content="2016-09-23">
-              2016-09-23
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/23/Android-camera/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/23/Android-camera/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody">
-            
-              <h1 id="u4F7F_u7528camera_u62CD_u7167_u57FA_u672C_u6D41_u7A0B"><a href="#u4F7F_u7528camera_u62CD_u7167_u57FA_u672C_u6D41_u7A0B" class="headerlink" title="使用camera拍照基本流程"></a>使用camera拍照基本流程</h1><ol>
-<li>Obtain an instance of Camera from open(int).<br>获取相机实例，open指定前后摄像头。</li>
-<li>Get existing (default) settings with getParameters().<br>通过getParameters获取相机默认设置参数</li>
-<li>If necessary, modify the returned Camera.Parameters object and call setParameters(Camera.Parameters).<br>setParameters设置相机参数</li>
-<li>Call setDisplayOrientation(int) to ensure correct orientation of preview.<br>setDisplayOrientation设置预览图像旋转角度</li>
-<li>Important: Pass a fully initialized SurfaceHolder to setPreviewDisplay(SurfaceHolder). Without a surface, the camera will be unable to start the preview.<br>显示预览到surfaceview，没有surface相机是不可以预览。</li>
-<li>Important: Call startPreview() to start updating the preview surface. Preview must be started before you can take a picture.<br>startPreview开始预览，拍照前一定要预览。</li>
-<li>When you want, call takePicture(Camera.ShutterCallback, Camera.PictureCallback, Camera.PictureCallback, Camera.PictureCallback) to capture a photo. Wait for the callbacks to provide the actual image data.<br>takePicture拍照</li>
-<li>After taking a picture, preview display will have stopped. To take more photos, call startPreview() again first.<br>拍照后预览将会停止，重拍一定要调用startPreview。</li>
-<li>Call stopPreview() to stop updating the preview surface.<br>调用stopPreview停止预览</li>
-<li>Important: Call release() to release the camera for use by other applications. Applications should release the camera immediately in onPause() (and re-open() it in onResume()).<br>调用release释放相机。<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> startCamera(SurfaceTexture surface) &#123;</span><br><span class="line">      surface.setDefaultBufferSize(<span class="number">1080</span>, <span class="number">1920</span>);</span><br><span class="line"></span><br><span class="line">      Log.d(<span class="string">"lll"</span>, <span class="string">"open camera begin"</span>);</span><br><span class="line">       <span class="built_in">camera</span> = Camera.<span class="built_in">open</span>(Camera.CameraInfo.CAMERA_FACING_BACK);</span><br><span class="line">      Camera.Parameters params = <span class="built_in">camera</span>.getParameters();</span><br><span class="line">      params.setPreviewSize(<span class="number">1920</span>, <span class="number">1080</span>);</span><br><span class="line">      params.setPreviewFormat(ImageFormat.YV12);</span><br><span class="line">      <span class="built_in">camera</span>.setParameters(params);</span><br><span class="line"></span><br><span class="line">      <span class="built_in">camera</span>.setDisplayOrientation(<span class="number">90</span>);</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">          <span class="built_in">camera</span>.setPreviewTexture(surface);</span><br><span class="line">          <span class="built_in">camera</span>.startPreview();</span><br><span class="line">      &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">          e.printStackTrace();</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">final</span> <span class="built_in">boolean</span>[] flag = &#123;<span class="keyword">true</span>&#125;;</span><br><span class="line">      <span class="built_in">byte</span>[] buffer = <span class="keyword">new</span> <span class="built_in">byte</span>[getYuvBuffer(<span class="number">1920</span>, <span class="number">1080</span>)];</span><br><span class="line">      <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; <span class="number">2</span>; i++) &#123;</span><br><span class="line">          <span class="built_in">camera</span>.addCallbackBuffer(buffer);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="built_in">camera</span>.setPreviewCallbackWithBuffer(<span class="keyword">new</span> Camera.PreviewCallback() &#123;</span><br><span class="line">          @Override</span><br><span class="line">          <span class="keyword">public</span> <span class="keyword">void</span> onPreviewFrame(<span class="built_in">byte</span>[] data, Camera <span class="built_in">camera</span>) &#123;</span><br><span class="line">              <span class="keyword">if</span> (flag[<span class="number">0</span>]) &#123;</span><br><span class="line">                  flag[<span class="number">0</span>] = <span class="keyword">false</span>;</span><br><span class="line">                  Log.d(<span class="string">"lll"</span>, <span class="string">"open camera end"</span>);</span><br><span class="line">              &#125;</span><br><span class="line">              <span class="built_in">camera</span>.addCallbackBuffer(data);</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">int</span> getYuvBuffer(<span class="built_in">int</span> <span class="variable">width</span>, <span class="built_in">int</span> <span class="variable">height</span>) &#123;</span><br><span class="line">      <span class="comment">// stride = ALIGN(width, 16)</span></span><br><span class="line">      <span class="built_in">int</span> stride = (<span class="built_in">int</span>) Math.<span class="built_in">ceil</span>(<span class="variable">width</span> / <span class="number">16.0</span>) * <span class="number">16</span>;</span><br><span class="line">      <span class="comment">// y_size = stride * height</span></span><br><span class="line">      <span class="built_in">int</span> y_size = stride * <span class="variable">height</span>;</span><br><span class="line">      <span class="comment">// c_stride = ALIGN(stride/2, 16)</span></span><br><span class="line">      <span class="built_in">int</span> c_stride = (<span class="built_in">int</span>) Math.<span class="built_in">ceil</span>(<span class="variable">width</span> / <span class="number">32.0</span>) * <span class="number">16</span>;</span><br><span class="line">      <span class="comment">// c_size = c_stride * height/2</span></span><br><span class="line">      <span class="built_in">int</span> c_size = c_stride * <span class="variable">height</span> / <span class="number">2</span>;</span><br><span class="line">      <span class="comment">// size = y_size + c_size * 2</span></span><br><span class="line">      <span class="keyword">return</span> y_size + c_size * <span class="number">2</span>;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h1 id="u4F7F_u7528camera_u5F55_u89C6_u9891_u57FA_u672C_u6D41_u7A0B"><a href="#u4F7F_u7528camera_u5F55_u89C6_u9891_u57FA_u672C_u6D41_u7A0B" class="headerlink" title="使用camera录视频基本流程"></a>使用camera录视频基本流程</h1><p>Open Camera - Use the Camera.open() to get an instance of the camera object.<br>Connect Preview - Prepare a live camera image preview by connecting a SurfaceView to the camera using Camera.setPreviewDisplay().<br>Start Preview - Call Camera.startPreview() to begin displaying the live camera images.<br>Start Recording Video - The following steps must be completed in order to successfully record video:<br>Unlock the Camera - Unlock the camera for use by MediaRecorder by calling Camera.unlock().<br>Configure MediaRecorder - Call in the following MediaRecorder methods in this order. For more information, see the MediaRecorder reference documentation.<br>setCamera() - Set the camera to be used for video capture, use your application’s current instance of Camera.<br>setAudioSource() - Set the audio source, use MediaRecorder.AudioSource.CAMCORDER.<br>setVideoSource() - Set the video source, use MediaRecorder.VideoSource.CAMERA.<br>Set the video output format and encoding. For Android 2.2 (API Level 8) and higher, use the MediaRecorder.setProfile method, and get a profile instance using CamcorderProfile.get(). For versions of Android prior to 2.2, you must set the video output format and encoding parameters:<br>setOutputFormat() - Set the output format, specify the default setting or MediaRecorder.OutputFormat.MPEG_4.<br>setAudioEncoder() - Set the sound encoding type, specify the default setting or MediaRecorder.AudioEncoder.AMR_NB.<br>setVideoEncoder() - Set the video encoding type, specify the default setting or MediaRecorder.VideoEncoder.MPEG_4_SP.<br>setOutputFile() - Set the output file, use getOutputMediaFile(MEDIA_TYPE_VIDEO).toString() from the example method in the Saving Media Files section.<br>setPreviewDisplay() - Specify the SurfaceView preview layout element for your application. Use the same object you specified for Connect Preview.<br>Caution: You must call these MediaRecorder configuration methods in this order, otherwise your application will encounter errors and the recording will fail.</p>
-<p>Prepare MediaRecorder - Prepare the MediaRecorder with provided configuration settings by calling MediaRecorder.prepare().<br>Start MediaRecorder - Start recording video by calling MediaRecorder.start().<br>Stop Recording Video - Call the following methods in order, to successfully complete a video recording:<br>Stop MediaRecorder - Stop recording video by calling MediaRecorder.stop().<br>Reset MediaRecorder - Optionally, remove the configuration settings from the recorder by calling MediaRecorder.reset().<br>Release MediaRecorder - Release the MediaRecorder by calling MediaRecorder.release().<br>Lock the Camera - Lock the camera so that future MediaRecorder sessions can use it by calling Camera.lock(). Starting with Android 4.0 (API level 14), this call is not required unless the MediaRecorder.prepare() call fails.<br>Stop the Preview - When your activity has finished using the camera, stop the preview using Camera.stopPreview().<br>Release Camera - Release the camera so that other applications can use it by calling Camera.release().<br>Note: It is possible to use MediaRecorder without creating a camera preview first and skip the first few steps of this process. However, since users typically prefer to see a preview before starting a recording, that process is not discussed here.</p>
-<p>Tip: If your application is typically used for recording video, set setRecordingHint(boolean) to true prior to starting your preview. This setting can help reduce the time it takes to start recording.<br>/**<br>private boolean prepareVideoRecorder(){</p>
-<pre><code>mCamera = getCameraInstance();
-mMediaRecorder = new MediaRecorder();
-
-// Step 1: Unlock and set camera to MediaRecorder
-mCamera.unlock();
-mMediaRecorder.setCamera(mCamera);
-
-// Step 2: Set sources
-mMediaRecorder.setAudioSource(MediaRecorder.AudioSource.CAMCORDER);
-mMediaRecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);
-
-// Step 3: Set a CamcorderProfile (requires API Level 8 or higher)
-mMediaRecorder.setProfile(CamcorderProfile.get(CamcorderProfile.QUALITY_HIGH));
-
-// Step 4: Set output file
-mMediaRecorder.setOutputFile(getOutputMediaFile(MEDIA_TYPE_VIDEO).toString());
-
-// Step 5: Set the preview output
-mMediaRecorder.setPreviewDisplay(mPreview.getHolder().getSurface());
-
-// Step 6: Prepare configured MediaRecorder
-try {
-    mMediaRecorder.prepare();
-} catch (IllegalStateException e) {
-    Log.d(TAG, &quot;IllegalStateException preparing MediaRecorder: &quot; + e.getMessage());
-    releaseMediaRecorder();
-    return false;
-} catch (IOException e) {
-    Log.d(TAG, &quot;IOException preparing MediaRecorder: &quot; + e.getMessage());
-    releaseMediaRecorder();
-    return false;
-}
-return true;
-</code></pre><p>}<br>**/</p>
-<h1 id="u5F00_u53D1_u7B14_u8BB0"><a href="#u5F00_u53D1_u7B14_u8BB0" class="headerlink" title="开发笔记"></a>开发笔记</h1><h2 id="camera_orientation"><a href="#camera_orientation" class="headerlink" title="camera orientation"></a>camera orientation</h2><p>CameraInfo.orientation 是设备和相机之间的角度</p>
-<ol>
-<li><p>setDisplayOrientation(int) 设置预览图像旋转角度<br>只对预览起作用（详见第5条）</p>
-<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">public <span class="keyword">static</span> <span class="type">void</span> setCameraDisplayOrientation(<span class="type">Activity</span> activity,</span><br><span class="line">                                               <span class="type">int</span> cameraId, android.hardware.<span class="type">Camera</span> camera) &#123;</span><br><span class="line">    android.hardware.<span class="type">Camera</span>.<span class="type">CameraInfo</span> info =</span><br><span class="line">            new android.hardware.<span class="type">Camera</span>.<span class="type">CameraInfo</span>();</span><br><span class="line">    android.hardware.<span class="type">Camera</span>.getCameraInfo(cameraId, info);</span><br><span class="line">    <span class="type">int</span> rotation = activity.getWindowManager().getDefaultDisplay()</span><br><span class="line">            .getRotation();</span><br><span class="line">    <span class="type">int</span> degrees = <span class="number">0</span>;</span><br><span class="line">    switch (rotation) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="type">Surface</span>.<span class="type">ROTATION_0</span>:</span><br><span class="line">            degrees = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="type">Surface</span>.<span class="type">ROTATION_90</span>:</span><br><span class="line">            degrees = <span class="number">90</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="type">Surface</span>.<span class="type">ROTATION_180</span>:</span><br><span class="line">            degrees = <span class="number">180</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="type">Surface</span>.<span class="type">ROTATION_270</span>:</span><br><span class="line">            degrees = <span class="number">270</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="literal">result</span>;</span><br><span class="line">    <span class="keyword">if</span> (info.facing == <span class="type">Camera</span>.<span class="type">CameraInfo</span>.<span class="type">CAMERA_FACING_FRONT</span>) &#123;</span><br><span class="line">        <span class="literal">result</span> = (info.orientation + degrees) % <span class="number">360</span>;</span><br><span class="line">        <span class="literal">result</span> = (<span class="number">360</span> - <span class="literal">result</span>) % <span class="number">360</span>;  // compensate the mirror</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;  // back-facing</span><br><span class="line">        <span class="literal">result</span> = (info.orientation - degrees + <span class="number">360</span>) % <span class="number">360</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    camera.setDisplayOrientation(<span class="literal">result</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>setRotation 设置拍照图片旋转角度</p>
-</li>
-</ol>
-<p>通过设置相机setRotation旋转照片<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line">    * Called when the orientation of the device has changed.</span><br><span class="line">    * orientation parameter is in degrees, ranging from 0 to 359.</span><br><span class="line">    * orientation is 0 degrees when the device is oriented in its natural position,</span><br><span class="line">    * 90 degrees when its left side is at the top, 180 degrees when it is upside down, </span><br><span class="line">    * and 270 degrees when its right side is to the top.</span><br><span class="line">    * &#123;@link #ORIENTATION_UNKNOWN&#125; is returned when the device is close to flat</span><br><span class="line">    * and the orientation cannot be determined.</span><br><span class="line">    *</span><br><span class="line">    * @param orientation The new orientation of the device.</span><br><span class="line">    *</span><br><span class="line">    *  @see #ORIENTATION_UNKNOWN</span><br><span class="line">    */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onOrientationChanged</span><span class="params">(<span class="keyword">int</span> orientation)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">if</span> (orientation == ORIENTATION_UNKNOWN) <span class="keyword">return</span>;</span><br><span class="line">       android.hardware.Camera.CameraInfo info =</span><br><span class="line">               <span class="keyword">new</span> android.hardware.Camera.CameraInfo();</span><br><span class="line">       android.hardware.Camera.getCameraInfo(cameraId, info);</span><br><span class="line">       orientation = (orientation + <span class="number">45</span>) / <span class="number">90</span> * <span class="number">90</span>;</span><br><span class="line">       <span class="keyword">int</span> rotation = <span class="number">0</span>;</span><br><span class="line">       <span class="keyword">if</span> (info.facing == CameraInfo.CAMERA_FACING_FRONT) &#123;</span><br><span class="line">           rotation = (info.orientation - orientation + <span class="number">360</span>) % <span class="number">360</span>;</span><br><span class="line">       &#125; <span class="keyword">else</span> &#123;  <span class="comment">// back-facing camera</span></span><br><span class="line">           rotation = (info.orientation + orientation) % <span class="number">360</span>;</span><br><span class="line">       &#125;</span><br><span class="line">       mParameters.setRotation(rotation);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
-<p>拍照成功后获得bytes，从exif中获取照片旋转角度<br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line">ORIENTATION_NORMAL</span><br><span class="line">Constant Value: 1 (0x00000001)</span><br><span class="line"></span><br><span class="line">ORIENTATION_ROTATE_180</span><br><span class="line">Constant Value: 3 (0x00000003)</span><br><span class="line"></span><br><span class="line">ORIENTATION_ROTATE_270</span><br><span class="line">Constant Value: 8 (0x00000008)</span><br><span class="line"></span><br><span class="line">ORIENTATION_ROTATE_90</span><br><span class="line">Constant Value: 6 (0x00000006)</span><br><span class="line">**/</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function">ExifInterface <span class="title">getExifInterface</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (exif == <span class="keyword">null</span>) &#123;</span><br><span class="line">            exif = <span class="keyword">new</span> ExifInterface();</span><br><span class="line"></span><br><span class="line">            exif.readExif(jpegOriginal);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> (exif);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">int</span> <span class="title">getOrientation</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        ExifTag tag = getExifInterface().getTag(ExifInterface.TAG_ORIENTATION);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> (tag == <span class="keyword">null</span> ? -<span class="number">1</span> : tag.getValueAsInt(-1));</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
-<p>旋转照片<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Matrix</span> <span class="keyword">matrix</span>=new <span class="literal">Matrix</span>();</span><br><span class="line"><span class="keyword">matrix</span>.reset();</span><br><span class="line"><span class="keyword">matrix</span>.postRotate(degrees);</span><br><span class="line">dstBmp=Bitmap.createBitmap(srcBmp, 0, 0, srcBmp.getWidth(), srcBmp.getHeight(), <span class="keyword">matrix</span>, true);</span><br></pre></td></tr></table></figure></p>
-<ol>
-<li>setPreviewSize设置预览图像分辨率，setPictureSize拍照分辨率<br>设置的分辨率不支持会抛异常<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取预览支持的分辨率</span></span><br><span class="line">cameraParameters.<span class="function"><span class="title">getSupportedPreviewSizes</span><span class="params">()</span></span></span><br><span class="line"><span class="comment">//获取拍照支持的分辨率 </span></span><br><span class="line">cameraParameters.<span class="function"><span class="title">getSupportedPictureSizes</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h2 id="u66DD_u5149_u8FC7_u9AD8"><a href="#u66DD_u5149_u8FC7_u9AD8" class="headerlink" title="曝光过高"></a>曝光过高</h2><p>预览帧数过低会导致部分机型曝光过高，解决方案是录视频时降低帧率。</p>
-
-            
-          </span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/20/RxJava/" itemprop="url">
-                  RxJava
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            发表于
-            <time itemprop="dateCreated" datetime="2016-09-20T15:19:32+08:00" content="2016-09-20">
-              2016-09-20
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/20/RxJava/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/20/RxJava/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <h1 id="RxJava__u7684_u89C2_u5BDF_u8005_u6A21_u5F0F"><a href="#RxJava__u7684_u89C2_u5BDF_u8005_u6A21_u5F0F" class="headerlink" title="RxJava 的观察者模式"></a>RxJava 的观察者模式</h1><p>RxJava 有四个基本概念：Observable (可观察者，即被观察者)、 Observer (观察者)、 subscribe (订阅)、事件。Observable 和 Observer 通过 subscribe() 方法实现订阅关系，从而 Observable 可以在需要的时候发出事件来通知 Observer。</p>
-<p>与传统观察者模式不同， RxJava 的事件回调方法除了普通事件 onNext() （相当于 onClick() / onEvent()）之外，还定义了两个特殊的事件：onCompleted() 和 onError()。</p>
-<ul>
-<li>onCompleted(): 事件队列完结。RxJava 不仅把每个事件单独处理，还会把它们看做一个队列。RxJava 规定，当不会再有新的onNext() 发出时，需要触发 onCompleted() 方法作为标志。</li>
-<li>onError(): 事件队列异常。在事件处理过程中出异常时，onError() 会被触发，同时队列自动终止，不允许再有事件发出。</li>
-<li>在一个正确运行的事件序列中, onCompleted() 和 onError() 有且只有一个，并且是事件序列中的最后一个。需要注意的是，onCompleted() 和 onError() 二者也是互斥的，即在队列中调用了其中一个，就不应该再调用另一个。</li>
-</ul>
-<p>create() 方法是 RxJava 最基本的创造事件序列的方法。基于这个方法， RxJava 还提供了一些方法用来快捷创建事件队列，例如：</p>
-<ul>
-<li>just(T…): 将传入的参数依次发送出来。<br>Observable observable = Observable.just(“Hello”, “Hi”, “Aloha”);</li>
-<li>from(T[]) / from(Iterable&lt;? extends T&gt;) : 将传入的数组或 Iterable 拆分成具体对象后，依次发送出来。</li>
-</ul>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/20/RxJava/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/19/ViewPager的数据更新/" itemprop="url">
-                  ViewPager的数据更新
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            发表于
-            <time itemprop="dateCreated" datetime="2016-09-19T11:11:52+08:00" content="2016-09-19">
-              2016-09-19
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/19/ViewPager的数据更新/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/19/ViewPager的数据更新/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>ViewPager的更新通过的PagerAdapter中的notifyDataSetChanged方法，可以增加、删除或排序，但不可以像RecycleView更新view。<br><strong>官方文档：</strong><br>PagerAdapter supports data set changes. Data set changes must occur on the main thread and must end with a call to {@link #notifyDataSetChanged()} similar to AdapterView adapters derived from {@link android.widget.BaseAdapter}. A data set change may involve pages being added, removed, or changing position. The ViewPager will keep the current page active provided the adapter implements the method {@link #getItemPosition(Object)}.</p>
-<p>更新后ViewPager是否保持当前页存活，通过adapter实现getItemPosition方法进行判断。<br><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">/<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line"> <span class="keyword">*</span> Called when the host view is attempting to determine if an item's position</span><br><span class="line"> <span class="keyword">*</span> has changed. Returns &#123;<span class="comment">@link #POSITION_UNCHANGED&#125; if the position of the given</span></span><br><span class="line"> <span class="keyword">*</span> item has not changed or &#123;<span class="comment">@link #POSITION_NONE&#125; if the item is no longer present</span></span><br><span class="line"> <span class="keyword">*</span> in the adapter.</span><br><span class="line"> <span class="keyword">*</span></span><br><span class="line"> <span class="keyword">*</span> <span class="variable">&lt;p&gt;</span>The default implementation assumes that items will never</span><br><span class="line"> <span class="keyword">*</span> change position and always returns &#123;<span class="comment">@link #POSITION_UNCHANGED&#125;.</span></span><br><span class="line"> <span class="keyword">*</span></span><br><span class="line"> <span class="keyword">*</span> <span class="comment">@param object Object representing an item, previously returned by a call to</span></span><br><span class="line"> <span class="keyword">*</span>               &#123;<span class="comment">@link #instantiateItem(View, int)&#125;.</span></span><br><span class="line"> <span class="keyword">*</span> <span class="comment">@return object's new position index from [0, &#123;@link #getCount()&#125;),</span></span><br><span class="line"> <span class="keyword">*</span>         &#123;<span class="comment">@link #POSITION_UNCHANGED&#125; if the object's position has not changed,</span></span><br><span class="line"> <span class="keyword">*</span>         or &#123;<span class="comment">@link #POSITION_NONE&#125; if the item is no longer present.</span></span><br><span class="line"> <span class="keyword">*</span>/</span><br><span class="line">public int getItemPosition(Object object) &#123;</span><br><span class="line">    return POSITION_UNCHANGED;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>POSITION_UNCHANGED不更新，POSITION_NONE更新。<br>所以重写getItemPosition方法，返回POSITION_NONE，可以先实现通过notifyDataSetChanged进行页面更新。<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/19/ViewPager的数据更新/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/18/java-线程池/" itemprop="url">
-                  Java 线程池
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            发表于
-            <time itemprop="dateCreated" datetime="2016-09-18T14:29:35+08:00" content="2016-09-18">
-              2016-09-18
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/18/java-线程池/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/18/java-线程池/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody">
-            
-              <h1 id="ThreadPoolExecutor"><a href="#ThreadPoolExecutor" class="headerlink" title="ThreadPoolExecutor"></a>ThreadPoolExecutor</h1><p><strong>Executor</strong>是一个顶层接口，在它里面只声明了一个方法execute(Runnable)；<br><strong>ExecutorService</strong>是一个接口，继承了Executor接口，并声明了一些方法：submit、invokeAll、invokeAny以及shutDown等；<br><strong>AbstractExecutorService</strong>是一个抽象类，实现了ExecutorService接口，基本实现了ExecutorService中声明的所有方法；<br><strong>ThreadPoolExecutor</strong>继承了类AbstractExecutorService。</p>
-<p><strong>在ThreadPoolExecutor类中有几个非常重要的方法：</strong><br><strong>execute()</strong><br>execute()方法实际上是Executor中声明的方法，在ThreadPoolExecutor进行了具体的实现，这个方法是ThreadPoolExecutor的核心方法，通过这个方法可以向线程池提交一个任务，交由线程池去执行。<br><strong>submit()</strong><br>submit()方法是在ExecutorService中声明的方法，在AbstractExecutorService就已经有了具体的实现，在ThreadPoolExecutor中并没有对其进行重写，这个方法也是用来向线程池提交任务的，但是它和execute(）方法不同，它能够返回任务执行的结果，去看submit()方法的实现，会发现它实际上还是调用的execute()方法，只不过它利用了Future来获取任务执行结果。<br><strong>shutdown()</strong><br><strong>shutdownNow()</strong><br>shutdown()和shutdownNow()是用来关闭线程池的。</p>
-<h1 id="Executors"><a href="#Executors" class="headerlink" title="Executors"></a>Executors</h1><p>Java通过Executors提供四种线程池，分别为：<br><strong>newCachedThreadPool</strong><br>创建一个可缓存线程池，如果线程池长度超过处理需要，可灵活回收空闲线程，若无可回收，则新建线程。<br><strong>newFixedThreadPool</strong><br>创建一个定长线程池，可控制线程最大并发数，超出的线程会在队列中等待。<br><strong>newScheduledThreadPool</strong><br>创建一个定长线程池，支持定时及周期性任务执行。<br><strong>newSingleThreadExecutor</strong><br>创建一个单线程化的线程池，它只会用唯一的工作线程来执行任务，保证所有任务按照指定顺序(FIFO, LIFO, 优先级)执行。</p>
-
-            
-          </span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/12/DialogFragment/" itemprop="url">
-                  DialogFragment
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            发表于
-            <time itemprop="dateCreated" datetime="2016-09-12T18:35:43+08:00" content="2016-09-12">
-              2016-09-12
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/12/DialogFragment/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/12/DialogFragment/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody">
-            
-              <figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">void</span> showDialog() &#123;</span><br><span class="line">    mStackLevel++;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// DialogFragment.show() will take care of adding the fragment</span></span><br><span class="line">    <span class="comment">// in a transaction.  We also want to remove any currently showing</span></span><br><span class="line">    <span class="comment">// dialog, so make our own transaction and take care of that here.</span></span><br><span class="line">    FragmentTransaction <span class="literal">ft</span> = getFragmentManager()<span class="built_in">.</span>beginTransaction();</span><br><span class="line">    Fragment prev = getFragmentManager()<span class="built_in">.</span>findFragmentByTag(<span class="string">"dialog"</span>);</span><br><span class="line">    <span class="keyword">if</span> (prev != <span class="built_in">null</span>) &#123;</span><br><span class="line">        <span class="literal">ft</span><span class="built_in">.</span>remove(prev);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="literal">ft</span><span class="built_in">.</span>addToBackStack(<span class="built_in">null</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Create and show the dialog.</span></span><br><span class="line">    DialogFragment newFragment = MyDialogFragment<span class="built_in">.</span>newInstance(mStackLevel);</span><br><span class="line">    newFragment<span class="built_in">.</span>show(<span class="literal">ft</span>, <span class="string">"dialog"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">MyAlertDialogFragment</span> <span class="keyword">extends</span> <span class="title">DialogFragment</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> MyAlertDialogFragment <span class="title">newInstance</span><span class="params">(<span class="keyword">int</span> title)</span> </span>&#123;</span><br><span class="line">        MyAlertDialogFragment frag = <span class="keyword">new</span> MyAlertDialogFragment();</span><br><span class="line">        Bundle args = <span class="keyword">new</span> Bundle();</span><br><span class="line">        args.putInt(<span class="string">"title"</span>, title);</span><br><span class="line">        frag.setArguments(args);</span><br><span class="line">        <span class="keyword">return</span> frag;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Dialog <span class="title">onCreateDialog</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> title = getArguments().getInt(<span class="string">"title"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> AlertDialog.Builder(getActivity())</span><br><span class="line">                .setIcon(R.drawable.alert_dialog_icon)</span><br><span class="line">                .setTitle(title)</span><br><span class="line">                .setPositiveButton(R.string.alert_dialog_ok,</span><br><span class="line">                    <span class="keyword">new</span> DialogInterface.OnClickListener() &#123;</span><br><span class="line">                        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(DialogInterface dialog, <span class="keyword">int</span> whichButton)</span> </span>&#123;</span><br><span class="line">                            ((FragmentAlertDialog)getActivity()).doPositiveClick();</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                )</span><br><span class="line">                .setNegativeButton(R.string.alert_dialog_cancel,</span><br><span class="line">                    <span class="keyword">new</span> DialogInterface.OnClickListener() &#123;</span><br><span class="line">                        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(DialogInterface dialog, <span class="keyword">int</span> whichButton)</span> </span>&#123;</span><br><span class="line">                            ((FragmentAlertDialog)getActivity()).doNegativeClick();</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                )</span><br><span class="line">                .create();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-            
-          </span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
 
     
       
@@ -1290,12 +775,1010 @@ return true;
 
 
     
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/08/01/Property-Animation-and-View-Animation/" itemprop="url">
+                  Property Animation and View Animation
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-08-01T14:42:51+08:00" content="2016-08-01">
+              2016-08-01
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/01/Property-Animation-and-View-Animation/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/01/Property-Animation-and-View-Animation/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>一、Property Animation<br>创建一个动画通过修改对象属性在一段时间。<br>二、View Animation<br>包含2种类型：<br>Tween animation（补间动画）:<br>创建一个动画通过执行一系列变化在一个图像上。<br>Frame animation（帧动画）:<br>创建一个动画通过顺序播放一系列图片。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/08/01/Property-Animation-and-View-Animation/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/28/viewpage/" itemprop="url">
+                  viewpage
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-07-28T12:07:53+08:00" content="2016-07-28">
+              2016-07-28
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/28/viewpage/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/28/viewpage/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <h1 id="ViewPager"><a href="#ViewPager" class="headerlink" title="ViewPager"></a>ViewPager</h1><p>Layout manager that allows the user to flip left and right through pages of data. You supply an implementation of a PagerAdapter to generate the pages that the view shows.<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/07/28/viewpage/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/26/Expand-collapse-animation/" itemprop="url">
+                  Expand/collapse animation
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-07-26T11:55:34+08:00" content="2016-07-26">
+              2016-07-26
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/26/Expand-collapse-animation/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/26/Expand-collapse-animation/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <p>view 高度伸展和收缩动画<br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">void</span> <span class="title">expand</span><span class="params">(<span class="keyword">final</span> View v)</span> </span>&#123;</span><br><span class="line">    v.measure(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> targetHeight = v.getMeasuredHeight();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Older versions of android (pre API 21) cancel animations for views with a height of 0.</span></span><br><span class="line">    v.getLayoutParams().height = <span class="number">1</span>;</span><br><span class="line">    v.setVisibility(View.VISIBLE);</span><br><span class="line">    Animation a = <span class="keyword">new</span> Animation()</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="annotation">@Override</span></span><br><span class="line">        <span class="keyword">protected</span> <span class="function"><span class="keyword">void</span> <span class="title">applyTransformation</span><span class="params">(<span class="keyword">float</span> interpolatedTime, Transformation t)</span> </span>&#123;</span><br><span class="line">            v.getLayoutParams().height = interpolatedTime == <span class="number">1</span></span><br><span class="line">                    ? LayoutParams.WRAP_CONTENT</span><br><span class="line">                    : (<span class="keyword">int</span>)(targetHeight * interpolatedTime);</span><br><span class="line">            v.requestLayout();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="annotation">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">boolean</span> <span class="title">willChangeBounds</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 1dp/ms</span></span><br><span class="line">    a.setDuration((<span class="keyword">int</span>)(targetHeight / v.getContext().getResources().getDisplayMetrics().density));</span><br><span class="line">    v.startAnimation(a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">void</span> <span class="title">collapse</span><span class="params">(<span class="keyword">final</span> View v)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> initialHeight = v.getMeasuredHeight();</span><br><span class="line"></span><br><span class="line">    Animation a = <span class="keyword">new</span> Animation()</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="annotation">@Override</span></span><br><span class="line">        <span class="keyword">protected</span> <span class="function"><span class="keyword">void</span> <span class="title">applyTransformation</span><span class="params">(<span class="keyword">float</span> interpolatedTime, Transformation t)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(interpolatedTime == <span class="number">1</span>)&#123;</span><br><span class="line">                v.setVisibility(View.GONE);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                v.getLayoutParams().height = initialHeight - (<span class="keyword">int</span>)(initialHeight * interpolatedTime);</span><br><span class="line">                v.requestLayout();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="annotation">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">boolean</span> <span class="title">willChangeBounds</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 1dp/ms</span></span><br><span class="line">    a.setDuration((<span class="keyword">int</span>)(initialHeight / v.getContext().getResources().getDisplayMetrics().density));</span><br><span class="line">    v.startAnimation(a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/26/MeasureSpec/" itemprop="url">
+                  MeasureSpec
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-07-26T10:43:15+08:00" content="2016-07-26">
+              2016-07-26
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/26/MeasureSpec/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/26/MeasureSpec/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>最近发现，重写了viewGroup的onMeasure方法，造成子view match_parent不起作用，代码如下：<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> onMeasure(<span class="built_in">int</span> widthMeasureSpec, <span class="built_in">int</span> heightMeasureSpec) &#123;</span><br><span class="line">    <span class="built_in">int</span> <span class="variable">width</span> = MeasureSpec.getSize(widthMeasureSpec);</span><br><span class="line">    <span class="built_in">int</span> <span class="variable">height</span> = (<span class="built_in">int</span>) (<span class="variable">width</span> / <span class="number">0.75</span>f);</span><br><span class="line">    <span class="keyword">super</span>.onMeasure(<span class="variable">width</span>, <span class="variable">height</span>);</span><br><span class="line">    setMeasuredDimension(<span class="variable">width</span>, <span class="variable">height</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/07/26/MeasureSpec/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/04/19/android-shape/" itemprop="url">
+                  android shape
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-04-19T22:31:59+08:00" content="2016-04-19">
+              2016-04-19
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/19/android-shape/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/19/android-shape/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">shape</span> <span class="attribute">xmlns:android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span> &gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">&lt;!-- 圆角 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">corners</span></span><br><span class="line">        <span class="attribute">android:radius</span>=<span class="value">"9dp"</span></span><br><span class="line">        <span class="attribute">android:topLeftRadius</span>=<span class="value">"2dp"</span></span><br><span class="line">        <span class="attribute">android:topRightRadius</span>=<span class="value">"2dp"</span></span><br><span class="line">        <span class="attribute">android:bottomLeftRadius</span>=<span class="value">"2dp"</span></span><br><span class="line">        <span class="attribute">android:bottomRightRadius</span>=<span class="value">"2dp"</span>/&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">&lt;!-- 渐变 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">gradient</span></span><br><span class="line">        <span class="attribute">android:startColor</span>=<span class="value">"@android:color/white"</span></span><br><span class="line">        <span class="attribute">android:centerColor</span>=<span class="value">"@android:color/black"</span></span><br><span class="line">        <span class="attribute">android:endColor</span>=<span class="value">"@android:color/black"</span></span><br><span class="line">        <span class="attribute">android:useLevel</span>=<span class="value">"true"</span></span><br><span class="line">        <span class="attribute">android:angle</span>=<span class="value">"45"</span></span><br><span class="line">        <span class="attribute">android:type</span>=<span class="value">"radial"</span></span><br><span class="line">        <span class="attribute">android:centerX</span>=<span class="value">"0"</span></span><br><span class="line">        <span class="attribute">android:centerY</span>=<span class="value">"0"</span></span><br><span class="line">        <span class="attribute">android:gradientRadius</span>=<span class="value">"90"</span>/&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">&lt;!-- 间隔 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">padding</span></span><br><span class="line">        <span class="attribute">android:left</span>=<span class="value">"2dp"</span></span><br><span class="line">        <span class="attribute">android:top</span>=<span class="value">"2dp"</span></span><br><span class="line">        <span class="attribute">android:right</span>=<span class="value">"2dp"</span></span><br><span class="line">        <span class="attribute">android:bottom</span>=<span class="value">"2dp"</span>/&gt;</span><span class="comment">&lt;!-- 各方向的间隔 --&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">&lt;!-- 大小 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">size</span></span><br><span class="line">        <span class="attribute">android:width</span>=<span class="value">"50dp"</span></span><br><span class="line">        <span class="attribute">android:height</span>=<span class="value">"50dp"</span>/&gt;</span><span class="comment">&lt;!-- 宽度和高度 --&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">&lt;!-- 填充 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">solid</span></span><br><span class="line">        <span class="attribute">android:color</span>=<span class="value">"@android:color/white"</span>/&gt;</span><span class="comment">&lt;!-- 填充的颜色 --&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">&lt;!-- 描边 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">stroke</span></span><br><span class="line">        <span class="attribute">android:width</span>=<span class="value">"2dp"</span></span><br><span class="line">        <span class="attribute">android:color</span>=<span class="value">"@android:color/black"</span></span><br><span class="line">        <span class="attribute">android:dashWidth</span>=<span class="value">"1dp"</span></span><br><span class="line">        <span class="attribute">android:dashGap</span>=<span class="value">"2dp"</span>/&gt;</span></span><br><span class="line">    </span><br><span class="line"><span class="tag">&lt;/<span class="title">shape</span>&gt;</span></span><br></pre></td></tr></table></figure>
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/04/18/byte与int相互转换/" itemprop="url">
+                  byte与int相互转换
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-04-18T15:18:24+08:00" content="2016-04-18">
+              2016-04-18
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/18/byte与int相互转换/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/18/byte与int相互转换/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <h1 id="byte_u8F6Cint"><a href="#byte_u8F6Cint" class="headerlink" title="byte转int"></a>byte转int</h1><ul>
+<li>64-&gt;100<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">byteToInt</span>(<span class="params"><span class="keyword">byte</span> src</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> <span class="keyword">value</span>;</span><br><span class="line">    <span class="keyword">value</span> = src &amp; <span class="number">0xFF</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">value</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/04/18/byte与int相互转换/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/04/18/水波纹动画/" itemprop="url">
+                  水波纹动画
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-04-18T14:56:21+08:00" content="2016-04-18">
+              2016-04-18
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/18/水波纹动画/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/18/水波纹动画/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <h1 id="X_2CY_u8F74_u653E_u5927_uFF0C_u900F_u660E_u5EA6_u51CF_u5C11"><a href="#X_2CY_u8F74_u653E_u5927_uFF0C_u900F_u660E_u5EA6_u51CF_u5C11" class="headerlink" title="X,Y轴放大，透明度减少"></a>X,Y轴放大，透明度减少</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> AnimationSet <span class="title">initAnimationSet</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       AnimationSet animSet = <span class="keyword">new</span> AnimationSet(<span class="literal">true</span>);</span><br><span class="line">       ScaleAnimation scaleAnim = <span class="keyword">new</span> ScaleAnimation(<span class="number">1f</span>, <span class="number">1.2f</span>, <span class="number">1f</span>, <span class="number">1.2f</span>,</span><br><span class="line">               ScaleAnimation.RELATIVE_TO_SELF, <span class="number">0.5f</span>,</span><br><span class="line">               ScaleAnimation.RELATIVE_TO_SELF, <span class="number">0.5f</span>);</span><br><span class="line">       scaleAnim.setDuration(DURATION_ANIMATOR);</span><br><span class="line">       scaleAnim.setRepeatCount(Animation.INFINITE);<span class="comment">// 设置循环</span></span><br><span class="line">       AlphaAnimation alphaAnim = <span class="keyword">new</span> AlphaAnimation(<span class="number">1f</span>, <span class="number">0f</span>);</span><br><span class="line">       alphaAnim.setDuration(DURATION_ANIMATOR);</span><br><span class="line">       alphaAnim.setRepeatCount(Animation.INFINITE);<span class="comment">//设置循环</span></span><br><span class="line">       animSet.addAnimation(scaleAnim);</span><br><span class="line">       animSet.addAnimation(alphaAnim);</span><br><span class="line">       <span class="keyword">return</span> animSet;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/01/27/unstartactivity/" itemprop="url">
+                  “unstartactivity”
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-01-27T20:21:41+08:00" content="2016-01-27">
+              2016-01-27
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/01/27/unstartactivity/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/27/unstartactivity/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <pre><code>今天遇到一个奇怪现象，startActivity没反应，没有任何log，突然想到重写了activity的startActivityForResult方式，而且还把super删了，
+</code></pre><p>纪念傻傻的我。。。。。。。<br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Override</span></span><br><span class="line">   <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">startActivityForResult</span><span class="params">(Intent intent, <span class="keyword">int</span> requestCode, Bundle options)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">super</span>.startActivityForResult(intent, requestCode, options);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/01/26/nice实习总结/" itemprop="url">
+                  nice实习总结
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-01-26T15:11:27+08:00" content="2016-01-26">
+              2016-01-26
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/01/26/nice实习总结/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/26/nice实习总结/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <pre><code>2015年10月25日入职，开始实习，转眼间3个月过去，
+</code></pre><h1 id="u5DE5_u4F5C_u603B_u7ED3"><a href="#u5DE5_u4F5C_u603B_u7ED3" class="headerlink" title="工作总结"></a>工作总结</h1><ul>
+<li>熟悉环境、代码，学习过程（11月）</li>
+<li>宽高图展示、瀑布流 （12月）</li>
+<li>解决缩放标签位置不正确(ps:服务端记录的是正常大小标签小圆点坐标，当使用scale缩小时，圆点位置发生变化)</li>
+<li>直播分享</li>
+<li>贴纸长按预览，扩充。</li>
+<li>个人主页</li>
+<li>写了若干bug，改了若干bug</li>
+<li>学习-&gt;模仿-&gt;改进
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/01/26/nice实习总结/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/01/26/RecycleView/" itemprop="url">
+                  RecycleView
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-01-26T10:36:58+08:00" content="2016-01-26">
+              2016-01-26
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/01/26/RecycleView/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/26/RecycleView/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <pre><code>个人觉得RecycleView很强大，很好的扩展性，稳定，将会逐渐代替gridview和listview。
+</code></pre><h1 id="GridLayoutManager"><a href="#GridLayoutManager" class="headerlink" title="GridLayoutManager"></a>GridLayoutManager</h1><p>   实现gridview功能。</p>
+<p>   使用GridLayoutManager给RecycleView加headview或footview，总共有3列，spansize表示表示该子view占几个位置。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> RecyclerView.<span class="function">LayoutManager <span class="title">getLayoutManager</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       GridLayoutManager gridLayoutManager = <span class="keyword">new</span> GridLayoutManager(getActivity(), <span class="number">3</span>);</span><br><span class="line">       gridLayoutManager.setSpanSizeLookup(<span class="keyword">new</span> GridLayoutManager.SpanSizeLookup() &#123;</span><br><span class="line">           @<span class="function">Override</span><br><span class="line">           <span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getSpanSize</span><span class="params">(<span class="keyword">int</span> position)</span> </span>&#123;</span><br><span class="line">               <span class="keyword">int</span> spanSize;</span><br><span class="line">               <span class="keyword">switch</span> (adapter.getItemViewType(position)) &#123;</span><br><span class="line">                   <span class="keyword">case</span> ShowThumbnailData.LIVE:</span><br><span class="line">                   <span class="keyword">case</span> ShowThumbnailData.PHOTO:</span><br><span class="line">                   <span class="keyword">case</span> ShowThumbnailData.PLAYBACK:</span><br><span class="line">                       spanSize = <span class="number">1</span>;</span><br><span class="line">                       <span class="keyword">break</span>;</span><br><span class="line">                   <span class="keyword">case</span> ShowThumbnailData.HEADER:</span><br><span class="line">                       spanSize = <span class="number">3</span>;</span><br><span class="line">                       <span class="keyword">break</span>;</span><br><span class="line">                   <span class="keyword">case</span> ShowThumbnailData.LIVEV2:</span><br><span class="line">                       spanSize = <span class="number">3</span>;</span><br><span class="line">                   <span class="keyword">default</span>:</span><br><span class="line">                       spanSize = <span class="number">1</span>;</span><br><span class="line">                       <span class="keyword">break</span>;</span><br><span class="line">               &#125;</span><br><span class="line">               <span class="keyword">return</span> spanSize;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;);</span><br><span class="line">       <span class="keyword">return</span> gridLayoutManager;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="StaggeredGridLayoutManager"><a href="#StaggeredGridLayoutManager" class="headerlink" title="StaggeredGridLayoutManager"></a>StaggeredGridLayoutManager</h1>
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
 
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 

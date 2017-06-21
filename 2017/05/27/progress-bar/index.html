@@ -59,7 +59,7 @@
 <meta property="og:site_name" content="Shine's blog">
 <meta property="og:description" content="实现一个圆形自定义进度条，进度条的颜色随着进度变化而变化，按进度下去后反向回去重置；为了解耦，主要有2个模块：1、自定义View，2、Controler
 自定义view提供进度、进度条颜色、背景颜色等设置接口，负责UI绘制。123456789101112131415161718192021222324252627282930313233343536@Override  protected void">
-<meta property="og:updated_time" content="2017-05-28T03:24:27.000Z">
+<meta property="og:updated_time" content="2017-06-10T02:08:20.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="属性动画实现进度条">
 <meta name="twitter:description" content="实现一个圆形自定义进度条，进度条的颜色随着进度变化而变化，按进度下去后反向回去重置；为了解耦，主要有2个模块：1、自定义View，2、Controler
@@ -267,12 +267,7 @@
 </li>
 <li>Handler<br>通过不停发延时handler去刷新UI，但是当主线有大量绘制任务，handler周期时间变得不可控。</li>
 <li>HandlerThread<br>通过子线程发送延时handler，与Timer相比，handler带来了很多便利，但是子线程与主线程的切换也是一种开销。</li>
-<li>属性动画<br>通过自定义TypeEvaluator，使用ValueAnimator去控制自定义的属性，也是完美的方案。<br>TypeEvaluator去计算最新的值<br>、、、<br>package com.nice.main.live.gift.view;</li>
-</ol>
-<p>import android.animation.TypeEvaluator;</p>
-<p>/**</p>
-<ul>
-<li><p>Created by shine<br>*/<br>public class ProgressBarEvaluator implements TypeEvaluator<progressbarevaluator.progressvalues> {</progressbarevaluator.progressvalues></p>
+<li><p>属性动画（自定义TypeEvaluator）<br>通过自定义TypeEvaluator，使用ValueAnimator去控制自定义的属性<br>TypeEvaluator去计算最新的值<br>、、、<br>public class ProgressBarEvaluator implements TypeEvaluator<progressbarevaluator.progressvalues> {</progressbarevaluator.progressvalues></p>
 <p> @Override<br> public ProgressValues evaluate(float fraction, ProgressValues startValue, ProgressValues endValue) {</p>
 <pre><code>ProgressValues values = new ProgressValues();
 
@@ -294,7 +289,7 @@ values.color = ((startA + (int) (fraction * (endA - startA))) &lt;&lt; 24)
         | ((startG + (int) (fraction * (endG - startG))) &lt;&lt; 8)
         | ((startB + (int) (fraction * (endB - startB))));
 </code></pre></li>
-</ul>
+</ol>
 <pre><code>    values.progress = startValue.progress + fraction * (endValue.progress - startValue.progress);
 
     values.scale = startValue.scale + fraction * (endValue.scale - startValue.scale);
@@ -316,7 +311,10 @@ public static class ProgressValues {
     }
 }
 </code></pre><p>}<br>、、、<br>在AnimatorUpdateListener回调去刷新UI<br><strong><em> 注意setEvaluator要放在setObjectValues后 </em></strong><br><figure class="highlight roboconf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="component">progressAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() &#123;</span><br><span class="line">           @Override</span><br><span class="line">           public void onAnimationUpdate(ValueAnimator animation) &#123;</span><br><span class="line">               ProgressBarEvaluator<span class="string">.ProgressValues</span> values = (ProgressBarEvaluator<span class="string">.ProgressValues)</span> animation<span class="string">.getAnimatedValue()</span>;</span><br><span class="line">               progressbar<span class="string">.setScaleX(values.scale)</span>;</span><br><span class="line">               progressbar<span class="string">.setScaleY(values.scale)</span>;</span><br><span class="line"></span><br><span class="line">               progressbar<span class="string">.setProgress(values.progress)</span>;</span><br><span class="line"></span><br><span class="line">               progressbar<span class="string">.setUnfinishedStrokeColor(values.color)</span>;</span><br><span class="line">           &#125;</span></span><br><span class="line">       &#125;);</span><br></pre></td></tr></table></figure></p>
-<p>0    1   2 3<br>1 2  2 3</p>
+<ol>
+<li>属性动画<br>读完源码后，属性动画通过反射调用对象方法，驼峰命名，所以不需要自定义TypeEvaluator,注意方法名的混淆，加上注解 @Keep<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">PropertyValuesHolder</span> pvh<span class="variable">X</span> = <span class="variable">PropertyValuesHolder</span>.<span class="keyword">of</span><span class="variable">Float</span>(<span class="string">"scaleX"</span>, start<span class="variable">Scale</span>, <span class="keyword">end</span><span class="variable">Scale</span>);</span><br><span class="line"><span class="variable">PropertyValuesHolder</span> pvh<span class="variable">Y</span> = <span class="variable">PropertyValuesHolder</span>.<span class="keyword">of</span><span class="variable">Float</span>(<span class="string">"scaleY"</span>, start<span class="variable">Scale</span>, <span class="keyword">end</span><span class="variable">Scale</span>);</span><br><span class="line"><span class="variable">PropertyValuesHolder</span> pvh<span class="variable">P</span> = <span class="variable">PropertyValuesHolder</span>.<span class="keyword">of</span><span class="variable">Float</span>(<span class="string">"progress"</span>, start<span class="variable">Progress</span>, <span class="keyword">end</span><span class="variable">Progress</span>);</span><br><span class="line"><span class="variable">PropertyValuesHolder</span> pvh<span class="variable">C</span> = <span class="variable">PropertyValuesHolder</span>.<span class="keyword">of</span><span class="variable">Int</span>(<span class="string">"unfinishedStrokeColor"</span>, start<span class="variable">Color</span>, <span class="keyword">end</span><span class="variable">Color</span>);</span><br><span class="line">pvh<span class="variable">C</span>.set<span class="variable">Evaluator</span>(new <span class="variable">ArgbEvaluator</span>());</span><br><span class="line">progress<span class="variable">Anim</span> = <span class="variable">ObjectAnimator</span>.<span class="keyword">of</span><span class="variable">PropertyValuesHolder</span>(progressbar, pvh<span class="variable">X</span>, pvh<span class="variable">Y</span>, pvh<span class="variable">P</span>, pvh<span class="variable">C</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
 </span>
       
     </div>
