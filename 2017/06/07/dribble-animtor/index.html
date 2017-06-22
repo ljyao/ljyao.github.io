@@ -51,37 +51,28 @@
 
 
 
-<meta name="description" content="礼物连击动画，分为三步：
+<meta name="description" content="礼物连击效果，显示当前连击数，有缩放动画。
+绘制数字由于数字有描边，需要自定义控件，描边颜色不同于填充颜色
 
-大小从1.93-&amp;gt;0.5倍缩小，透明度从0-&amp;gt;1，耗时50%
-大小从0.3-&amp;gt;1.25倍缩小，耗时30%
-大小从1.25-&amp;gt;1倍缩小，耗时20%
-
-
-version 1.0123456789101112131415161718192021AnimatorSet dribbleFirstAnimSet = new AnimatorSet();Ani">
+画笔初始化一个Paint为数字，另一个Paint为数字描边
+1234567891011121314151617//strokestrokePaint = new Paint();strokePaint.setColor(strokeColor);strokePaint.setTextSiz">
 <meta property="og:type" content="article">
-<meta property="og:title" content="连击动画">
+<meta property="og:title" content="礼物连击数字">
 <meta property="og:url" content="http://yoursite.com/2017/06/07/dribble-animtor/index.html">
 <meta property="og:site_name" content="Shine's blog">
-<meta property="og:description" content="礼物连击动画，分为三步：
+<meta property="og:description" content="礼物连击效果，显示当前连击数，有缩放动画。
+绘制数字由于数字有描边，需要自定义控件，描边颜色不同于填充颜色
 
-大小从1.93-&amp;gt;0.5倍缩小，透明度从0-&amp;gt;1，耗时50%
-大小从0.3-&amp;gt;1.25倍缩小，耗时30%
-大小从1.25-&amp;gt;1倍缩小，耗时20%
-
-
-version 1.0123456789101112131415161718192021AnimatorSet dribbleFirstAnimSet = new AnimatorSet();Ani">
-<meta property="og:updated_time" content="2017-06-08T09:28:05.000Z">
+画笔初始化一个Paint为数字，另一个Paint为数字描边
+1234567891011121314151617//strokestrokePaint = new Paint();strokePaint.setColor(strokeColor);strokePaint.setTextSiz">
+<meta property="og:updated_time" content="2017-06-22T04:30:35.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="连击动画">
-<meta name="twitter:description" content="礼物连击动画，分为三步：
+<meta name="twitter:title" content="礼物连击数字">
+<meta name="twitter:description" content="礼物连击效果，显示当前连击数，有缩放动画。
+绘制数字由于数字有描边，需要自定义控件，描边颜色不同于填充颜色
 
-大小从1.93-&amp;gt;0.5倍缩小，透明度从0-&amp;gt;1，耗时50%
-大小从0.3-&amp;gt;1.25倍缩小，耗时30%
-大小从1.25-&amp;gt;1倍缩小，耗时20%
-
-
-version 1.0123456789101112131415161718192021AnimatorSet dribbleFirstAnimSet = new AnimatorSet();Ani">
+画笔初始化一个Paint为数字，另一个Paint为数字描边
+1234567891011121314151617//strokestrokePaint = new Paint();strokePaint.setColor(strokeColor);strokePaint.setTextSiz">
 
 
 
@@ -93,7 +84,7 @@ version 1.0123456789101112131415161718192021AnimatorSet dribbleFirstAnimSet = ne
   };
 </script>
 
-  <title> 连击动画 | Shine's blog </title>
+  <title> 礼物连击数字 | Shine's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -233,7 +224,7 @@ version 1.0123456789101112131415161718192021AnimatorSet dribbleFirstAnimSet = ne
             
             
               
-                连击动画
+                礼物连击数字
               
             
           </h1>
@@ -273,24 +264,41 @@ version 1.0123456789101112131415161718192021AnimatorSet dribbleFirstAnimSet = ne
       
 
       
-        <span itemprop="articleBody"><p>礼物连击动画，分为三步：</p>
+        <span itemprop="articleBody"><p>礼物连击效果，显示当前连击数，有缩放动画。</p>
+<h1 id="u7ED8_u5236_u6570_u5B57"><a href="#u7ED8_u5236_u6570_u5B57" class="headerlink" title="绘制数字"></a>绘制数字</h1><p>由于数字有描边，需要自定义控件，描边颜色不同于填充颜色</p>
 <ol>
+<li><p>画笔初始化<br>一个Paint为数字，另一个Paint为数字描边</p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">//stroke</span><br><span class="line">strokePaint = new Paint()<span class="comment">;</span></span><br><span class="line">strokePaint.setColor(strokeColor)<span class="comment">;</span></span><br><span class="line">strokePaint.setTextSize(textSize)<span class="comment">;</span></span><br><span class="line">strokePaint.setTypeface(Typeface.DEFAULT_BOLD)<span class="comment">;</span></span><br><span class="line">strokePaint.setStyle(Paint.Style.FILL_AND_STROKE)<span class="comment">;</span></span><br><span class="line">strokePaint.setStrokeWidth(strokeWidth)<span class="comment">;</span></span><br><span class="line">strokePaint.setAntiAlias(true)<span class="comment">;</span></span><br><span class="line">strokePaint.setAlpha(76)<span class="comment">;</span></span><br><span class="line">strokePaint.setStrokeJoin(Paint.Join.ROUND)<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">//number</span><br><span class="line">textPaint = new Paint()<span class="comment">;</span></span><br><span class="line">textPaint.setColor(textColor)<span class="comment">;</span></span><br><span class="line">textPaint.setTextSize(textSize)<span class="comment">;</span></span><br><span class="line">textPaint.setTypeface(Typeface.DEFAULT_BOLD)<span class="comment">;</span></span><br><span class="line">textPaint.setAntiAlias(true)<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>计算绘制区域<br>计算绘制区域宽高，开始x,y坐标。</p>
+</li>
+<li>绘制<a id="more"></a>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@Override</span></span><br><span class="line">    protected void onDraw(Canvas <span class="keyword">canvas</span>) &#123;</span><br><span class="line">        super.onDraw(<span class="keyword">canvas</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (TextUtils.isEmpty(numStr)) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//x</span></span><br><span class="line">        <span class="keyword">canvas</span>.drawText(X, xx, xy, strokePaint);</span><br><span class="line">        <span class="keyword">canvas</span>.drawText(X, xx, xy, textPaint);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//number</span></span><br><span class="line">        <span class="keyword">canvas</span>.drawText(numStr, numX, numY, strokePaint);</span><br><span class="line">        <span class="keyword">canvas</span>.drawText(numStr, numX, numY, textPaint);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="u793C_u7269_u8FDE_u51FB_u52A8_u753B"><a href="#u793C_u7269_u8FDE_u51FB_u52A8_u753B" class="headerlink" title="礼物连击动画"></a>礼物连击动画</h1><ol>
 <li>大小从1.93-&gt;0.5倍缩小，透明度从0-&gt;1，耗时50%</li>
 <li>大小从0.3-&gt;1.25倍缩小，耗时30%</li>
 <li>大小从1.25-&gt;1倍缩小，耗时20%</li>
 </ol>
 <ul>
-<li>version 1.0<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">AnimatorSet dribbleFirstAnimSet = <span class="keyword">new</span> AnimatorSet();</span><br><span class="line">Animator scaleAnim1X = ObjectAnimator.ofFloat(dribbleNumberView, <span class="string">"scaleX"</span>, <span class="number">1.93f</span>, <span class="number">0.5f</span>);</span><br><span class="line">Animator scaleAnim1Y = ObjectAnimator.ofFloat(dribbleNumberView, <span class="string">"scaleY"</span>, <span class="number">1.93f</span>, <span class="number">0.5f</span>);</span><br><span class="line">Animator alphaAnim1 = ObjectAnimator.ofFloat(dribbleNumberView, <span class="string">"alpha"</span>, <span class="number">0.05f</span>, <span class="number">1f</span>);</span><br><span class="line">dribbleFirstAnimSet.playTogether(scaleAnim1X,scaleAnim1Y,alphaAnim1);</span><br><span class="line">dribbleFirstAnimSet.setDuration(<span class="number">175</span>);</span><br><span class="line"></span><br><span class="line">AnimatorSet dribbleSecondAnimSet = <span class="keyword">new</span> AnimatorSet();</span><br><span class="line">Animator scaleAnim2X = ObjectAnimator.ofFloat(dribbleNumberView, <span class="string">"scaleX"</span>, <span class="number">0.5f</span>, <span class="number">1.25f</span>);</span><br><span class="line">Animator scaleAnim2Y = ObjectAnimator.ofFloat(dribbleNumberView, <span class="string">"scaleY"</span>, <span class="number">0.5f</span>, <span class="number">1.25f</span>);</span><br><span class="line">dribbleSecondAnimSet.playTogether(scaleAnim2X,scaleAnim2Y);</span><br><span class="line">dribbleSecondAnimSet.setDuration(<span class="number">105</span>);</span><br><span class="line"></span><br><span class="line">AnimatorSet dribbleThirdAnimSet = <span class="keyword">new</span> AnimatorSet();</span><br><span class="line">Animator scaleAnim3X = ObjectAnimator.ofFloat(dribbleNumberView, <span class="string">"scaleX"</span>, <span class="number">1.25f</span>, <span class="number">1f</span>);</span><br><span class="line">Animator scaleAnim3Y = ObjectAnimator.ofFloat(dribbleNumberView, <span class="string">"scaleY"</span>, <span class="number">1.25f</span>, <span class="number">1f</span>);</span><br><span class="line">dribbleThirdAnimSet.playTogether(scaleAnim3X,scaleAnim3Y);</span><br><span class="line">dribbleThirdAnimSet.setDuration(<span class="number">70</span>);</span><br><span class="line"></span><br><span class="line">dribbleAnimSet =newAnimatorSet();</span><br><span class="line">dribbleAnimSet.playSequentially(dribbleFirstAnimSet,dribbleSecondAnimSet,dribbleThirdAnimSet);</span><br></pre></td></tr></table></figure>
+<li>version 1.0<br>低端机快速连击卡顿，出现x,y轴不同步<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">AnimatorSet dribbleFirstAnimSet = <span class="keyword">new</span> AnimatorSet();</span><br><span class="line">Animator scaleAnim1X = ObjectAnimator.ofFloat(dribbleNumberView, <span class="string">"scaleX"</span>, <span class="number">1.93f</span>, <span class="number">0.5f</span>);</span><br><span class="line">Animator scaleAnim1Y = ObjectAnimator.ofFloat(dribbleNumberView, <span class="string">"scaleY"</span>, <span class="number">1.93f</span>, <span class="number">0.5f</span>);</span><br><span class="line">Animator alphaAnim1 = ObjectAnimator.ofFloat(dribbleNumberView, <span class="string">"alpha"</span>, <span class="number">0.05f</span>, <span class="number">1f</span>);</span><br><span class="line">dribbleFirstAnimSet.playTogether(scaleAnim1X,scaleAnim1Y,alphaAnim1);</span><br><span class="line">dribbleFirstAnimSet.setDuration(<span class="number">175</span>);</span><br><span class="line"></span><br><span class="line">AnimatorSet dribbleSecondAnimSet = <span class="keyword">new</span> AnimatorSet();</span><br><span class="line">Animator scaleAnim2X = ObjectAnimator.ofFloat(dribbleNumberView, <span class="string">"scaleX"</span>, <span class="number">0.5f</span>, <span class="number">1.25f</span>);</span><br><span class="line">Animator scaleAnim2Y = ObjectAnimator.ofFloat(dribbleNumberView, <span class="string">"scaleY"</span>, <span class="number">0.5f</span>, <span class="number">1.25f</span>);</span><br><span class="line">dribbleSecondAnimSet.playTogether(scaleAnim2X,scaleAnim2Y);</span><br><span class="line">dribbleSecondAnimSet.setDuration(<span class="number">105</span>);</span><br><span class="line"></span><br><span class="line">AnimatorSet dribbleThirdAnimSet = <span class="keyword">new</span> AnimatorSet();</span><br><span class="line">Animator scaleAnim3X = ObjectAnimator.ofFloat(dribbleNumberView, <span class="string">"scaleX"</span>, <span class="number">1.25f</span>, <span class="number">1f</span>);</span><br><span class="line">Animator scaleAnim3Y = ObjectAnimator.ofFloat(dribbleNumberView, <span class="string">"scaleY"</span>, <span class="number">1.25f</span>, <span class="number">1f</span>);</span><br><span class="line">dribbleThirdAnimSet.playTogether(scaleAnim3X,scaleAnim3Y);</span><br><span class="line">dribbleThirdAnimSet.setDuration(<span class="number">70</span>);</span><br><span class="line"></span><br><span class="line">dribbleAnimSet =newAnimatorSet();</span><br><span class="line">dribbleAnimSet.playSequentially(dribbleFirstAnimSet,dribbleSecondAnimSet,dribbleThirdAnimSet);</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<a id="more"></a>
+<!--more-->
 <ul>
-<li><p>version 2.0</p>
+<li><p>version 2.0<br>无明显卡顿</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">PropertyValuesHolder pvh1X = PropertyValuesHolder.ofFloat(<span class="string">"scaleX"</span>, <span class="number">1.93f</span>, <span class="number">0.5f</span>);</span><br><span class="line">PropertyValuesHolder pvh1Y = PropertyValuesHolder.ofFloat(<span class="string">"scaleY"</span>, <span class="number">1.93f</span>, <span class="number">0.5f</span>);</span><br><span class="line">PropertyValuesHolder pvhA = PropertyValuesHolder.ofFloat(<span class="string">"alpha"</span>, <span class="number">0.05f</span>, <span class="number">1f</span>);</span><br><span class="line">Animator dribbleFirstAnim = ObjectAnimator.ofPropertyValuesHolder(dribbleNumberView, pvh1X, pvh1Y, pvhA);</span><br><span class="line">dribbleFirstAnim.setDuration(<span class="number">175</span>);</span><br><span class="line"></span><br><span class="line">PropertyValuesHolder pvh2X = PropertyValuesHolder.ofFloat(<span class="string">"scaleX"</span>, <span class="number">0.5f</span>, <span class="number">1.25f</span>);</span><br><span class="line">PropertyValuesHolder pvh2Y = PropertyValuesHolder.ofFloat(<span class="string">"scaleY"</span>, <span class="number">0.5f</span>, <span class="number">1.25f</span>);</span><br><span class="line">Animator dribbleSecondAnim = ObjectAnimator.ofPropertyValuesHolder(dribbleNumberView, pvh2X, pvh2Y);</span><br><span class="line">dribbleSecondAnim.setDuration(<span class="number">105</span>);</span><br><span class="line"></span><br><span class="line">PropertyValuesHolder pvh3X = PropertyValuesHolder.ofFloat(<span class="string">"scaleX"</span>, <span class="number">1.25f</span>, <span class="number">1f</span>);</span><br><span class="line">PropertyValuesHolder pvh3Y = PropertyValuesHolder.ofFloat(<span class="string">"scaleY"</span>, <span class="number">1.25f</span>, <span class="number">1f</span>);</span><br><span class="line">Animator dribbleThirdAnim = ObjectAnimator.ofPropertyValuesHolder(dribbleNumberView, pvh3X, pvh3Y);</span><br><span class="line">dribbleSecondAnim.setDuration(<span class="number">70</span>);</span><br><span class="line"></span><br><span class="line">dribbleAnimSet =newAnimatorSet();</span><br><span class="line">dribbleAnimSet.playSequentially(dribbleFirstAnim,dribbleSecondAnim,dribbleThirdAnim);</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>version 3.0</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">Keyframe keyframeS1 = Keyframe.ofFloat(<span class="number">0</span>, <span class="number">1.93f</span>);</span><br><span class="line">Keyframe keyframeS2 = Keyframe.ofFloat(<span class="number">0.5f</span>, <span class="number">0.5f</span>);</span><br><span class="line">Keyframe keyframeS3 = Keyframe.ofFloat(<span class="number">0.8f</span>, <span class="number">1.25f</span>);</span><br><span class="line">Keyframe keyframeS4 = Keyframe.ofFloat(<span class="number">1</span>, <span class="number">1f</span>);</span><br><span class="line">PropertyValuesHolder pvhX = PropertyValuesHolder.ofKeyframe(<span class="string">"scaleX"</span>, keyframeS1, keyframeS2, keyframeS3, keyframeS4);</span><br><span class="line">PropertyValuesHolder pvhY = PropertyValuesHolder.ofKeyframe(<span class="string">"scaleY"</span>, keyframeS1, keyframeS2, keyframeS3, keyframeS4);</span><br><span class="line"></span><br><span class="line">Keyframe keyframeA1 = Keyframe.ofFloat(<span class="number">0</span>, <span class="number">0f</span>);</span><br><span class="line">Keyframe keyframeA2 = Keyframe.ofFloat(<span class="number">0.5f</span>, <span class="number">1f</span>);</span><br><span class="line">PropertyValuesHolder pvhA = PropertyValuesHolder.ofKeyframe(<span class="string">"alpha"</span>, keyframeA1, keyframeA2);</span><br><span class="line"></span><br><span class="line">dribbleAnim =ObjectAnimator.ofPropertyValuesHolder(dribbleNumberView,pvhX,pvhY,pvhA);</span><br><span class="line">dribbleAnim.setDuration(<span class="number">350</span>);</span><br><span class="line">dribbleAnim.addListener(newAnimatorListener() &#123;</span><br><span class="line">    @<span class="function">Override</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationEnd</span> <span class="params">(Animator animation)</span></span>&#123;</span><br><span class="line">        Worker.postMain(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            @<span class="function">Override</span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                clearGiftStatusFlags(Status.DRIBBLE);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">Keyframe keyframeS1 = Keyframe.ofFloat(<span class="number">0</span>, <span class="number">1.93f</span>);</span><br><span class="line">Keyframe keyframeS2 = Keyframe.ofFloat(<span class="number">0.5f</span>, <span class="number">0.5f</span>);</span><br><span class="line">Keyframe keyframeS3 = Keyframe.ofFloat(<span class="number">0.8f</span>, <span class="number">1.25f</span>);</span><br><span class="line">Keyframe keyframeS4 = Keyframe.ofFloat(<span class="number">1</span>, <span class="number">1f</span>);</span><br><span class="line">PropertyValuesHolder pvhX = PropertyValuesHolder.ofKeyframe(<span class="string">"scaleX"</span>, keyframeS1, keyframeS2, keyframeS3, keyframeS4);</span><br><span class="line">PropertyValuesHolder pvhY = PropertyValuesHolder.ofKeyframe(<span class="string">"scaleY"</span>, keyframeS1, keyframeS2, keyframeS3, keyframeS4);</span><br><span class="line"></span><br><span class="line">Keyframe keyframeA1 = Keyframe.ofFloat(<span class="number">0</span>, <span class="number">0f</span>);</span><br><span class="line">Keyframe keyframeA2 = Keyframe.ofFloat(<span class="number">0.5f</span>, <span class="number">1f</span>);</span><br><span class="line">PropertyValuesHolder pvhA = PropertyValuesHolder.ofKeyframe(<span class="string">"alpha"</span>, keyframeA1, keyframeA2);</span><br><span class="line"></span><br><span class="line">dribbleAnim =ObjectAnimator.ofPropertyValuesHolder(dribbleNumberView,pvhX,pvhY,pvhA);</span><br><span class="line">dribbleAnim.setDuration(<span class="number">350</span>);</span><br><span class="line">dribbleAnim.addListener(newAnimatorListener() &#123;</span><br><span class="line">    @<span class="function">Override</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationEnd</span> <span class="params">(Animator animation)</span></span>&#123;</span><br><span class="line">        Worker.postMain(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            @<span class="function">Override</span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                clearGiftStatusFlags(Status.DRIBBLE);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
+<p><strong> 遇到的问题 </strong></p>
+<ol>
+<li>缩放中心<br>最初设控件宽度自适应，缩放中心为控件中心，每次设置数字时requestLayout,性能非常差；解决方法，设置控件固定长，动态算缩放中心。</li>
+<li>match_parent<br>当控制宽度固定100dp，发现连击1000以上连击绘制出界，然后修改为match_parent，父布局为RelativeLayout ，连击控件A在B控件右边，当B控件动画x轴移动，发现在大量Measure卡顿。</li>
+</ol>
 </span>
       
     </div>
@@ -336,7 +344,7 @@ version 1.0123456789101112131415161718192021AnimatorSet dribbleFirstAnimSet = ne
   <div class="comments" id="comments">
     
       <div class="ds-thread" data-thread-key="2017/06/07/dribble-animtor/"
-           data-title="连击动画" data-url="http://yoursite.com/2017/06/07/dribble-animtor/">
+           data-title="礼物连击数字" data-url="http://yoursite.com/2017/06/07/dribble-animtor/">
       </div>
     
   </div>
@@ -380,7 +388,7 @@ version 1.0123456789101112131415161718192021AnimatorSet dribbleFirstAnimSet = ne
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">35</span>
+              <span class="site-state-item-count">31</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -394,7 +402,7 @@ version 1.0123456789101112131415161718192021AnimatorSet dribbleFirstAnimSet = ne
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-count">8</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -444,7 +452,7 @@ version 1.0123456789101112131415161718192021AnimatorSet dribbleFirstAnimSet = ne
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#u7ED8_u5236_u6570_u5B57"><span class="nav-number">1.</span> <span class="nav-text">绘制数字</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#u793C_u7269_u8FDE_u51FB_u52A8_u753B"><span class="nav-number">2.</span> <span class="nav-text">礼物连击动画</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
