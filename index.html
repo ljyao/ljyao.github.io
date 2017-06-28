@@ -363,7 +363,12 @@
 <ul>
 <li>常量：简单，便于位运算，占用内存少，但是携带信息少，可读性差。</li>
 <li>枚举：便于封装，保证了类型安全，可读性高，占用内存大，dex变大<br>ps.Enums often require more than twice as much memory as static constants. You should strictly avoid using enums on Android.</li>
-<li>注解：相对常量比较安全，编译期就可以排除错误类型<br>礼物控件用来播放礼物，从出现到消失共有8种状态（空闲、加载资源、进入中、播放礼物效果、连击动画、离开中、活跃的），多种状态是可以并行的，所以通过flag标记，一位表示一种状态，然后使用注解确保值的安全。
+<li>注解：相对常量比较安全，编译期就可以排除错误类型<br>礼物控件用来播放礼物，从出现到消失共有8种状态（空闲、加载资源、进入中、播放礼物效果、连击动画、离开中、活跃的），多种状态是可以并行的，所以通过flag标记，一位表示一种状态，然后使用注解确保值的安全。</li>
+</ul>
+<ol>
+<li>@IntDef<br>flag 是否是flag, value 枚举指定值，避免值的重复</li>
+<li>@Retention(RetentionPolicy.SOURCE)<br>注解将在编译丢弃</li>
+</ol>
           <div class="post-more-link text-center">
             <a class="btn" href="/2017/06/07/annotation-gift-status/#more" rel="contents">
               阅读全文 &raquo;
@@ -555,7 +560,7 @@ public static class ProgressValues {
             
               
                 
-                <a class="post-title-link" href="/2017/04/14/礼物动画/" itemprop="url">
+                <a class="post-title-link" href="/2017/04/14/gift-animation/" itemprop="url">
                   直播礼物动画
                 </a>
               
@@ -577,8 +582,8 @@ public static class ProgressValues {
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2017/04/14/礼物动画/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/04/14/礼物动画/" itemprop="commentsCount"></span>
+                <a href="/2017/04/14/gift-animation/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/04/14/gift-animation/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -611,7 +616,7 @@ public static class ProgressValues {
 <li>稳定性：由于自己封装，边界问题考虑不是很好，容易卡死。</li>
 <li>文件太大
           <div class="post-more-link text-center">
-            <a class="btn" href="/2017/04/14/礼物动画/#more" rel="contents">
+            <a class="btn" href="/2017/04/14/gift-animation/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1606,7 +1611,7 @@ return true;
             
               
                 
-                <a class="post-title-link" href="/2016/09/12/Android透明度16进制值/" itemprop="url">
+                <a class="post-title-link" href="/2016/09/12/alpha/" itemprop="url">
                   Android 透明度百分比对应的 十六进制
                 </a>
               
@@ -1628,8 +1633,8 @@ return true;
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/09/12/Android透明度16进制值/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/12/Android透明度16进制值/" itemprop="commentsCount"></span>
+                <a href="/2016/09/12/alpha/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/12/alpha/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
