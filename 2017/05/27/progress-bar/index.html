@@ -59,7 +59,7 @@
 <meta property="og:site_name" content="Shine's blog">
 <meta property="og:description" content="实现一个圆形自定义进度条，进度条的颜色随着进度变化而变化，按进度下去后反向回去重置；为了解耦，主要有2个模块：1、自定义View，2、Controler
 自定义view提供进度、进度条颜色、背景颜色等设置接口，负责UI绘制。123456789101112131415161718192021222324252627282930313233343536@Override  protected void">
-<meta property="og:updated_time" content="2017-07-03T08:20:42.000Z">
+<meta property="og:updated_time" content="2017-07-03T08:22:13.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="属性动画实现进度条">
 <meta name="twitter:description" content="实现一个圆形自定义进度条，进度条的颜色随着进度变化而变化，按进度下去后反向回去重置；为了解耦，主要有2个模块：1、自定义View，2、Controler
@@ -314,7 +314,7 @@ public static class ProgressValues {
         progressbar.setUnfinishedStrokeColor(values.color);
     }
 });
-</code></pre><figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">## 属性动画</span></span><br><span class="line">读完源码后，属性动画通过反射调用对象方法，驼峰命名，所以不需要自定义TypeEvaluator,注意方法名的混淆，加上注解 <span class="constant">@Keep</span>防止被混淆</span><br></pre></td></tr></table></figure>
+</code></pre><figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="preprocessor">## 属性动画</span></span><br><span class="line">读完源码后，属性动画通过反射调用对象方法，驼峰命名，所以不需要自定义TypeEvaluator,注意方法名的混淆，加上注解 <span class="constant">@Keep</span>防止被混淆</span><br></pre></td></tr></table></figure>
 <pre><code>PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat(&quot;scaleX&quot;, startScale, endScale);
 PropertyValuesHolder pvhY = PropertyValuesHolder.ofFloat(&quot;scaleY&quot;, startScale, endScale);
 PropertyValuesHolder pvhP = PropertyValuesHolder.ofFloat(&quot;progress&quot;, startProgress, endProgress);

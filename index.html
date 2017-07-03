@@ -517,7 +517,7 @@ public static class ProgressValues {
         progressbar.setUnfinishedStrokeColor(values.color);
     }
 });
-</code></pre><figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">## 属性动画</span></span><br><span class="line">读完源码后，属性动画通过反射调用对象方法，驼峰命名，所以不需要自定义TypeEvaluator,注意方法名的混淆，加上注解 <span class="constant">@Keep</span>防止被混淆</span><br></pre></td></tr></table></figure>
+</code></pre><figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="preprocessor">## 属性动画</span></span><br><span class="line">读完源码后，属性动画通过反射调用对象方法，驼峰命名，所以不需要自定义TypeEvaluator,注意方法名的混淆，加上注解 <span class="constant">@Keep</span>防止被混淆</span><br></pre></td></tr></table></figure>
 <pre><code>PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat(&quot;scaleX&quot;, startScale, endScale);
 PropertyValuesHolder pvhY = PropertyValuesHolder.ofFloat(&quot;scaleY&quot;, startScale, endScale);
 PropertyValuesHolder pvhP = PropertyValuesHolder.ofFloat(&quot;progress&quot;, startProgress, endProgress);
