@@ -220,6 +220,114 @@
             
               
                 
+                <a class="post-title-link" href="/2016/01/12/listview-relayout/" itemprop="url">
+                  关于listview子view的绘制
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-01-12T19:31:52+08:00" content="2016-01-12">
+              2016-01-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/01/12/listview-relayout/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/12/listview-relayout/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>在listview的getview中setData(),在子view的setdata(),onlayout(),onmeasure()方法中写上log,<br>发现setdata(),最先执行，onmeasure()执行了2次，onlayout()执行了一次，通过看listview源码找到原因。</p>
+<ul>
+<li>getHeightForPosition()方法中view.measure（）</li>
+<li>obtainView()方法中child.setLayoutParams(lp)，而setLayoutParams()又会执行requestLayout()<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">log</span><br><span class="line">data-&gt;com<span class="class">.nice</span><span class="class">.main</span><span class="class">.data</span><span class="class">.enumerable</span><span class="class">.Show</span>@<span class="number">17239164s</span>etdata</span><br><span class="line">data-&gt;com<span class="class">.nice</span><span class="class">.main</span><span class="class">.data</span><span class="class">.enumerable</span><span class="class">.Show</span>@<span class="number">17239164</span>onMeasure</span><br><span class="line">data-&gt;com<span class="class">.nice</span><span class="class">.main</span><span class="class">.data</span><span class="class">.enumerable</span><span class="class">.Show</span>@<span class="number">17239164</span>onMeasure</span><br><span class="line">data-&gt;com<span class="class">.nice</span><span class="class">.main</span><span class="class">.data</span><span class="class">.enumerable</span><span class="class">.Show</span>@<span class="number">17239164</span>onLayout</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/01/12/listview-relayout/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/01/11/Formatting and Styling/" itemprop="url">
                   Formatting and Styling
                 </a>
@@ -556,7 +664,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">33</span>
+              <span class="site-state-item-count">34</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

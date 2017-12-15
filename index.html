@@ -220,6 +220,99 @@
             
               
                 
+                <a class="post-title-link" href="/2017/12/15/change-bitmap-alpha/" itemprop="url">
+                  修改bitmap透明度
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2017-12-15T16:39:22+08:00" content="2017-12-15">
+              2017-12-15
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/12/15/change-bitmap-alpha/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/12/15/change-bitmap-alpha/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>修改bitmap透明度，实现视频贴纸透明度动画，实现方法：</p>
+<ol>
+<li>canvas 修改paint的alpha，然后绘制在一个新的bitmap。</li>
+<li>修改图片的A通道。</li>
+</ol>
+<h1 id="Canvas"><a href="#Canvas" class="headerlink" title="Canvas"></a>Canvas</h1><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="label">public</span> <span class="keyword">Bitmap </span>setBitmapAlpha(<span class="keyword">Bitmap </span><span class="keyword">bitmap, </span>int alpha) &#123;</span><br><span class="line">       <span class="keyword">Bitmap </span>newBitmap = <span class="keyword">Bitmap.createBitmap(bitmap.getWidth(), </span><span class="keyword">bitmap.getHeight(), </span><span class="keyword">Bitmap.Config.ARGB_8888);</span><br><span class="line"></span>       Canvas canvas = new Canvas(newBitmap)<span class="comment">;</span></span><br><span class="line">       Paint paint = new Paint()<span class="comment">;</span></span><br><span class="line">       paint.setAlpha(alpha)<span class="comment">;</span></span><br><span class="line">       //绘制到新的<span class="keyword">bitmap</span><br><span class="line"></span>       canvas.drawBitmap(<span class="keyword">bitmap, </span><span class="number">0</span>, <span class="number">0</span>, paint)<span class="comment">;</span></span><br><span class="line">       <span class="keyword">bitmap.recycle();</span><br><span class="line"></span>       return newBitmap<span class="comment">;</span></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/12/15/change-bitmap-alpha/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/10/17/surface-render-webp/" itemprop="url">
                   webp动画渲染
                 </a>
@@ -1640,96 +1733,6 @@ return true;
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/18/java-线程池/" itemprop="url">
-                  Java 线程池
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            发表于
-            <time itemprop="dateCreated" datetime="2016-09-18T14:29:35+08:00" content="2016-09-18">
-              2016-09-18
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/18/java-线程池/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/18/java-线程池/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody">
-            
-              <h1 id="ThreadPoolExecutor"><a href="#ThreadPoolExecutor" class="headerlink" title="ThreadPoolExecutor"></a>ThreadPoolExecutor</h1><p><strong>Executor</strong>是一个顶层接口，在它里面只声明了一个方法execute(Runnable)；<br><strong>ExecutorService</strong>是一个接口，继承了Executor接口，并声明了一些方法：submit、invokeAll、invokeAny以及shutDown等；<br><strong>AbstractExecutorService</strong>是一个抽象类，实现了ExecutorService接口，基本实现了ExecutorService中声明的所有方法；<br><strong>ThreadPoolExecutor</strong>继承了类AbstractExecutorService。</p>
-<p><strong>在ThreadPoolExecutor类中有几个非常重要的方法：</strong><br><strong>execute()</strong><br>execute()方法实际上是Executor中声明的方法，在ThreadPoolExecutor进行了具体的实现，这个方法是ThreadPoolExecutor的核心方法，通过这个方法可以向线程池提交一个任务，交由线程池去执行。<br><strong>submit()</strong><br>submit()方法是在ExecutorService中声明的方法，在AbstractExecutorService就已经有了具体的实现，在ThreadPoolExecutor中并没有对其进行重写，这个方法也是用来向线程池提交任务的，但是它和execute(）方法不同，它能够返回任务执行的结果，去看submit()方法的实现，会发现它实际上还是调用的execute()方法，只不过它利用了Future来获取任务执行结果。<br><strong>shutdown()</strong><br><strong>shutdownNow()</strong><br>shutdown()和shutdownNow()是用来关闭线程池的。</p>
-<h1 id="Executors"><a href="#Executors" class="headerlink" title="Executors"></a>Executors</h1><p>Java通过Executors提供四种线程池，分别为：<br><strong>newCachedThreadPool</strong><br>创建一个可缓存线程池，如果线程池长度超过处理需要，可灵活回收空闲线程，若无可回收，则新建线程。<br><strong>newFixedThreadPool</strong><br>创建一个定长线程池，可控制线程最大并发数，超出的线程会在队列中等待。<br><strong>newScheduledThreadPool</strong><br>创建一个定长线程池，支持定时及周期性任务执行。<br><strong>newSingleThreadExecutor</strong><br>创建一个单线程化的线程池，它只会用唯一的工作线程来执行任务，保证所有任务按照指定顺序(FIFO, LIFO, 优先级)执行。</p>
-
-            
-          </span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
@@ -1776,7 +1779,7 @@ return true;
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">33</span>
+              <span class="site-state-item-count">34</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

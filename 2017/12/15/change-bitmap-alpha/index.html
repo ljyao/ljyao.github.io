@@ -35,7 +35,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="view," />
+  <meta name="keywords" content="android," />
 
 
 
@@ -51,16 +51,31 @@
 
 
 
-<meta name="description" content="ViewPagerLayout manager that allows the user to flip left and right through pages of data. You supply an implementation of a PagerAdapter to generate the pages that the view shows.">
+<meta name="description" content="修改bitmap透明度，实现视频贴纸透明度动画，实现方法：
+
+canvas 修改paint的alpha，然后绘制在一个新的bitmap。
+修改图片的A通道。
+
+Canvas12345678910public Bitmap setBitmapAlpha(Bitmap bitmap, int alpha) &amp;#123;       Bitmap newBitmap = Bitmap.createBit">
 <meta property="og:type" content="article">
-<meta property="og:title" content="viewpage">
-<meta property="og:url" content="http://yoursite.com/2016/07/28/viewpage/index.html">
+<meta property="og:title" content="修改bitmap透明度">
+<meta property="og:url" content="http://yoursite.com/2017/12/15/change-bitmap-alpha/index.html">
 <meta property="og:site_name" content="Shine's blog">
-<meta property="og:description" content="ViewPagerLayout manager that allows the user to flip left and right through pages of data. You supply an implementation of a PagerAdapter to generate the pages that the view shows.">
-<meta property="og:updated_time" content="2016-09-18T10:50:23.000Z">
+<meta property="og:description" content="修改bitmap透明度，实现视频贴纸透明度动画，实现方法：
+
+canvas 修改paint的alpha，然后绘制在一个新的bitmap。
+修改图片的A通道。
+
+Canvas12345678910public Bitmap setBitmapAlpha(Bitmap bitmap, int alpha) &amp;#123;       Bitmap newBitmap = Bitmap.createBit">
+<meta property="og:updated_time" content="2017-12-15T08:54:08.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="viewpage">
-<meta name="twitter:description" content="ViewPagerLayout manager that allows the user to flip left and right through pages of data. You supply an implementation of a PagerAdapter to generate the pages that the view shows.">
+<meta name="twitter:title" content="修改bitmap透明度">
+<meta name="twitter:description" content="修改bitmap透明度，实现视频贴纸透明度动画，实现方法：
+
+canvas 修改paint的alpha，然后绘制在一个新的bitmap。
+修改图片的A通道。
+
+Canvas12345678910public Bitmap setBitmapAlpha(Bitmap bitmap, int alpha) &amp;#123;       Bitmap newBitmap = Bitmap.createBit">
 
 
 
@@ -72,7 +87,7 @@
   };
 </script>
 
-  <title> viewpage | Shine's blog </title>
+  <title> 修改bitmap透明度 | Shine's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -212,7 +227,7 @@
             
             
               
-                viewpage
+                修改bitmap透明度
               
             
           </h1>
@@ -221,34 +236,19 @@
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2016-07-28T12:07:53+08:00" content="2016-07-28">
-              2016-07-28
+            <time itemprop="dateCreated" datetime="2017-12-15T16:39:22+08:00" content="2017-12-15">
+              2017-12-15
             </time>
           </span>
 
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp; 分类于
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/android/" itemprop="url" rel="index">
-                    <span itemprop="name">android</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
           
 
           
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/28/viewpage/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/28/viewpage/" itemprop="commentsCount"></span>
+                <a href="/2017/12/15/change-bitmap-alpha/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/12/15/change-bitmap-alpha/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -267,16 +267,14 @@
       
 
       
-        <span itemprop="articleBody"><h1 id="ViewPager"><a href="#ViewPager" class="headerlink" title="ViewPager"></a>ViewPager</h1><p>Layout manager that allows the user to flip left and right through pages of data. You supply an implementation of a PagerAdapter to generate the pages that the view shows.<br><a id="more"></a><br>ViewPager is most often used in conjunction with Fragment, which is a convenient way to supply and manage the lifecycle of each page. There are standard adapters implemented for using fragments with the ViewPager, which cover the most common use cases. These are FragmentPagerAdapter and FragmentStatePagerAdapter; each of these classes have simple code showing how to build a full user interface with them.</p>
-<h1 id="PagerAdapter"><a href="#PagerAdapter" class="headerlink" title="PagerAdapter"></a>PagerAdapter</h1><p>Base class providing the adapter to populate pages inside of a ViewPager. You will most likely want to use a more specific implementation of this, such as FragmentPagerAdapter or FragmentStatePagerAdapter.</p>
-<p>When you implement a PagerAdapter, you must override the following methods at minimum:</p>
-<p>instantiateItem(ViewGroup, int)<br>destroyItem(ViewGroup, int, Object)<br>getCount()<br>isViewFromObject(View, Object)</p>
-<h1 id="FragmentPagerAdapter"><a href="#FragmentPagerAdapter" class="headerlink" title="FragmentPagerAdapter"></a>FragmentPagerAdapter</h1><p>Implementation of PagerAdapter that represents each page as a Fragment that is persistently kept in the fragment manager as long as the user can return to the page.</p>
-<p>This version of the pager is best for use when there are a handful of typically more static fragments to be paged through, such as a set of tabs. The fragment of each page the user visits will be kept in memory, though its view hierarchy may be destroyed when not visible. This can result in using a significant amount of memory since fragment instances can hold on to an arbitrary amount of state. For larger sets of pages, consider FragmentStatePagerAdapter.</p>
-<p>适合于 Fragment数量不多的情况。当某个页面不可见时，该页面对应的View可能会被销毁，但是所有的Fragment都会一直存在于内存中。如果Fragment需要保存的状态较多时，会导致占用内存较大，因此对于Fragment数量较多的情况，建议使用FragmentStatePagerAdapter。</p>
-<h1 id="FragmentStatePagerAdapter"><a href="#FragmentStatePagerAdapter" class="headerlink" title="FragmentStatePagerAdapter"></a>FragmentStatePagerAdapter</h1><p>Implementation of PagerAdapter that uses a Fragment to manage each page. This class also handles saving and restoring of fragment’s state.</p>
-<p>This version of the pager is more useful when there are a large number of pages, working more like a list view. When pages are not visible to the user, their entire fragment may be destroyed, only keeping the saved state of that fragment. This allows the pager to hold on to much less memory associated with each visited page as compared to FragmentPagerAdapter at the cost of potentially more overhead when switching between pages.</p>
-<p>适合于Fragment数量较多的情况。当页面不可见时， 对应的Fragment实例可能会被销毁，但是Fragment的状态会被保存。因此每个Fragment占用的内存会更少，但是页面切换会引起较大开销。</p>
+        <span itemprop="articleBody"><p>修改bitmap透明度，实现视频贴纸透明度动画，实现方法：</p>
+<ol>
+<li>canvas 修改paint的alpha，然后绘制在一个新的bitmap。</li>
+<li>修改图片的A通道。</li>
+</ol>
+<h1 id="Canvas"><a href="#Canvas" class="headerlink" title="Canvas"></a>Canvas</h1><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="label">public</span> <span class="keyword">Bitmap </span>setBitmapAlpha(<span class="keyword">Bitmap </span><span class="keyword">bitmap, </span>int alpha) &#123;</span><br><span class="line">       <span class="keyword">Bitmap </span>newBitmap = <span class="keyword">Bitmap.createBitmap(bitmap.getWidth(), </span><span class="keyword">bitmap.getHeight(), </span><span class="keyword">Bitmap.Config.ARGB_8888);</span><br><span class="line"></span>       Canvas canvas = new Canvas(newBitmap)<span class="comment">;</span></span><br><span class="line">       Paint paint = new Paint()<span class="comment">;</span></span><br><span class="line">       paint.setAlpha(alpha)<span class="comment">;</span></span><br><span class="line">       //绘制到新的<span class="keyword">bitmap</span><br><span class="line"></span>       canvas.drawBitmap(<span class="keyword">bitmap, </span><span class="number">0</span>, <span class="number">0</span>, paint)<span class="comment">;</span></span><br><span class="line">       <span class="keyword">bitmap.recycle();</span><br><span class="line"></span>       return newBitmap<span class="comment">;</span></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h1 id="u4FEE_u6539A_u901A_u9053"><a href="#u4FEE_u6539A_u901A_u9053" class="headerlink" title="修改A通道"></a>修改A通道</h1><p>bitmap为ARGB_8888，native修改，native中格式为RGBA<br><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="label">void</span> JniBitmapOperator_jniBitmapAlpha(JNIEnv *env, jobject obj,</span><br><span class="line">                                      jobject <span class="keyword">bitmap, </span>jint alpha) &#123;</span><br><span class="line">    int ret<span class="comment">;</span></span><br><span class="line">    <span class="keyword">AndroidBitmapInfo </span><span class="keyword">bitmapInfo;</span><br><span class="line"></span>    //获取图片信息</span><br><span class="line">    <span class="preprocessor">if</span> ((ret = <span class="keyword">AndroidBitmap_getInfo(env, </span><span class="keyword">bitmap, </span>&amp;<span class="keyword">bitmapInfo)) </span>&lt; <span class="number">0</span>) &#123;</span><br><span class="line">        return<span class="comment">;</span></span><br><span class="line">    &#125;</span><br><span class="line">    int count = <span class="keyword">bitmapInfo.width </span>* <span class="keyword">bitmapInfo.height </span>* <span class="number">4</span><span class="comment">;</span></span><br><span class="line">    char *<span class="keyword">bitmapPixels;</span><br><span class="line"></span>    //获取图像数组</span><br><span class="line">    <span class="preprocessor">if</span> ((ret = <span class="keyword">AndroidBitmap_lockPixels(env, </span><span class="keyword">bitmap, </span>(void **) &amp;<span class="keyword">bitmapPixels)) </span>&lt; <span class="number">0</span>) &#123;</span><br><span class="line">        return<span class="comment">;</span></span><br><span class="line">    &#125;</span><br><span class="line">    int i = <span class="number">3</span><span class="comment">;</span></span><br><span class="line">    <span class="keyword">bitmapPixels </span>+= <span class="number">3</span><span class="comment">;</span></span><br><span class="line">    <span class="preprocessor">while</span> (i &lt; count) &#123;</span><br><span class="line">        <span class="preprocessor">if</span> (*<span class="keyword">bitmapPixels </span>&gt; alpha) &#123;</span><br><span class="line">            *<span class="keyword">bitmapPixels </span>= alpha<span class="comment">;</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">bitmapPixels </span>+= <span class="number">4</span><span class="comment">;</span></span><br><span class="line">        i += <span class="number">4</span><span class="comment">;</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">AndroidBitmap_unlockPixels(env, </span><span class="keyword">bitmap);</span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure></p>
 </span>
       
     </div>
@@ -285,7 +283,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/view/" rel="tag">#view</a>
+            <a href="/tags/android/" rel="tag">#android</a>
           
         </div>
       
@@ -294,17 +292,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/26/Expand-collapse-animation/" rel="next" title="Expand/collapse animation">
-                <i class="fa fa-chevron-left"></i> Expand/collapse animation
+              <a href="/2017/10/17/surface-render-webp/" rel="next" title="webp动画渲染">
+                <i class="fa fa-chevron-left"></i> webp动画渲染
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/08/01/animation/" rel="prev" title="Property Animation and View Animation">
-                Property Animation and View Animation <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -331,8 +325,8 @@
         
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/07/28/viewpage/"
-           data-title="viewpage" data-url="http://yoursite.com/2016/07/28/viewpage/">
+      <div class="ds-thread" data-thread-key="2017/12/15/change-bitmap-alpha/"
+           data-title="修改bitmap透明度" data-url="http://yoursite.com/2017/12/15/change-bitmap-alpha/">
       </div>
     
   </div>
@@ -440,7 +434,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ViewPager"><span class="nav-number">1.</span> <span class="nav-text">ViewPager</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PagerAdapter"><span class="nav-number">2.</span> <span class="nav-text">PagerAdapter</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#FragmentPagerAdapter"><span class="nav-number">3.</span> <span class="nav-text">FragmentPagerAdapter</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#FragmentStatePagerAdapter"><span class="nav-number">4.</span> <span class="nav-text">FragmentStatePagerAdapter</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Canvas"><span class="nav-number">1.</span> <span class="nav-text">Canvas</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#u4FEE_u6539A_u901A_u9053"><span class="nav-number">2.</span> <span class="nav-text">修改A通道</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
